@@ -1,0 +1,3 @@
+[submodule "src/main/resources/orisonResources/images"]
+	path = src/main/resources/orisonResources/images
+	url = git@github.com:C-W-Z/sts-orison-mod-resources.git
