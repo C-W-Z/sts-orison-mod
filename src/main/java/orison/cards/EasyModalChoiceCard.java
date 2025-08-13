@@ -2,7 +2,7 @@ package orison.cards;
 
 import basemod.AutoAdd;
 
-import static orison.ModFile.makeID;
+import static orison.OrisonMod.makeID;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;

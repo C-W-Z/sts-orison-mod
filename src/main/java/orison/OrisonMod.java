@@ -39,7 +39,7 @@ import org.apache.logging.log4j.Logger;
 import org.scannotation.AnnotationDB;
 
 @SpireInitializer
-public class ModFile implements
+public class OrisonMod implements
         EditCardsSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
@@ -47,7 +47,7 @@ public class ModFile implements
         EditCharactersSubscriber,
         AddAudioSubscriber {
 
-    private static final Logger logger;
+    private static final Logger logger = LogManager.getLogger(OrisonMod.class);
 
     public static final ModInfo info;
     public static final String modID;
@@ -63,12 +63,11 @@ public class ModFile implements
                 return false;
             Set<String> initializers = annotationDB.getAnnotationIndex().getOrDefault(SpireInitializer.class.getName(),
                     Collections.emptySet());
-            return initializers.contains(ModFile.class.getName());
+            return initializers.contains(OrisonMod.class.getName());
         }).findFirst();
         if (infos.isPresent()) {
             info = infos.get();
             modID = info.ID;
-            logger = LogManager.getLogger(modID);
 
             logger.info("ModID: " + modID);
             logger.info("Name: " + info.Name);
@@ -100,7 +99,7 @@ public class ModFile implements
         return "eng";
     }
 
-    public ModFile() {
+    public OrisonMod() {
         BaseMod.subscribe(this);
     }
 
@@ -129,7 +128,7 @@ public class ModFile implements
     }
 
     public static void initialize() {
-        new ModFile();
+        new OrisonMod();
     }
 
     @Override

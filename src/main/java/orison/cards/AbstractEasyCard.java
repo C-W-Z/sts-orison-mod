@@ -18,8 +18,8 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import static orison.ModFile.makeImagePath;
-import static orison.ModFile.modID;
+import static orison.OrisonMod.makeImagePath;
+import static orison.OrisonMod.modID;
 import static orison.util.Wiz.*;
 
 import java.util.function.Consumer;

@@ -3,8 +3,8 @@ package orison.relics;
 import basemod.abstracts.CustomRelic;
 import orison.util.TexLoader;
 
-import static orison.ModFile.makeRelicPath;
-import static orison.ModFile.modID;
+import static orison.OrisonMod.makeRelicPath;
+import static orison.OrisonMod.modID;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.relics.AbstractRelic;

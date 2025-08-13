@@ -1,7 +1,7 @@
 package orison.util;
 
 import basemod.patches.whatmod.WhatMod;
-import orison.ModFile;
+import orison.OrisonMod;
 import orison.cards.AbstractEasyCard;
 
 import com.badlogic.gdx.graphics.Color;
@@ -32,9 +32,9 @@ import static com.badlogic.gdx.graphics.GL20.GL_DST_COLOR;
 import static com.badlogic.gdx.graphics.GL20.GL_ZERO;
 
 public class CardArtRoller {
-    private static final Texture attackMask = TexLoader.getTexture(ModFile.makeImagePath("masks/AttackMask.png"));
-    private static final Texture skillMask = TexLoader.getTexture(ModFile.makeImagePath("masks/SkillMask.png"));
-    private static final Texture powerMask = TexLoader.getTexture(ModFile.makeImagePath("masks/PowerMask.png"));
+    private static final Texture attackMask = TexLoader.getTexture(OrisonMod.makeImagePath("masks/AttackMask.png"));
+    private static final Texture skillMask = TexLoader.getTexture(OrisonMod.makeImagePath("masks/SkillMask.png"));
+    private static final Texture powerMask = TexLoader.getTexture(OrisonMod.makeImagePath("masks/PowerMask.png"));
 
     public static final String partialHueRodrigues =
             "vec3 applyHue(vec3 rgb, float hue)\n" +

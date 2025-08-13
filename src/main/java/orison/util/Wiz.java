@@ -19,7 +19,7 @@ import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
-import static orison.ModFile.makeID;
+import static orison.OrisonMod.makeID;
 
 import java.util.ArrayList;
 import java.util.Arrays;

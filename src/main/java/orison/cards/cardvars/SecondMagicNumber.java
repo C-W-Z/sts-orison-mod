@@ -1,6 +1,6 @@
 package orison.cards.cardvars;
 
-import static orison.ModFile.makeID;
+import static orison.OrisonMod.makeID;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
