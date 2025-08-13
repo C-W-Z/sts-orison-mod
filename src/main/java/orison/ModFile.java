@@ -52,34 +52,14 @@ public class ModFile implements
 
     private static final Logger logger = LogManager.getLogger(ModFile.class);
 
-    public static ModInfo info;
-    public static String modID;
+    public static final ModInfo info;
+    public static final String modID;
+    public static final boolean isMorimensModLoaded;
 
     static {
-        loadModInfo();
-    }
-
-    public static String makeID(String idText) {
-        return modID + ":" + idText;
-    }
-
-    public static Settings.GameLanguage[] SupportedLanguages = {
-            Settings.GameLanguage.ENG,
-    };
-
-    private String getLangString() {
-        for (Settings.GameLanguage lang : SupportedLanguages) {
-            if (lang.equals(Settings.language)) {
-                return Settings.language.name().toLowerCase();
-            }
-        }
-        return "eng";
-    }
-
-    /**
-     * This determines the mod's ID based on information stored by ModTheSpire.
-     */
-    private static void loadModInfo() {
+        /**
+         * This determines the mod's ID based on information stored by ModTheSpire.
+         */
         Optional<ModInfo> infos = Arrays.stream(Loader.MODINFOS).filter((modInfo) -> {
             AnnotationDB annotationDB = Patcher.annotationDBMap.get(modInfo.jarURL);
             if (annotationDB == null)
@@ -100,6 +80,26 @@ public class ModFile implements
         } else {
             throw new RuntimeException("Failed to determine mod info/ID based on initializer.");
         }
+
+        isMorimensModLoaded = Loader.isModLoaded("morimensmod");
+        logger.info("Morimens Mod " + (isMorimensModLoaded ? "is loaded" : "is NOT loaded"));
+    }
+
+    public static String makeID(String idText) {
+        return modID + ":" + idText;
+    }
+
+    public static Settings.GameLanguage[] SupportedLanguages = {
+            Settings.GameLanguage.ENG,
+    };
+
+    private String getLangString() {
+        for (Settings.GameLanguage lang : SupportedLanguages) {
+            if (lang.equals(Settings.language)) {
+                return Settings.language.name().toLowerCase();
+            }
+        }
+        return "eng";
     }
 
     public ModFile() {
@@ -114,17 +114,16 @@ public class ModFile implements
         return modID + "Resources/images/" + resourcePath;
     }
 
+    public static String makeOrisonPath(String resourcePath) {
+        return modID + "Resources/images/orisons/" + resourcePath;
+    }
+
     public static String makeRelicPath(String resourcePath) {
         return modID + "Resources/images/relics/" + resourcePath;
     }
 
     public static String makePowerPath(String resourcePath) {
         return modID + "Resources/images/powers/" + resourcePath;
-    }
-
-    public static String makeCharacterPath(String resourcePath)
-    {
-        return modID + "Resources/images/char/" + resourcePath;
     }
 
     public static String makeCardPath(String resourcePath) {

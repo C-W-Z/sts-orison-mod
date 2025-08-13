@@ -17,7 +17,7 @@
 
     <name>Orison</name>
     <version>0.0.0</version>
-    <description>TODO: Change this description</description>
+    <description>刻印模組</description>
     <groupId>orison</groupId>
     <artifactId>orison</artifactId>
     <!-- Change the above for mod information. -->
