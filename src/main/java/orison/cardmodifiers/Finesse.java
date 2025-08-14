@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
-import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 
 @SaveIgnore
@@ -29,7 +28,7 @@ public class Finesse extends AbstractOrison {
     }
 
     @Override
-    public AbstractCardModifier makeCopy() {
+    public AbstractOrison newInstance(boolean adv) {
         return new Finesse(adv);
     }
 }

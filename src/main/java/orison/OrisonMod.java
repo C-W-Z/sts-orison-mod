@@ -9,6 +9,7 @@ import orison.cards.AbstractEasyCard;
 import orison.cards.cardvars.AbstractEasyDynamicVariable;
 import orison.potions.AbstractEasyPotion;
 import orison.relics.AbstractEasyRelic;
+import orison.util.OrisonLib;
 import orison.util.ProAudio;
 
 import com.badlogic.gdx.Gdx;
@@ -40,6 +41,7 @@ import org.scannotation.AnnotationDB;
 
 @SpireInitializer
 public class OrisonMod implements
+        PostInitializeSubscriber,
         EditCardsSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
@@ -197,5 +199,10 @@ public class OrisonMod implements
                 BaseMod.addKeyword(modID, keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
             }
         }
+    }
+
+    @Override
+    public void receivePostInitialize() {
+        OrisonLib.initialize();
     }
 }
