@@ -6,6 +6,13 @@
       "Gain #b%d #yBlocks after playing this card."
     ]
   },
+  "${ModID}:Burst": {
+    "TEXT": [
+      "Burst",
+      "Adv. Burst",
+      "Gain #b%d #yTemporary #yStrength after playing this card. This card also benefit from the #yStrength gained."
+    ]
+  },
   "${ModID}:Computation": {
     "TEXT": [
       "Computation",
@@ -17,7 +24,7 @@
     "TEXT": [
       "Drain",
       "Adv. Drain",
-      "All enemies lose #b%d #yStrength this turn."
+      "All enemies #yTemporarily lose #b%d #yStrength."
     ]
   },
   "${ModID}:Finesse": {
@@ -25,6 +32,13 @@
       "Finesse",
       "Adv. Finesse",
       "Draw #b%d card(s) after playing this card."
+    ]
+  },
+  "${ModID}:Might": {
+    "TEXT": [
+      "Might",
+      "Adv. Might",
+      "Gain #b%d #yStrength after playing this card. This card also benefit from the #yStrength gained."
     ]
   },
   "${ModID}:Vulnerable": {
