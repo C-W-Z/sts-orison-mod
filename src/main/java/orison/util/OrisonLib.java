@@ -51,7 +51,7 @@ public class OrisonLib {
             .flatMap(List::stream)
             .collect(Collectors.toList());
 
-    public static HashMap<String, AbstractOrison> id2Orison;
+    public static HashMap<String, AbstractOrison> id2Orison = new HashMap<>();
     public static List<AbstractOrison> allOrisons;
     public static List<AbstractOrison> commonOrisons;
 

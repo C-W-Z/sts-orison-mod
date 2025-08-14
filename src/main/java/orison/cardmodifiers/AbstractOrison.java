@@ -3,6 +3,9 @@ package orison.cardmodifiers;
 import static orison.OrisonMod.makeOrisonPath;
 import static orison.util.GeneralUtils.removePrefix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +19,7 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import basemod.ReflectionHacks;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
+import basemod.helpers.TooltipInfo;
 import orison.util.TexLoader;
 
 /*
@@ -72,9 +76,21 @@ public abstract class AbstractOrison extends AbstractCardModifier {
     }
 
     @Override
-    public void onInitialApplication(AbstractCard card) {
-        CardModifierManager.modifiers(card).removeIf(m -> m != this && m instanceof AbstractOrison);
+    public boolean shouldApply(AbstractCard card) {
+        CardModifierManager.modifiers(card).removeIf(AbstractOrison.class::isInstance);
+        return true;
     }
+
+    @Override
+    public List<TooltipInfo> additionalTooltips(AbstractCard card) {
+        List<TooltipInfo> tooltipInfos = new ArrayList<>();
+        tooltipInfos.add(new TooltipInfo(getTitle(), getDescription()));
+        return tooltipInfos;
+    }
+
+    public abstract String getTitle();
+
+    public abstract String getDescription();
 
     @Override
     public void onRender(AbstractCard card, SpriteBatch sb) {
@@ -82,8 +98,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        Vector2 offset = new Vector2(-100, 50);
-        onRenderHelper(sb, card, toDraw, offset, 51, 51, color, 1);
+        Vector2 offset = new Vector2(-100, 100);
+        onRenderHelper(sb, card, toDraw, offset, 102, 102, color, 1);
     }
 
     @Override
@@ -92,23 +108,20 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        onSCVRenderHelper(card, sb, color, toDraw);
+        onSCVRenderHelper(card, sb, color, toDraw, 204, 204);
     }
 
-    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img) {
+    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img, float width, float height) {
         sb.setColor(color);
         Hitbox hb = ReflectionHacks.getPrivate(CardCrawlGame.cardPopup, SingleCardViewPopup.class, "cardHb");
-        float drawX = hb.x + 50;
-        float drawY = hb.y + hb.height - img.getHeight() - 50;
+        float drawX = hb.x;
+        float drawY = hb.y + hb.height - img.getHeight() - 200;
         sb.draw(img,
-                drawX,
-                drawY,
-                img.getWidth() / 2F, img.getHeight() / 2F,
-                img.getWidth(), img.getHeight(),
-                Settings.scale,
-                Settings.scale,
-                card.angle,
-                0, 0,
+                drawX, drawY,
+                width / 2F, height / 2F,
+                width, height,
+                Settings.scale, Settings.scale,
+                card.angle, 0, 0,
                 img.getWidth(), img.getHeight(),
                 false, false);
     }
@@ -128,8 +141,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
                 width, height,
                 card.drawScale * Settings.scale * scaleModifier,
                 card.drawScale * Settings.scale * scaleModifier,
-                card.angle,
-                0, 0,
+                card.angle, 0, 0,
                 img.getWidth(), img.getHeight(),
                 false, false);
     }

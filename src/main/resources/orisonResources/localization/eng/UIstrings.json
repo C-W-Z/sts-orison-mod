@@ -1,3 +1,6 @@
 {
-
+  "${ModID}:Finesse": {
+    "TEXT": ["Finesse", "After played this card, draw #b%d card(s)."],
+    "EXTRA_TEXT": [""]
+  }
 }
