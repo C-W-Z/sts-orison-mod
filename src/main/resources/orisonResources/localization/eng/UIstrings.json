@@ -1,20 +1,44 @@
 {
   "${ModID}:Bastion": {
-    "TEXT": ["Bastion", "Gain #b%d #yBlocks after playing this card."]
+    "TEXT": [
+      "Bastion",
+      "Adv. Bastion",
+      "Gain #b%d #yBlocks after playing this card."
+    ]
   },
   "${ModID}:Computation": {
-    "TEXT": ["Computation", "Gain #b%d [E] after playing this card."]
+    "TEXT": [
+      "Computation",
+      "Adv. Computation",
+      "Gain #b%d [E] after playing this card."
+    ]
   },
   "${ModID}:Drain": {
-    "TEXT": ["Drain", "All enemies lose #b%d #yStrength this turn."]
+    "TEXT": [
+      "Drain",
+      "Adv. Drain",
+      "All enemies lose #b%d #yStrength this turn."
+    ]
   },
   "${ModID}:Finesse": {
-    "TEXT": ["Finesse", "Draw #b%d card(s) after playing this card."]
+    "TEXT": [
+      "Finesse",
+      "Adv. Finesse",
+      "Draw #b%d card(s) after playing this card."
+    ]
   },
   "${ModID}:Vulnerable": {
-    "TEXT": ["Vulnerable", "Inflict #yVulnerable to all enemies for #b%d turn(s)."]
+    "TEXT": [
+      "Vulnerable",
+      "Adv. Vulnerable",
+      "Inflict #yVulnerable to all enemies for #b%d turn(s)."
+    ]
   },
   "${ModID}:Weakness": {
-    "TEXT": ["Weakness", "Inflict #yWeak to all enemies #b%d for #b%d turn(s)."]
+    "TEXT": [
+      "Weakness",
+      "Adv. Weakness",
+      "Inflict #yWeak to all enemies #b%d for #b%d turn(s)."
+    ]
   }
 }

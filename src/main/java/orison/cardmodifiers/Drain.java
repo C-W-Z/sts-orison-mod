@@ -48,11 +48,11 @@ public class Drain extends AbstractOrison {
 
     @Override
     public String getTitle() {
-        return uiStrings.TEXT[0];
+        return uiStrings.TEXT[adv ? 1 : 0];
     }
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[1], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getValue(adv));
     }
 }
