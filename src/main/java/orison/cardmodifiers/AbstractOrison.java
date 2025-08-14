@@ -6,9 +6,14 @@ import static orison.util.GeneralUtils.removePrefix;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 
+import basemod.ReflectionHacks;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import orison.util.TexLoader;
@@ -77,21 +82,52 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        renderHelper(card, sb, color, toDraw, -100, 50, 1);
+        Vector2 offset = new Vector2(-100, 50);
+        onRenderHelper(sb, card, toDraw, offset, 51, 51, color, 1);
     }
 
-    protected void renderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img,
-            float offsetX, float offsetY, float extraScale) {
+    @Override
+    public void onSingleCardViewRender(AbstractCard card, SpriteBatch sb) {
+        Texture toDraw = (hasAdv && adv) ? advImage : image;
+        Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
+        if (disabled && hasDisabledImg)
+            toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
+        onSCVRenderHelper(card, sb, color, toDraw);
+    }
+
+    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img) {
         sb.setColor(color);
-        float drawX = card.current_x + offsetX * Settings.scale;
-        float drawY = card.current_y + offsetY * Settings.scale;
+        Hitbox hb = ReflectionHacks.getPrivate(CardCrawlGame.cardPopup, SingleCardViewPopup.class, "cardHb");
+        float drawX = hb.x + 50;
+        float drawY = hb.y + hb.height - img.getHeight() - 50;
         sb.draw(img,
-                drawX - img.getWidth() / 2f,
-                drawY - img.getHeight() / 2f,
-                img.getWidth() / 2f, img.getHeight() / 2f,
+                drawX,
+                drawY,
+                img.getWidth() / 2F, img.getHeight() / 2F,
                 img.getWidth(), img.getHeight(),
-                card.drawScale * Settings.scale * extraScale,
-                card.drawScale * Settings.scale * extraScale,
+                Settings.scale,
+                Settings.scale,
+                card.angle,
+                0, 0,
+                img.getWidth(), img.getHeight(),
+                false, false);
+    }
+
+    protected static void onRenderHelper(SpriteBatch sb, AbstractCard card, Texture img, Vector2 offset,
+            float width, float height, Color color, float scaleModifier) {
+        if (card.angle != 0.0F)
+            offset.rotate(card.angle);
+        offset.scl(Settings.scale * card.drawScale);
+        float cX = card.current_x + offset.x;
+        float cY = card.current_y + offset.y;
+        sb.setColor(new Color(color.r, color.g, color.b, card.transparency));
+        sb.draw(img,
+                cX - width / 2f,
+                cY - height / 2f,
+                width / 2f, height / 2f,
+                width, height,
+                card.drawScale * Settings.scale * scaleModifier,
+                card.drawScale * Settings.scale * scaleModifier,
                 card.angle,
                 0, 0,
                 img.getWidth(), img.getHeight(),

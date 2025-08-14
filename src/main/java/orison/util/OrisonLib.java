@@ -40,7 +40,7 @@ public class OrisonLib {
 
     // public static AbstractOrison ERROR_ORISON;
 
-    public static final List<String> lexOrisonIDs = Arrays.asList();
+    public static final List<String> eventOrisonIDs = Arrays.asList();
     public static final List<String> commonAwakenerOrisonIDs = Arrays.asList();
     public static final List<String> chaosOrisonIDs = Arrays.asList();
     public static final List<String> aequorOrisonIDs = Arrays.asList();
@@ -76,7 +76,7 @@ public class OrisonLib {
                 });
         allOrisons = new ArrayList<>(id2Orison.values());
         commonOrisons = allOrisons.stream()
-                .filter(o -> !lexOrisonIDs.contains(o.id) && !awakenerOrisonIDs.contains(o.id))
+                .filter(o -> !eventOrisonIDs.contains(o.id) && !awakenerOrisonIDs.contains(o.id))
                 .collect(Collectors.toList());
     }
 
