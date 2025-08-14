@@ -9,6 +9,7 @@ import orison.cards.AbstractEasyCard;
 import orison.cards.cardvars.AbstractEasyDynamicVariable;
 import orison.potions.AbstractEasyPotion;
 import orison.relics.AbstractEasyRelic;
+import orison.savables.OrisonSave;
 import orison.util.OrisonLib;
 import orison.util.ProAudio;
 
@@ -204,5 +205,6 @@ public class OrisonMod implements
     @Override
     public void receivePostInitialize() {
         OrisonLib.initialize();
+        BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
     }
 }

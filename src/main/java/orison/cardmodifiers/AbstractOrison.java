@@ -11,12 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
-
-import basemod.ReflectionHacks;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
@@ -108,16 +103,18 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        onSCVRenderHelper(card, sb, color, toDraw, 204, 204);
+        Vector2 offset = new Vector2(-200, 200);
+        onSCVRenderHelper(card, sb, color, toDraw, offset, 204, 204);
     }
 
-    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img, float width, float height) {
+    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img, Vector2 offset, float width, float height) {
         sb.setColor(color);
-        Hitbox hb = ReflectionHacks.getPrivate(CardCrawlGame.cardPopup, SingleCardViewPopup.class, "cardHb");
-        float drawX = hb.x;
-        float drawY = hb.y + hb.height - img.getHeight() - 200;
+        // Hitbox hb = ReflectionHacks.getPrivate(CardCrawlGame.cardPopup, SingleCardViewPopup.class, "cardHb");
+        float cX = Settings.WIDTH / 2F + offset.x;
+        float cY = Settings.HEIGHT / 2F + offset.y;
         sb.draw(img,
-                drawX, drawY,
+                cX - width / 2f,
+                cY - height / 2f,
                 width / 2F, height / 2F,
                 width, height,
                 Settings.scale, Settings.scale,
