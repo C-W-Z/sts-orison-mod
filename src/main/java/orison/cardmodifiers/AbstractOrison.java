@@ -93,8 +93,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        Vector2 offset = new Vector2(-100, 100);
-        onRenderHelper(sb, card, toDraw, offset, 102, 102, color, 1);
+        Vector2 offset = new Vector2(-115, 115);
+        onRenderHelper(sb, card, toDraw, offset, 80, 80, color, 1);
     }
 
     @Override
@@ -103,13 +103,13 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        Vector2 offset = new Vector2(-200, 200);
-        onSCVRenderHelper(card, sb, color, toDraw, offset, 204, 204);
+        Vector2 offset = new Vector2(-230, 230);
+        onSCVRenderHelper(card, sb, color, toDraw, offset, 160, 160);
     }
 
-    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img, Vector2 offset, float width, float height) {
+    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img,
+            Vector2 offset, float width, float height) {
         sb.setColor(color);
-        // Hitbox hb = ReflectionHacks.getPrivate(CardCrawlGame.cardPopup, SingleCardViewPopup.class, "cardHb");
         float cX = Settings.WIDTH / 2F + offset.x;
         float cY = Settings.HEIGHT / 2F + offset.y;
         sb.draw(img,

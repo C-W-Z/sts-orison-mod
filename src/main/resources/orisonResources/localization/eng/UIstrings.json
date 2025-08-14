@@ -1,6 +1,8 @@
 {
   "${ModID}:Finesse": {
-    "TEXT": ["Finesse", "After played this card, draw #b%d card(s)."],
-    "EXTRA_TEXT": [""]
+    "TEXT": ["Finesse", "Draw #b%d card(s) after playing."]
+  },
+  "${ModID}:Computation": {
+    "TEXT": ["Computation", "Gain #b%d [E] after playing."]
   }
 }
