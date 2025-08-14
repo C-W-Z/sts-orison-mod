@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 
-// 妙手
+// 籌算
 @SaveIgnore
 public class Computation extends AbstractOrison {
 
@@ -26,9 +26,13 @@ public class Computation extends AbstractOrison {
         super(ID, true, false, adv);
     }
 
+    public static int getValue(boolean adv) {
+        return adv ? 2 : 1;
+    }
+
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new GainEnergyAction(adv ? 2 : 1));
+        addToBot(new GainEnergyAction(getValue(adv)));
     }
 
     @Override
@@ -43,6 +47,6 @@ public class Computation extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[1], adv ? 2 : 1);
+        return String.format(uiStrings.TEXT[1], getValue(adv));
     }
 }
