@@ -97,7 +97,7 @@ public class OrisonLib {
 
     /** 從 list 中依 rarity 權重抽一個元素 */
     private static AbstractOrison pickOne(List<AbstractOrison> list, Random random) {
-        float totalWeight = 0f;
+        float totalWeight = 0;
         for (AbstractOrison o : list)
             if (o != null && o.rarity > 0)
                 totalWeight += o.rarity;
@@ -106,7 +106,7 @@ public class OrisonLib {
             return null;
 
         float r = random.random(totalWeight);
-        float cumulative = 0f;
+        float cumulative = 0;
         for (AbstractOrison o : list) {
             cumulative += o.rarity;
             if (r < cumulative)
@@ -114,5 +114,4 @@ public class OrisonLib {
         }
         return list.get(list.size() - 1); // 防止浮點誤差
     }
-
 }

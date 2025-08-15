@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
 
 import javassist.CtBehavior;
-import orison.core.rewards.AbstractOrisonReward;
+import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.rewards.RandomOrisonReward;
 
 public class OrisonRewardPatch {

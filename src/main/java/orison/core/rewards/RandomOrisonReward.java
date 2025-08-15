@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import orison.core.OrisonLib;
+import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.patches.RewardTypePatch;
 import orison.utils.TexLoader;
 
