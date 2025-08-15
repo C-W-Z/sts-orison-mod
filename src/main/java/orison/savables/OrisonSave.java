@@ -32,8 +32,9 @@ public class OrisonSave implements CustomSavable<List<List<Pair<String, Boolean>
             AbstractCard card = AbstractDungeon.player.masterDeck.group.get(i);
             data.get(i).forEach(pair -> {
                 AbstractOrison orison = OrisonLib.getOrison(pair.getKey(), pair.getValue());
-                if (orison != null)
-                    CardModifierManager.addModifier(card, orison);
+                if (orison == null)
+                    orison = OrisonLib.getErrorOrison();
+                CardModifierManager.addModifier(card, orison);
             });
         }
     }

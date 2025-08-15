@@ -14,11 +14,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import basemod.AutoAdd;
 import orison.cardmodifiers.AbstractOrison;
+import orison.cardmodifiers.ErrorOrison;
 import orison.interfaces.OrisonExtension;
 
 public class OrisonLib {
-
-    // public static AbstractOrison ERROR_ORISON;
 
     public static final List<String> eventOrisonIDs = Arrays.asList();
 
@@ -29,9 +28,7 @@ public class OrisonLib {
     public static void initialize() {
         new AutoAdd(modID)
                 .packageFilter(AbstractOrison.class)
-                .any(AbstractOrison.class, (info, orison) -> {
-                    id2Orison.put(orison.id, orison);
-                });
+                .any(AbstractOrison.class, (info, orison) -> id2Orison.put(orison.id, orison));
         allOrisons = new ArrayList<>(id2Orison.values());
         commonOrisons = allOrisons.stream()
                 .filter(o -> !eventOrisonIDs.contains(o.id) && !o.isModedOrison)
@@ -62,5 +59,9 @@ public class OrisonLib {
     public static void addSpecificOrisonsToPool(List<AbstractOrison> pool, List<AbstractOrison> orisons, boolean adv) {
         for (AbstractOrison o : orisons)
             pool.add(o.newInstance(adv));
+    }
+
+    public static AbstractOrison getErrorOrison() {
+        return new ErrorOrison();
     }
 }
