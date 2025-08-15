@@ -62,7 +62,7 @@ public class MorimensModExtension implements OrisonExtension {
             return;
         try {
             AbstractAwakenerClass = Class.forName(AbstractAwakenerClassName);
-            getRealmColor = AbstractAwakenerClass.getMethod(AbstractAwakenerClassName);
+            getRealmColor = AbstractAwakenerClass.getMethod(getRealmColorMethodName);
             CHAOS_COLOR = Enum.valueOf(CardColor.class, ChaosColorName);
             AEQUOR_COLOR = Enum.valueOf(CardColor.class, AequorColorName);
             CARO_COLOR = Enum.valueOf(CardColor.class, CaroColorName);

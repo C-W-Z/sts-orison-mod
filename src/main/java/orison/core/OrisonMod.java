@@ -30,12 +30,10 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
 import static orison.utils.GeneralUtils.*;
 
-import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -208,43 +206,39 @@ public class OrisonMod implements
 
     @Override
     public void receivePostInitialize() {
-        for (ModInfo modInfo : Loader.MODINFOS) {
-
-            AnnotationDB annotationDB = Patcher.annotationDBMap.get(modInfo.jarURL);
-            if (annotationDB == null)
-                return;
-
-            // 找出所有有 @OrisonExtension.Initializer 註解的classes
-            Map<String, Set<String>> annotationIndex = annotationDB.getAnnotationIndex();
-            Set<String> initializers = annotationIndex.get(OrisonExtension.Initializer.class.getName());
-
-            if (initializers == null)
-                return;
-
-            for (String className : initializers) {
-                Class<?> clazz;
-                try {
-                    clazz = Class.forName(className);
-                } catch (Exception e) {
-                    logger.info("Orison Extension {} ERROR: cannot be loaded", className);
-                    e.printStackTrace();
-                    continue;
-                }
-                if (!isOrisonExtension(clazz))
-                    continue;
-                try {
-                    clazz.getConstructor().newInstance();
-                } catch (Exception e) {
-                    logger.info("Orison Extension {} ERROR: cannot instantiate", className);
-                    e.printStackTrace();
-                    continue;
-                }
-                logger.info("Orison Extension {} is loaded", className);
-            }
-        }
-
+        initializeOrisonExtensions();
         OrisonLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
+    }
+
+    public static void initializeOrisonExtensions() {
+        Set<String> foundExtensions = OrisonExtensionScanner.scanOrisonExtensions();
+
+        // 載入並初始化找到的類
+        for (String className : foundExtensions) {
+            Class<?> clazz;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                logger.error("Failed to get Class {}", className);
+                e.printStackTrace();
+                continue;
+            }
+
+            if (!OrisonExtensionScanner.isOrisonExtension(clazz)) {
+                logger.info("{} is NOT an Orison Extension", className);
+                continue;
+            }
+
+            try {
+                // 實例化
+                clazz.getConstructor().newInstance();
+                logger.info("Orison Extension {} is loaded", className);
+            } catch (Exception e) {
+                logger.error("Failed to initialize {}", className, e);
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void register(OrisonExtension extension) {
@@ -255,11 +249,5 @@ public class OrisonMod implements
     public static void unregister(OrisonExtension extension) {
         orisonExtensions.remove(extension);
         logger.info(extension.getClass().getName() + " Unregistered!");
-    }
-
-    public static boolean isOrisonExtension(Class<?> clazz) {
-        return OrisonExtension.class.isAssignableFrom(clazz)
-                && !clazz.isInterface() && !clazz.isEnum()
-                && !Modifier.isAbstract(clazz.getModifiers());
     }
 }
