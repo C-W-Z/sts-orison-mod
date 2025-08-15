@@ -1,4 +1,7 @@
 {
+  "${ModID}:RandomOrisonReward": {
+    "TEXT": ["Choose an Orison"]
+  },
   "${ModID}:Bastion": {
     "TEXT": [
       "Bastion",

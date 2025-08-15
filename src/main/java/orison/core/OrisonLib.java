@@ -3,6 +3,7 @@ package orison.core;
 import static orison.core.OrisonMod.orisonExtensions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -39,15 +40,14 @@ public class OrisonLib {
         return id2Orison.getOrDefault(ID, getErrorOrison()).newInstance(adv);
     }
 
-    public static AbstractOrison getRandomCommonOrison(boolean adv) {
+    public static List<AbstractOrison> getRandomCommonOrison(boolean adv, int amount, boolean allowDup) {
         List<AbstractOrison> pool = new ArrayList<>();
 
         for (OrisonExtension extensions : orisonExtensions)
             extensions.addCommonOrisonsToPool(pool, adv);
 
         pool.removeIf(Objects::isNull);
-        AbstractOrison ret = pickRandomByRarity(pool, AbstractDungeon.miscRng);
-        return ret != null ? ret : getErrorOrison();
+        return pickRandomByRarity(pool, amount, allowDup, AbstractDungeon.miscRng);
     }
 
     public static void addSpecificOrisonsToPool(List<AbstractOrison> pool, List<AbstractOrison> orisons, boolean adv) {
@@ -59,31 +59,60 @@ public class OrisonLib {
         return new ErrorOrison();
     }
 
-    public static AbstractOrison pickRandomByRarity(List<AbstractOrison> list, Random random) {
-        if (list == null || list.isEmpty())
-            return null; // 沒東西直接返回 null
+    /**
+     * 從 list 中依 rarity 權重隨機抽取 n 個元素
+     *
+     * @param list     原始 Orison list
+     * @param n        要抽的數量
+     * @param allowDup 是否允許重複抽中同一個元素
+     * @return 抽出的 Orison 列表
+     */
+    public static List<AbstractOrison> pickRandomByRarity(List<AbstractOrison> list, int n, boolean allowDup, Random random) {
+        if (list == null || list.isEmpty() || n <= 0) {
+            return Collections.emptyList();
+        }
 
-        // 1. 計算總權重
-        float totalWeight = 0F;
+        if (!allowDup && n >= list.size()) {
+            // 如果不允許重複且 n 超過 list 大小，直接返回全部打亂
+            List<AbstractOrison> copy = new ArrayList<>(list);
+            Collections.shuffle(copy, random.random);
+            return copy;
+        }
+
+        List<AbstractOrison> result = new ArrayList<>();
+        List<AbstractOrison> pool = allowDup ? list : new ArrayList<>(list);
+
+        for (int i = 0; i < n; i++) {
+            AbstractOrison picked = pickOne(pool, random);
+            if (picked == null)
+                break; // 權重全 0 或空池
+            result.add(picked);
+
+            if (!allowDup)
+                pool.remove(picked);
+        }
+
+        return result;
+    }
+
+    /** 從 list 中依 rarity 權重抽一個元素 */
+    private static AbstractOrison pickOne(List<AbstractOrison> list, Random random) {
+        float totalWeight = 0f;
         for (AbstractOrison o : list)
-            if (o != null)
+            if (o != null && o.rarity > 0)
                 totalWeight += o.rarity;
 
-        if (totalWeight <= 0F)
-            return null; // 避免除以 0 或權重全是 0
+        if (totalWeight <= 0)
+            return null;
 
-        // 2. 生成一個 [0, totalWeight) 的隨機數
         float r = random.random(totalWeight);
-
-        // 3. 從頭累加，找到落在哪個區間
-        float cumulative = 0F;
+        float cumulative = 0f;
         for (AbstractOrison o : list) {
             cumulative += o.rarity;
             if (r < cumulative)
                 return o;
         }
-
-        // 理論上不會到這，但防止浮點數誤差
-        return list.get(list.size() - 1);
+        return list.get(list.size() - 1); // 防止浮點誤差
     }
+
 }

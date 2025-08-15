@@ -10,6 +10,7 @@ import orison.core.abstracts.AbstractEasyPotion;
 import orison.core.abstracts.AbstractEasyRelic;
 import orison.core.cardvars.AbstractEasyDynamicVariable;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.rewards.RandomOrisonReward;
 import orison.core.savables.OrisonSave;
 import orison.utils.ProAudio;
 
@@ -26,6 +27,7 @@ import com.megacrit.cardcrawl.localization.PotionStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
 import static orison.utils.GeneralUtils.*;
@@ -113,6 +115,10 @@ public class OrisonMod implements
 
     public static String makeOrisonPath(String resourcePath) {
         return modID + "Resources/images/orisons/" + resourcePath;
+    }
+
+    public static String makeRewardPath(String resourcePath) {
+        return modID + "Resources/images/rewards/" + resourcePath;
     }
 
     public static String makeRelicPath(String resourcePath) {
@@ -210,6 +216,10 @@ public class OrisonMod implements
         initializeOrisonExtensions();
         OrisonLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
+        BaseMod.registerCustomReward(RandomOrisonReward.TYPE,
+                rewardSave -> new RandomOrisonReward(rewardSave.amount),
+                customReward -> new RewardSave(customReward.type.name(), null,
+                        ((RandomOrisonReward) customReward).amount, 0));
     }
 
     public static void initializeOrisonExtensions() {
