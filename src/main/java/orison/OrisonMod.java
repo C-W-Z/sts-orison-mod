@@ -7,6 +7,7 @@ import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import orison.cards.AbstractEasyCard;
 import orison.cards.cardvars.AbstractEasyDynamicVariable;
+import orison.interfaces.OrisonExtension;
 import orison.potions.AbstractEasyPotion;
 import orison.relics.AbstractEasyRelic;
 import orison.savables.OrisonSave;
@@ -30,9 +31,12 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
 import static orison.util.GeneralUtils.*;
 
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -54,7 +58,7 @@ public class OrisonMod implements
 
     public static final ModInfo info;
     public static final String modID;
-    public static final boolean isMorimensModLoaded;
+    public static final ArrayList<OrisonExtension> orisonSubcribers = new ArrayList<>();
 
     static {
         /**
@@ -80,9 +84,6 @@ public class OrisonMod implements
         } else {
             throw new RuntimeException("Failed to determine mod info/ID based on initializer.");
         }
-
-        isMorimensModLoaded = Loader.isModLoaded("morimensmod");
-        logger.info("Morimens Mod " + (isMorimensModLoaded ? "is loaded" : "is NOT loaded"));
     }
 
     public static String makeID(String idText) {
@@ -94,12 +95,10 @@ public class OrisonMod implements
     };
 
     private String getLangString() {
-        for (Settings.GameLanguage lang : SupportedLanguages) {
-            if (lang.equals(Settings.language)) {
+        for (Settings.GameLanguage lang : SupportedLanguages)
+            if (lang.equals(Settings.language))
                 return Settings.language.name().toLowerCase();
-            }
-        }
-        return "eng";
+        return Settings.GameLanguage.ENG.name().toLowerCase();
     }
 
     public OrisonMod() {
@@ -137,13 +136,15 @@ public class OrisonMod implements
     @Override
     public void receiveEditCharacters() {
         new AutoAdd(modID)
-            .packageFilter(AbstractEasyPotion.class)
-            .any(AbstractEasyPotion.class, (info, potion) -> {
-                if (potion.pool == null)
-                    BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor, potion.ID);
-                else
-                    BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor, potion.ID, potion.pool);
-            });
+                .packageFilter(AbstractEasyPotion.class)
+                .any(AbstractEasyPotion.class, (info, potion) -> {
+                    if (potion.pool == null)
+                        BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor,
+                                potion.ID);
+                    else
+                        BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor,
+                                potion.ID, potion.pool);
+                });
     }
 
     @Override
@@ -165,9 +166,8 @@ public class OrisonMod implements
     @Override
     public void receiveEditCards() {
         new AutoAdd(modID)
-            .packageFilter(AbstractEasyDynamicVariable.class)
-            .any(DynamicVariable.class, (info, var) ->
-                BaseMod.addDynamicVariable(var));
+                .packageFilter(AbstractEasyDynamicVariable.class)
+                .any(DynamicVariable.class, (info, var) -> BaseMod.addDynamicVariable(var));
         new AutoAdd(modID)
                 .packageFilter(AbstractEasyCard.class)
                 .setDefaultSeen(true)
@@ -176,11 +176,16 @@ public class OrisonMod implements
 
     @Override
     public void receiveEditStrings() {
-        BaseMod.loadCustomStringsFile(CardStrings.class, modID + "Resources/localization/" + getLangString() + "/Cardstrings.json");
-        BaseMod.loadCustomStringsFile(RelicStrings.class, modID + "Resources/localization/" + getLangString() + "/Relicstrings.json");
-        BaseMod.loadCustomStringsFile(PowerStrings.class, modID + "Resources/localization/" + getLangString() + "/Powerstrings.json");
-        BaseMod.loadCustomStringsFile(UIStrings.class, modID + "Resources/localization/" + getLangString() + "/UIstrings.json");
-        BaseMod.loadCustomStringsFile(PotionStrings.class, modID + "Resources/localization/" + getLangString() + "/Potionstrings.json");
+        BaseMod.loadCustomStringsFile(CardStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/Cardstrings.json");
+        BaseMod.loadCustomStringsFile(RelicStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/Relicstrings.json");
+        BaseMod.loadCustomStringsFile(PowerStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/Powerstrings.json");
+        BaseMod.loadCustomStringsFile(UIStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/UIstrings.json");
+        BaseMod.loadCustomStringsFile(PotionStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/Potionstrings.json");
     }
 
     @Override
@@ -192,8 +197,10 @@ public class OrisonMod implements
     @Override
     public void receiveEditKeywords() {
         Gson gson = new Gson();
-        String json = Gdx.files.internal(modID + "Resources/localization/" + getLangString() + "/Keywordstrings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json, com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
+        String json = Gdx.files.internal(modID + "Resources/localization/" + getLangString() + "/Keywordstrings.json")
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json,
+                com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
 
         if (keywords != null) {
             for (Keyword keyword : keywords) {
@@ -204,7 +211,41 @@ public class OrisonMod implements
 
     @Override
     public void receivePostInitialize() {
+        for (ModInfo modInfo : Loader.MODINFOS) {
+
+            AnnotationDB annotationDB = Patcher.annotationDBMap.get(modInfo.jarURL);
+            if (annotationDB == null)
+                return;
+
+            // 找出所有有 @OrisonExtension.Initializer 註解的classes
+            Map<String, Set<String>> annotationIndex = annotationDB.getAnnotationIndex();
+            Set<String> initializers = annotationIndex.get(OrisonExtension.Initializer.class.getName());
+
+            if (initializers == null)
+                return;
+
+            for (String className : initializers) {
+                try {
+                    Class<?> clazz = Class.forName(className);
+                    if (OrisonExtension.class.isAssignableFrom(clazz)
+                            && !clazz.isInterface() && !clazz.isEnum()
+                            && !Modifier.isAbstract(clazz.getModifiers())) {
+                        // 實例化
+                        clazz.getConstructor().newInstance();
+                        logger.info("Orison Extension {} is loaded", className);
+                    }
+                } catch (Exception e) {
+                    logger.info("Orison Extension {} ERROR: cannot be loaded", className);
+                    e.printStackTrace();
+                }
+            }
+        }
+
         OrisonLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
+    }
+
+    public static void subscribe(OrisonExtension subscriber) {
+        orisonSubcribers.add(subscriber);
     }
 }

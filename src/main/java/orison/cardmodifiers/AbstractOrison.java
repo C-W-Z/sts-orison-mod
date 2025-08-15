@@ -33,6 +33,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
     protected Texture advImage = null;
     protected Texture disabledImage = null;
     protected Texture advDisabledImage = null;
+    public boolean isModedOrison = false; // 是不是只能和其他模組一起用時才會出現的刻印
 
     public AbstractOrison(String id, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
         this.id = id;
@@ -62,7 +63,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
 
     @Override
     public AbstractCardModifier makeCopy() {
-        return newInstance();
+        return newInstance(adv);
     }
 
     @Override
