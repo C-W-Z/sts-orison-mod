@@ -15,7 +15,9 @@ public interface OrisonExtension {
     @Target(ElementType.TYPE) // 只能用在類/介面上
     public @interface Initializer {}
 
-    void registerOrisons();
+    default List<AbstractOrison> getAllOrisons() {
+        return null;
+    }
 
-    void addCommonOrisonsToPool(List<AbstractOrison> pool, boolean adv);
+    default void addCommonOrisonsToPool(List<AbstractOrison> pool, boolean adv) {}
 }

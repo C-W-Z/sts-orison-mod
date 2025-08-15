@@ -57,7 +57,7 @@ public class OrisonMod implements
 
     public static final ModInfo info;
     public static final String modID;
-    public static final ArrayList<OrisonExtension> orisonSubcribers = new ArrayList<>();
+    public static final ArrayList<OrisonExtension> orisonExtensions = new ArrayList<>();
 
     static {
         /**
@@ -151,14 +151,12 @@ public class OrisonMod implements
         new AutoAdd(modID)
                 .packageFilter(AbstractEasyRelic.class)
                 .any(AbstractEasyRelic.class, (info, relic) -> {
-                    if (relic.color == null) {
+                    if (relic.color == null)
                         BaseMod.addRelic(relic, RelicType.SHARED);
-                    } else {
+                    else
                         BaseMod.addRelicToCustomPool(relic, relic.color);
-                    }
-                    if (!info.seen) {
+                    if (!info.seen)
                         UnlockTracker.markRelicAsSeen(relic.relicId);
-                    }
                 });
     }
 
@@ -224,19 +222,24 @@ public class OrisonMod implements
                 return;
 
             for (String className : initializers) {
+                Class<?> clazz;
                 try {
-                    Class<?> clazz = Class.forName(className);
-                    if (OrisonExtension.class.isAssignableFrom(clazz)
-                            && !clazz.isInterface() && !clazz.isEnum()
-                            && !Modifier.isAbstract(clazz.getModifiers())) {
-                        // 實例化
-                        clazz.getConstructor().newInstance();
-                        logger.info("Orison Extension {} is loaded", className);
-                    }
+                    clazz = Class.forName(className);
                 } catch (Exception e) {
                     logger.info("Orison Extension {} ERROR: cannot be loaded", className);
                     e.printStackTrace();
+                    continue;
                 }
+                if (!isOrisonExtension(clazz))
+                    continue;
+                try {
+                    clazz.getConstructor().newInstance();
+                } catch (Exception e) {
+                    logger.info("Orison Extension {} ERROR: cannot instantiate", className);
+                    e.printStackTrace();
+                    continue;
+                }
+                logger.info("Orison Extension {} is loaded", className);
             }
         }
 
@@ -244,7 +247,19 @@ public class OrisonMod implements
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
     }
 
-    public static void subscribe(OrisonExtension subscriber) {
-        orisonSubcribers.add(subscriber);
+    public static void register(OrisonExtension extension) {
+        orisonExtensions.add(extension);
+        logger.info(extension.getClass().getName() + " Registered!");
+    }
+
+    public static void unregister(OrisonExtension extension) {
+        orisonExtensions.remove(extension);
+        logger.info(extension.getClass().getName() + " Unregistered!");
+    }
+
+    public static boolean isOrisonExtension(Class<?> clazz) {
+        return OrisonExtension.class.isAssignableFrom(clazz)
+                && !clazz.isInterface() && !clazz.isEnum()
+                && !Modifier.isAbstract(clazz.getModifiers());
     }
 }

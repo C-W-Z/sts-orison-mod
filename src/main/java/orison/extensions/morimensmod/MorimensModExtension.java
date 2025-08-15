@@ -5,8 +5,6 @@ import static orison.core.OrisonMod.modID;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,15 +39,18 @@ public class MorimensModExtension implements OrisonExtension {
     public static CardColor CARO_COLOR;
     public static CardColor ULTRA_COLOR;
 
-    public static List<AbstractOrison> commonAwakenerOrisons = new ArrayList<>();
+    public static final String commonOrisonPackageName = "orison.extensions.morimensmod.orisons.common";
+    public static final String chaosOrisonPackageName = "orison.extensions.morimensmod.orisons.chaos";
+    public static final String aequorOrisonPackageName = "orison.extensions.morimensmod.orisons.aequor";
+    public static final String caroOrisonPackageName = "orison.extensions.morimensmod.orisons.caro";
+    public static final String ultraOrisonPackageName = "orison.extensions.morimensmod.orisons.ultra";
+
+    public static List<AbstractOrison> allOrisons = new ArrayList<>();
+    public static List<AbstractOrison> commonOrisons = new ArrayList<>();
     public static List<AbstractOrison> chaosOrisons = new ArrayList<>();
     public static List<AbstractOrison> aequorOrisons = new ArrayList<>();
     public static List<AbstractOrison> caroOrisons = new ArrayList<>();
     public static List<AbstractOrison> ultraOrisons = new ArrayList<>();
-    public static List<AbstractOrison> awakenerOrisons = Stream
-            .of(commonAwakenerOrisons, chaosOrisons, aequorOrisons, caroOrisons, ultraOrisons)
-            .flatMap(List::stream)
-            .collect(Collectors.toList());
 
     static {
         isMorimensModLoaded = Loader.isModLoaded(MorimensModID);
@@ -66,21 +67,44 @@ public class MorimensModExtension implements OrisonExtension {
             AEQUOR_COLOR = Enum.valueOf(CardColor.class, AequorColorName);
             CARO_COLOR = Enum.valueOf(CardColor.class, CaroColorName);
             ULTRA_COLOR = Enum.valueOf(CardColor.class, UltraColorName);
-            OrisonMod.subscribe(this);
-            logger.error("Morimens Mod Extension Subscribed!");
         } catch (Exception e) {
             logger.error("Morimens Mod Loaded but some class or method NOT Found");
+            e.printStackTrace();
+            return;
         }
-    }
 
-    @Override
-    public void registerOrisons() {
         new AutoAdd(modID)
-                .packageFilter("orison.extensions.vanilla.orisons.common")
+                .packageFilter(commonOrisonPackageName)
                 .any(AbstractOrison.class, (info, orison) -> {
-                    commonAwakenerOrisons.add(orison);
-                    OrisonLib.register(orison);
+                    allOrisons.add(orison);
+                    commonOrisons.add(orison);
                 });
+        new AutoAdd(modID)
+                .packageFilter(chaosOrisonPackageName)
+                .any(AbstractOrison.class, (info, orison) -> {
+                    allOrisons.add(orison);
+                    chaosOrisons.add(orison);
+                });
+        new AutoAdd(modID)
+                .packageFilter(aequorOrisonPackageName)
+                .any(AbstractOrison.class, (info, orison) -> {
+                    allOrisons.add(orison);
+                    aequorOrisons.add(orison);
+                });
+        new AutoAdd(modID)
+                .packageFilter(caroOrisonPackageName)
+                .any(AbstractOrison.class, (info, orison) -> {
+                    allOrisons.add(orison);
+                    caroOrisons.add(orison);
+                });
+        new AutoAdd(modID)
+                .packageFilter(ultraOrisonPackageName)
+                .any(AbstractOrison.class, (info, orison) -> {
+                    allOrisons.add(orison);
+                    ultraOrisons.add(orison);
+                });
+
+        OrisonMod.register(this);
     }
 
     public static boolean isPlayerAwakener() {
@@ -90,22 +114,26 @@ public class MorimensModExtension implements OrisonExtension {
 
     @Override
     public void addCommonOrisonsToPool(List<AbstractOrison> pool, boolean adv) {
-        OrisonLib.addSpecificOrisonsToPool(pool, commonAwakenerOrisons, adv);
+        if (!isPlayerAwakener())
+            return;
 
-        if (getRealmColor != null) {
-            try {
-                CardColor realmColor = (CardColor) getRealmColor.invoke(AbstractDungeon.player);
-                if (realmColor == CHAOS_COLOR)
-                    OrisonLib.addSpecificOrisonsToPool(pool, chaosOrisons, adv);
-                if (realmColor == AEQUOR_COLOR)
-                    OrisonLib.addSpecificOrisonsToPool(pool, aequorOrisons, adv);
-                if (realmColor == CARO_COLOR)
-                    OrisonLib.addSpecificOrisonsToPool(pool, caroOrisons, adv);
-                if (realmColor == ULTRA_COLOR)
-                    OrisonLib.addSpecificOrisonsToPool(pool, ultraOrisons, adv);
-            } catch (Exception e) {
-                logger.error("getRealmColor Error");
-            }
+        OrisonLib.addSpecificOrisonsToPool(pool, commonOrisons, adv);
+
+        if (getRealmColor == null)
+            return;
+        try {
+            CardColor realmColor = (CardColor) getRealmColor.invoke(AbstractDungeon.player);
+            if (realmColor == CHAOS_COLOR)
+                OrisonLib.addSpecificOrisonsToPool(pool, chaosOrisons, adv);
+            if (realmColor == AEQUOR_COLOR)
+                OrisonLib.addSpecificOrisonsToPool(pool, aequorOrisons, adv);
+            if (realmColor == CARO_COLOR)
+                OrisonLib.addSpecificOrisonsToPool(pool, caroOrisons, adv);
+            if (realmColor == ULTRA_COLOR)
+                OrisonLib.addSpecificOrisonsToPool(pool, ultraOrisons, adv);
+        } catch (Exception e) {
+            logger.error("getRealmColor Error");
+            e.printStackTrace();
         }
     }
 }

@@ -2,8 +2,6 @@ package orison.core.abstracts;
 
 import basemod.abstracts.CustomPotion;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,8 +53,7 @@ public abstract class AbstractEasyPotion extends CustomPotion {
     public AbstractPotion makeCopy() {
         try {
             return getClass().getConstructor().newInstance();
-        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException
-                | InvocationTargetException e) {
+        } catch (Exception e) {
             logger.fatal("BaseMod failed to auto-generate makeCopy for potion: " + ID);
             return null;
         }
