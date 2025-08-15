@@ -23,9 +23,11 @@ public class RandomOrisonReward extends AbstractOrisonReward {
     public RandomOrisonReward(int amount) {
         super(ICON, TEXT, TYPE);
         this.amount = amount;
-        orisons = OrisonLib.getRandomCommonOrison(false, amount, false);
-        cardsToApplyOrison = getCardsWithoutOrison(
+        cardsToApplyOrison = getCardsWithoutOrisonFirst(
                 AbstractDungeon.player.masterDeck.group, amount, AbstractDungeon.cardRandomRng);
+        orisons = OrisonLib.getRandomCommonOrison(false, cardsToApplyOrison.size(), false);
+        if (orisons.size() < cardsToApplyOrison.size())
+            orisons.addAll(OrisonLib.getRandomCommonOrison(false, cardsToApplyOrison.size() - orisons.size(), true));
         initializeCardsToDisplay();
     }
 }

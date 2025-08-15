@@ -58,6 +58,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
         AbstractDungeon.topLevelEffects.add(new UpgradeShineEffect(Settings.WIDTH / 2F, Settings.HEIGHT / 2F));
     }
 
+    /** Call this function at the end of OrisonRewards' Contructor */
     protected void initializeCardsToDisplay() {
         cards = new ArrayList<>();
         for (int i = 0; i < orisons.size() && i < cardsToApplyOrison.size(); i++) {
@@ -67,7 +68,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
         }
     }
 
-    protected static List<AbstractCard> getCardsWithoutOrison(List<AbstractCard> cards, int amount, Random random) {
+    protected static List<AbstractCard> getCardsWithoutOrisonFirst(List<AbstractCard> cards, int amount, Random random) {
         List<AbstractCard> orisonCards = new ArrayList<>();
         List<AbstractCard> noOrisonCards = new ArrayList<>();
         for (AbstractCard c : cards) {
