@@ -17,7 +17,7 @@ public class ErrorOrison extends AbstractOrison {
     }
 
     public ErrorOrison(boolean adv) {
-        super(ID, false, false, false);
+        super(ID, 0F, false, false, false);
     }
 
     @Override

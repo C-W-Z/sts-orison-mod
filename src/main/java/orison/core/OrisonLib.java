@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.random.Random;
 
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
@@ -35,10 +36,7 @@ public class OrisonLib {
     }
 
     public static AbstractOrison getOrison(String ID, boolean adv) {
-        AbstractOrison orison = id2Orison.get(ID);
-        if (orison == null)
-            return null;
-        return orison.newInstance(adv);
+        return id2Orison.getOrDefault(ID, getErrorOrison()).newInstance(adv);
     }
 
     public static AbstractOrison getRandomCommonOrison(boolean adv) {
@@ -48,9 +46,8 @@ public class OrisonLib {
             extensions.addCommonOrisonsToPool(pool, adv);
 
         pool.removeIf(Objects::isNull);
-        if (pool.isEmpty())
-            return getErrorOrison();
-        return pool.get(AbstractDungeon.miscRng.random(pool.size() - 1)).newInstance(adv);
+        AbstractOrison ret = pickRandomByRarity(pool, AbstractDungeon.miscRng);
+        return ret != null ? ret : getErrorOrison();
     }
 
     public static void addSpecificOrisonsToPool(List<AbstractOrison> pool, List<AbstractOrison> orisons, boolean adv) {
@@ -60,5 +57,33 @@ public class OrisonLib {
 
     public static AbstractOrison getErrorOrison() {
         return new ErrorOrison();
+    }
+
+    public static AbstractOrison pickRandomByRarity(List<AbstractOrison> list, Random random) {
+        if (list == null || list.isEmpty())
+            return null; // 沒東西直接返回 null
+
+        // 1. 計算總權重
+        float totalWeight = 0F;
+        for (AbstractOrison o : list)
+            if (o != null)
+                totalWeight += o.rarity;
+
+        if (totalWeight <= 0F)
+            return null; // 避免除以 0 或權重全是 0
+
+        // 2. 生成一個 [0, totalWeight) 的隨機數
+        float r = random.random(totalWeight);
+
+        // 3. 從頭累加，找到落在哪個區間
+        float cumulative = 0F;
+        for (AbstractOrison o : list) {
+            cumulative += o.rarity;
+            if (r < cumulative)
+                return o;
+        }
+
+        // 理論上不會到這，但防止浮點數誤差
+        return list.get(list.size() - 1);
     }
 }

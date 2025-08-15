@@ -24,6 +24,8 @@ import orison.utils.TexLoader;
  */
 public abstract class AbstractOrison extends AbstractCardModifier {
 
+    public static final float DEFAULT_RARITY = 100F;
+
     public String id = "";
     public boolean adv = false;
     public boolean disabled = false;
@@ -33,14 +35,19 @@ public abstract class AbstractOrison extends AbstractCardModifier {
     protected Texture advImage = null;
     protected Texture disabledImage = null;
     protected Texture advDisabledImage = null;
-    public boolean isModedOrison = false; // 是不是只能和其他模組一起用時才會出現的刻印
+    public float rarity = DEFAULT_RARITY;
 
     public AbstractOrison(String id, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
+        this(id, DEFAULT_RARITY, hasAdv, hasDisabledImg, adv);
+    }
+
+    public AbstractOrison(String id, float rarity, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
         this.id = id;
         this.hasAdv = hasAdv;
         this.hasDisabledImg = hasDisabledImg;
         if (hasAdv)
             this.adv = adv;
+        this.rarity = rarity;
         initializeImages();
     }
 

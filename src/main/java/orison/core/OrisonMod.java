@@ -34,6 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ public class OrisonMod implements
 
     public static final ModInfo info;
     public static final String modID;
-    public static final ArrayList<OrisonExtension> orisonExtensions = new ArrayList<>();
+    public static final List<OrisonExtension> orisonExtensions = new ArrayList<>();
 
     static {
         /**
