@@ -2,33 +2,31 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import orison.core.abstracts.AbstractOrison;
 
-// 蠻力
+// 靈感
 @SaveIgnore
-public class Might extends AbstractOrison {
+public class Insight extends AbstractOrison {
 
-    public static final String ID = makeID(Might.class.getSimpleName());
+    public static final String ID = makeID(Insight.class.getSimpleName());
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(ID);
 
-    public Might() {
+    private static AbstractCard cardToShuffle = new com.megacrit.cardcrawl.cards.tempCards.Insight();
+
+    public Insight() {
         this(false);
     }
 
-    public Might(boolean adv) {
-        super(ID, true, false, adv);
+    public Insight(boolean adv) {
+        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
     }
 
     public static int getValue(boolean adv) {
@@ -37,18 +35,12 @@ public class Might extends AbstractOrison {
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new StrengthPower(AbstractDungeon.player, getValue(adv))));
-    }
-
-    @Override
-    public float modifyDamage(float damage, DamageType type, AbstractCard card, AbstractMonster target) {
-        return damage + getValue(adv);
+        addToBot(new MakeTempCardInDrawPileAction(cardToShuffle.makeCopy(), getValue(adv), true, true));
     }
 
     @Override
     public AbstractOrison newInstance(boolean adv) {
-        return new Might(adv);
+        return new Insight(adv);
     }
 
     @Override
@@ -58,6 +50,6 @@ public class Might extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getValue(adv), cardToShuffle.name);
     }
 }

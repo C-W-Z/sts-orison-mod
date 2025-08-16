@@ -27,7 +27,14 @@
     "TEXT": [
       "Drain [${ModID}:DrainIcon]",
       "Adv. Drain",
-      "All enemies #yTemporarily lose #b%d #yStrength."
+      "After playing this card, all enemies #yTemporarily lose #b%d #yStrength."
+    ]
+  },
+  "${ModID}:Echo": {
+    "TEXT": [
+      "Echo [${ModID}:EchoIcon]",
+      "Adv. Echo",
+      "This card take effect #b%d additional time(s) and grants you #b%d #yGold when played. #yExhaust. #yInnate."
     ]
   },
   "${ModID}:Finesse": {
@@ -37,6 +44,13 @@
       "Draw #b%d card(s) after playing this card."
     ]
   },
+  "${ModID}:Insight": {
+    "TEXT": [
+      "Insight [${ModID}:InsightIcon]",
+      "Adv. Insight",
+      "Shuffle #b%d \"%s\" into the Draw Pile after playing this card."
+    ]
+  },
   "${ModID}:Might": {
     "TEXT": [
       "Might [${ModID}:MightIcon]",
@@ -44,18 +58,39 @@
       "Gain #b%d #yStrength after playing this card. This card also benefit from the #yStrength gained."
     ]
   },
+  "${ModID}:Mirror": {
+    "TEXT": [
+      "Mirror [${ModID}:MirrorIcon]",
+      "Adv. Mirror",
+      "When the battle starts, shuffle #b%d copy(s) of into the Draw Pile. This card and the mirror cards will become #yRetain."
+    ]
+  },
+  "${ModID}:Spike": {
+    "TEXT": [
+      "Spike [${ModID}:SpikeIcon]",
+      "Adv. Spike",
+      "After playing this card, gain #b%d stack(s) of #yThorns and deal #b%d%% damage of your #yThorns to all enemies."
+    ]
+  },
+  "${ModID}:Toxin": {
+    "TEXT": [
+      "Toxin [${ModID}:ToxinIcon]",
+      "Adv. Toxin",
+      "After playing this card, inflict #b%d stack(s) of #yPoison to all enemies and trigger #b%d%% of their #yPoison."
+    ]
+  },
   "${ModID}:Vulnerable": {
     "TEXT": [
       "Vulnerable [${ModID}:VulnerableIcon]",
       "Adv. Vulnerable",
-      "Inflict #yVulnerable to all enemies for #b%d turn(s)."
+      "After playing this card, inflict #yVulnerable to all enemies for #b%d turn(s)."
     ]
   },
   "${ModID}:Weakness": {
     "TEXT": [
       "Weakness [${ModID}:WeaknessIcon]",
       "Adv. Weakness",
-      "Inflict #yWeak to all enemies for #b%d turn(s)."
+      "After playing this card, inflict #yWeak to all enemies for #b%d turn(s)."
     ]
   }
 }
