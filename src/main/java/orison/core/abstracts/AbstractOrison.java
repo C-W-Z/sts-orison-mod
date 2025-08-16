@@ -108,7 +108,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
     public void onSingleCardViewRender(AbstractCard card, SpriteBatch sb) {
         Pair<Texture, Color> imgAndColor = getImageAndColor();
         Vector2 offset = new Vector2(-230, 230);
-        onSCVRenderHelper(card, sb, imgAndColor.getKey(), offset, 160, 160, imgAndColor.getValue());
+        onSCVRenderHelper(sb, card, imgAndColor.getKey(), offset, 160, 160, imgAndColor.getValue());
     }
 
     public Pair<Texture, Color> getImageAndColor() {
@@ -119,7 +119,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         return new Pair<>(toDraw, color);
     }
 
-    public void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Texture img,
+    public static void onSCVRenderHelper(SpriteBatch sb, AbstractCard card, Texture img,
             Vector2 offset, float width, float height, Color color) {
         sb.setColor(color);
         float cX = Settings.WIDTH / 2F + offset.x;

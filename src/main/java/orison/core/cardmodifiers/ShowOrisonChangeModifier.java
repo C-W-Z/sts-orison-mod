@@ -72,13 +72,13 @@ public class ShowOrisonChangeModifier extends AbstractCardModifier {
     public void onSingleCardViewRender(AbstractCard card, SpriteBatch sb) {
         Texture oldImg = oldOrison.getImageAndColor().getKey();
         Vector2 oldOffset = new Vector2(-230, 230);
-        AbstractOrison.onRenderHelper(sb, card, oldImg, oldOffset, 160, 160, Color.GRAY);
+        AbstractOrison.onSCVRenderHelper(sb, card, oldImg, oldOffset, 160, 160, Color.GRAY);
 
         Vector2 arrowOffset = new Vector2(-230 + 160 / 2 + 96 / 2, 230);
-        AbstractOrison.onRenderHelper(sb, card, ImageMaster.CF_RIGHT_ARROW, arrowOffset, 96, 96, Color.WHITE);
+        AbstractOrison.onSCVRenderHelper(sb, card, ImageMaster.CF_RIGHT_ARROW, arrowOffset, 96, 96, Color.WHITE);
 
         Texture newImg = newOrison.getImageAndColor().getKey();
         Vector2 newOffset = new Vector2(-230 + 160 + 96, 230);
-        AbstractOrison.onRenderHelper(sb, card, newImg, newOffset, 160, 160, Color.WHITE);
+        AbstractOrison.onSCVRenderHelper(sb, card, newImg, newOffset, 160, 160, Color.WHITE);
     }
 }
