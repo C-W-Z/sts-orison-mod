@@ -99,16 +99,16 @@ public class OrisonMod implements
         return Settings.GameLanguage.ENG.name().toLowerCase();
     }
 
-    public OrisonMod() {
-        BaseMod.subscribe(this);
-    }
-
     public static String makePath(String resourcePath) {
         return modID + "Resources/" + resourcePath;
     }
 
     public static String makeImagePath(String resourcePath) {
         return modID + "Resources/images/" + resourcePath;
+    }
+
+    public static String makeIconPath(String resourcePath) {
+        return modID + "Resources/images/icons/" + resourcePath;
     }
 
     public static String makeOrisonPath(String resourcePath) {
@@ -133,6 +133,10 @@ public class OrisonMod implements
 
     public static void initialize() {
         new OrisonMod();
+    }
+
+    public OrisonMod() {
+        BaseMod.subscribe(this);
     }
 
     @Override

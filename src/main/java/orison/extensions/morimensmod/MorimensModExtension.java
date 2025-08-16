@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.evacipated.cardcrawl.mod.stslib.icons.CustomIconHelper;
 import com.evacipated.cardcrawl.modthespire.Loader;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -16,6 +17,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import basemod.AutoAdd;
 import orison.core.OrisonLib;
 import orison.core.OrisonMod;
+import orison.core.abstracts.AbstractIcon;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
 
@@ -39,6 +41,7 @@ public class MorimensModExtension implements OrisonExtension {
     public static CardColor CARO_COLOR;
     public static CardColor ULTRA_COLOR;
 
+    public static final String orisonIconPackageName = "orison.extensions.morimensmod.icons";
     public static final String commonOrisonPackageName = "orison.extensions.morimensmod.orisons.common";
     public static final String chaosOrisonPackageName = "orison.extensions.morimensmod.orisons.chaos";
     public static final String aequorOrisonPackageName = "orison.extensions.morimensmod.orisons.aequor";
@@ -73,6 +76,10 @@ public class MorimensModExtension implements OrisonExtension {
             return;
         }
 
+        // Icon一定要在Orison創建之前註冊
+        new AutoAdd(modID)
+                .packageFilter(orisonIconPackageName)
+                .any(AbstractIcon.class, (info, icon) -> CustomIconHelper.addCustomIcon(icon.get()));
         new AutoAdd(modID)
                 .packageFilter(commonOrisonPackageName)
                 .any(AbstractOrison.class, (info, orison) -> {
