@@ -5,12 +5,13 @@ import basemod.BaseMod;
 import basemod.abstracts.DynamicVariable;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import orison.cardvars.AbstractEasyDynamicVariable;
 import orison.core.abstracts.AbstractEasyCard;
 import orison.core.abstracts.AbstractEasyPotion;
 import orison.core.abstracts.AbstractEasyRelic;
-import orison.core.cardvars.AbstractEasyDynamicVariable;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.savables.OrisonSave;
+import orison.utils.OrisonExtensionScanner;
 import orison.utils.ProAudio;
 
 import com.badlogic.gdx.Gdx;

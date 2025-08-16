@@ -1,7 +1,7 @@
-package orison.core.cardmodifiers;
+package orison.cardmodifiers;
 
 import basemod.abstracts.AbstractCardModifier;
-import basemod.cardmods.InnateMod;
+import basemod.cardmods.EtherealMod;
 import basemod.helpers.CardModifierManager;
 
 import static orison.core.OrisonMod.makeID;
@@ -9,31 +9,31 @@ import static orison.core.OrisonMod.makeID;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.CommonKeywordIconsField;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
-public class InnateModifier extends AbstractCardModifier {
+public class EtherealModifier extends AbstractCardModifier {
 
-    public static final String ID = makeID(InnateModifier.class.getSimpleName());
+    public static final String ID = makeID(EtherealModifier.class.getSimpleName());
 
-    public InnateModifier() {}
+    public EtherealModifier() {}
 
     public boolean shouldApply(AbstractCard card) {
-        if (card.isInnate)
+        if (card.isEthereal)
             return false;
         if (CommonKeywordIconsField.useIcons.get(card))
             return true;
-        CardModifierManager.addModifier(card, new InnateMod());
+        CardModifierManager.addModifier(card, new EtherealMod());
         return false;
     }
 
     public void onInitialApplication(AbstractCard card) {
-        card.isInnate = true;
+        card.isEthereal = true;
     }
 
     public void onRemove(AbstractCard card) {
-        card.isInnate = false;
+        card.isEthereal = false;
     }
 
     public AbstractCardModifier makeCopy() {
-        return new InnateModifier();
+        return new EtherealModifier();
     }
 
     public String identifier(AbstractCard card) {

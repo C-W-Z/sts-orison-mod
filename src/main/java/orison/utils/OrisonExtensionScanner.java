@@ -1,4 +1,4 @@
-package orison.core;
+package orison.utils;
 
 import javassist.ClassPool;
 import javassist.CtClass;

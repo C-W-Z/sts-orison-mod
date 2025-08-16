@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import basemod.helpers.CardModifierManager;
+import orison.cardmodifiers.RetainModifier;
 import orison.core.abstracts.AbstractOrison;
-import orison.core.cardmodifiers.RetainModifier;
 
 // 鏡像
 @SaveIgnore

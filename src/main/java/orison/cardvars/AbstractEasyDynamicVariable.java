@@ -1,4 +1,4 @@
-package orison.core.cardvars;
+package orison.cardvars;
 
 import basemod.abstracts.DynamicVariable;
 

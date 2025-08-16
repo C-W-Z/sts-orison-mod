@@ -1,4 +1,4 @@
-package orison.core.cardmodifiers;
+package orison.cardmodifiers;
 
 import static orison.core.OrisonMod.makeID;
 

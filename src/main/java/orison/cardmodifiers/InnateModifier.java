@@ -1,7 +1,7 @@
-package orison.core.cardmodifiers;
+package orison.cardmodifiers;
 
 import basemod.abstracts.AbstractCardModifier;
-import basemod.cardmods.RetainMod;
+import basemod.cardmods.InnateMod;
 import basemod.helpers.CardModifierManager;
 
 import static orison.core.OrisonMod.makeID;
@@ -9,31 +9,31 @@ import static orison.core.OrisonMod.makeID;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.CommonKeywordIconsField;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
-public class RetainModifier extends AbstractCardModifier {
+public class InnateModifier extends AbstractCardModifier {
 
-    public static final String ID = makeID(RetainModifier.class.getSimpleName());
+    public static final String ID = makeID(InnateModifier.class.getSimpleName());
 
-    public RetainModifier() {}
+    public InnateModifier() {}
 
     public boolean shouldApply(AbstractCard card) {
-        if (card.selfRetain)
+        if (card.isInnate)
             return false;
         if (CommonKeywordIconsField.useIcons.get(card))
             return true;
-        CardModifierManager.addModifier(card, new RetainMod());
+        CardModifierManager.addModifier(card, new InnateMod());
         return false;
     }
 
     public void onInitialApplication(AbstractCard card) {
-        card.selfRetain = true;
+        card.isInnate = true;
     }
 
     public void onRemove(AbstractCard card) {
-        card.selfRetain = false;
+        card.isInnate = false;
     }
 
     public AbstractCardModifier makeCopy() {
-        return new RetainModifier();
+        return new InnateModifier();
     }
 
     public String identifier(AbstractCard card) {

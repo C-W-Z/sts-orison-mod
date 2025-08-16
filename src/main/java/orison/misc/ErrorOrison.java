@@ -1,4 +1,4 @@
-package orison.core;
+package orison.misc;
 
 import static orison.core.OrisonMod.makeID;
 

@@ -1,4 +1,4 @@
-package orison.core.actions;
+package orison.actions;
 
 import com.evacipated.cardcrawl.mod.stslib.actions.common.SelectCardsCenteredAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;

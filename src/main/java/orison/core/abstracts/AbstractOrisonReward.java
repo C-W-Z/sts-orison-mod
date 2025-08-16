@@ -17,7 +17,7 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.CustomReward;
 import basemod.helpers.CardModifierManager;
-import orison.core.cardmodifiers.ShowOrisonChangeModifier;
+import orison.cardmodifiers.ShowOrisonChangeModifier;
 
 public abstract class AbstractOrisonReward extends CustomReward {
 

@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.random.Random;
 
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
+import orison.misc.ErrorOrison;
 
 public class OrisonLib {
 

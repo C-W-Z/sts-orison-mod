@@ -1,4 +1,4 @@
-package orison.core.cardmodifiers;
+package orison.cardmodifiers;
 
 import basemod.abstracts.AbstractCardModifier;
 import basemod.cardmods.ExhaustMod;
