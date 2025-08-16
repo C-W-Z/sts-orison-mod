@@ -15,8 +15,8 @@ import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import basemod.Pair;
 import basemod.abstracts.CustomSavable;
 import basemod.helpers.CardModifierManager;
-import orison.core.OrisonLib;
 import orison.core.abstracts.AbstractOrison;
+import orison.core.libs.OrisonLib;
 
 public class OrisonSave implements CustomSavable<List<List<Pair<String, Boolean>>>> {
 

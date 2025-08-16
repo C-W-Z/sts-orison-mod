@@ -1,4 +1,4 @@
-package orison.core;
+package orison.core.libs;
 
 import static orison.core.OrisonMod.orisonExtensions;
 

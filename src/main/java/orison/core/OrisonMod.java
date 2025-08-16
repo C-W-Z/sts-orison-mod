@@ -10,6 +10,8 @@ import orison.core.abstracts.AbstractEasyCard;
 import orison.core.abstracts.AbstractEasyPotion;
 import orison.core.abstracts.AbstractEasyRelic;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.libs.OrisonLib;
+import orison.core.libs.RewardLib;
 import orison.core.savables.OrisonSave;
 import orison.utils.OrisonExtensionScanner;
 import orison.utils.ProAudio;

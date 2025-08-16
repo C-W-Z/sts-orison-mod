@@ -11,11 +11,11 @@ import org.apache.logging.log4j.Logger;
 import com.evacipated.cardcrawl.mod.stslib.icons.CustomIconHelper;
 
 import basemod.AutoAdd;
-import orison.core.OrisonLib;
 import orison.core.OrisonMod;
 import orison.core.abstracts.AbstractIcon;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.libs.OrisonLib;
 
 @OrisonExtension.Initializer
 public class VanillaExtension implements OrisonExtension {

@@ -15,11 +15,11 @@ import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import basemod.AutoAdd;
-import orison.core.OrisonLib;
 import orison.core.OrisonMod;
 import orison.core.abstracts.AbstractIcon;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.libs.OrisonLib;
 
 @OrisonExtension.Initializer
 public class MorimensModExtension implements OrisonExtension {
