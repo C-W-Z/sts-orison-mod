@@ -14,8 +14,10 @@ import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
+import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.CustomReward;
 import basemod.helpers.CardModifierManager;
+import orison.core.cardmodifiers.ShowOrisonChangeModifier;
 
 public abstract class AbstractOrisonReward extends CustomReward {
 
@@ -54,7 +56,9 @@ public abstract class AbstractOrisonReward extends CustomReward {
         // 不知道為啥在AbstractDungeon.effectList加ShowCardBrieflyEffect沒有任何反應，要加在topLevelEffects
         // 明明那些升級卡牌的事件是加在effectList的，很奇怪
         // 也有可能是effectList會被CombatRewardScreen擋住？
-        AbstractDungeon.topLevelEffects.add(new ShowCardBrieflyEffect(cards.get(i), Settings.WIDTH / 2F, Settings.HEIGHT / 2F));
+        AbstractDungeon.topLevelEffects.add(
+                new ShowCardBrieflyEffect(cardsToApplyOrison.get(i).makeStatEquivalentCopy(),
+                        Settings.WIDTH / 2F, Settings.HEIGHT / 2F));
         AbstractDungeon.topLevelEffects.add(new UpgradeShineEffect(Settings.WIDTH / 2F, Settings.HEIGHT / 2F));
     }
 
@@ -63,12 +67,17 @@ public abstract class AbstractOrisonReward extends CustomReward {
         cards = new ArrayList<>();
         for (int i = 0; i < orisons.size() && i < cardsToApplyOrison.size(); i++) {
             AbstractCard tmpCard = cardsToApplyOrison.get(i).makeStatEquivalentCopy();
-            CardModifierManager.addModifier(tmpCard, orisons.get(i));
+            AbstractOrison oldOrison = getOldOrison(tmpCard);
+            if (oldOrison == null)
+                CardModifierManager.addModifier(tmpCard, orisons.get(i));
+            else
+                CardModifierManager.addModifier(tmpCard, new ShowOrisonChangeModifier(oldOrison, orisons.get(i)));
             cards.add(tmpCard);
         }
     }
 
-    protected static List<AbstractCard> getCardsWithoutOrisonFirst(List<AbstractCard> cards, int amount, Random random) {
+    protected static List<AbstractCard> getCardsWithoutOrisonFirst(List<AbstractCard> cards, int amount,
+            Random random) {
         List<AbstractCard> orisonCards = new ArrayList<>();
         List<AbstractCard> noOrisonCards = new ArrayList<>();
         for (AbstractCard c : cards) {
@@ -89,5 +98,12 @@ public abstract class AbstractOrisonReward extends CustomReward {
             orisonCards.remove(c);
         }
         return ret;
+    }
+
+    protected static AbstractOrison getOldOrison(AbstractCard card) {
+        for (AbstractCardModifier m : CardModifierManager.modifiers(card))
+            if (m instanceof AbstractOrison)
+                return (AbstractOrison) m;
+        return null;
     }
 }

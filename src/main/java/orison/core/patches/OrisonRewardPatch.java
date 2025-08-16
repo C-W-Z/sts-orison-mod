@@ -6,6 +6,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInsertLocator;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
 
@@ -42,6 +43,17 @@ public class OrisonRewardPatch {
                 int[] lines = LineFinder.findInOrder(ctMethodToPatch, matcher);
                 return new int[] { lines[0] + 1 };
             }
+        }
+    }
+
+    @SpirePatch2(clz = MonsterRoom.class, method = "dropReward")
+    public static class MonsterRewardPatch {
+
+        @SpirePostfixPatch()
+        public static void Postfix(MonsterRoom __instance) {
+            RandomOrisonReward reward = new RandomOrisonReward(3);
+            if (reward.canAddToRewards())
+                __instance.rewards.add(reward);
         }
     }
 }

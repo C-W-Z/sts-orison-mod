@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.Settings;
+
+import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
@@ -97,26 +99,28 @@ public abstract class AbstractOrison extends AbstractCardModifier {
 
     @Override
     public void onRender(AbstractCard card, SpriteBatch sb) {
-        Texture toDraw = (hasAdv && adv) ? advImage : image;
-        Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
-        if (disabled && hasDisabledImg)
-            toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
+        Pair<Texture, Color> imgAndColor = getImageAndColor();
         Vector2 offset = new Vector2(-115, 115);
-        onRenderHelper(sb, card, toDraw, offset, 80, 80, color, 1);
+        onRenderHelper(sb, card, imgAndColor.getKey(), offset, 80, 80, imgAndColor.getValue());
     }
 
     @Override
     public void onSingleCardViewRender(AbstractCard card, SpriteBatch sb) {
+        Pair<Texture, Color> imgAndColor = getImageAndColor();
+        Vector2 offset = new Vector2(-230, 230);
+        onSCVRenderHelper(card, sb, imgAndColor.getKey(), offset, 160, 160, imgAndColor.getValue());
+    }
+
+    public Pair<Texture, Color> getImageAndColor() {
         Texture toDraw = (hasAdv && adv) ? advImage : image;
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;
-        Vector2 offset = new Vector2(-230, 230);
-        onSCVRenderHelper(card, sb, color, toDraw, offset, 160, 160);
+        return new Pair<>(toDraw, color);
     }
 
-    protected void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Color color, Texture img,
-            Vector2 offset, float width, float height) {
+    public void onSCVRenderHelper(AbstractCard card, SpriteBatch sb, Texture img,
+            Vector2 offset, float width, float height, Color color) {
         sb.setColor(color);
         float cX = Settings.WIDTH / 2F + offset.x;
         float cY = Settings.HEIGHT / 2F + offset.y;
@@ -131,8 +135,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
                 false, false);
     }
 
-    protected static void onRenderHelper(SpriteBatch sb, AbstractCard card, Texture img, Vector2 offset,
-            float width, float height, Color color, float scaleModifier) {
+    public static void onRenderHelper(SpriteBatch sb, AbstractCard card, Texture img, Vector2 offset,
+            float width, float height, Color color) {
         if (card.angle != 0.0F)
             offset.rotate(card.angle);
         offset.scl(Settings.scale * card.drawScale);
@@ -144,8 +148,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
                 cY - height / 2f,
                 width / 2f, height / 2f,
                 width, height,
-                card.drawScale * Settings.scale * scaleModifier,
-                card.drawScale * Settings.scale * scaleModifier,
+                card.drawScale * Settings.scale,
+                card.drawScale * Settings.scale,
                 card.angle, 0, 0,
                 img.getWidth(), img.getHeight(),
                 false, false);
