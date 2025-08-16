@@ -1,31 +1,30 @@
 package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
+import static orison.utils.Wiz.actT;
 
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
+import basemod.helpers.CardModifierManager;
 import orison.core.abstracts.AbstractOrison;
+import orison.core.cardmodifiers.RetainModifier;
 
-// 靈感
+// 鏡像
 @SaveIgnore
-public class Insight extends AbstractOrison {
+public class Mirror extends AbstractOrison {
 
-    public static final String ID = makeID(Insight.class.getSimpleName());
+    public static final String ID = makeID(Mirror.class.getSimpleName());
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(ID);
 
-    private static AbstractCard cardToShuffle = new com.megacrit.cardcrawl.cards.tempCards.Insight();
-
-    public Insight() {
+    public Mirror() {
         this(false);
     }
 
-    public Insight(boolean adv) {
+    public Mirror(boolean adv) {
         super(ID, DEFAULT_RARITY / 2F, true, false, adv);
     }
 
@@ -34,14 +33,18 @@ public class Insight extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        // 裡面會呼叫makeStatEquivalentCopy()
-        addToBot(new MakeTempCardInDrawPileAction(cardToShuffle, getValue(adv), true, true));
+    public boolean onBattleStart(AbstractCard card) {
+        AbstractCard copy = card.makeStatEquivalentCopy();
+        CardModifierManager.removeModifiersById(copy, id, false);
+        CardModifierManager.addModifier(copy, new RetainModifier());
+        addToBot(new MakeTempCardInDrawPileAction(copy, getValue(adv), true, true));
+        actT(() -> CardModifierManager.addModifier(card, new RetainModifier()));
+        return true;
     }
 
     @Override
     public AbstractOrison newInstance(boolean adv) {
-        return new Insight(adv);
+        return new Mirror(adv);
     }
 
     @Override
@@ -51,6 +54,6 @@ public class Insight extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv), cardToShuffle.name);
+        return String.format(uiStrings.TEXT[2], getValue(adv));
     }
 }

@@ -62,7 +62,7 @@
     "TEXT": [
       "Mirror [${ModID}:MirrorIcon]",
       "Adv. Mirror",
-      "When the battle starts, shuffle #b%d copy(s) of into the Draw Pile. This card and the mirror cards will become #yRetain."
+      "When the battle starts, shuffle #b%d copy(s) of this card into the Draw Pile. This card and the mirror cards will become #yRetain."
     ]
   },
   "${ModID}:Spike": {
