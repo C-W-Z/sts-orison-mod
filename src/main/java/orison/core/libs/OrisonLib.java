@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,16 +42,6 @@ public class OrisonLib {
         return id2Orison.getOrDefault(ID, getErrorOrison()).newInstance(adv);
     }
 
-    public static List<AbstractOrison> getRandomCommonOrison(boolean adv, int amount, boolean allowDup) {
-        List<AbstractOrison> pool = new ArrayList<>();
-
-        for (OrisonExtension extensions : orisonExtensions)
-            extensions.addCommonOrisonsToPool(pool, adv);
-
-        pool.removeIf(Objects::isNull);
-        return pickRandomByRarity(pool, amount, allowDup, AbstractDungeon.miscRng);
-    }
-
     public static void addSpecificOrisonsToPool(List<AbstractOrison> pool, List<AbstractOrison> orisons, boolean adv) {
         for (AbstractOrison o : orisons)
             pool.add(o.newInstance(adv));
@@ -58,6 +49,25 @@ public class OrisonLib {
 
     public static AbstractOrison getErrorOrison() {
         return new ErrorOrison();
+    }
+
+    public static List<AbstractOrison> getRandomCommonOrison(boolean adv, int amount, boolean allowDup) {
+        return getRandomCommonOrison(adv, amount, allowDup, null);
+    }
+
+    public static List<AbstractOrison> getRandomCommonOrison(boolean adv, int amount, boolean allowDup, Predicate<AbstractOrison> except) {
+        List<AbstractOrison> pool = new ArrayList<>();
+
+        for (OrisonExtension extensions : orisonExtensions)
+            extensions.addCommonOrisonsToPool(pool, adv);
+
+        pool.removeIf(Objects::isNull);
+        if (except != null)
+            pool.removeIf(except);
+        List<AbstractOrison> ret = pickRandomByRarity(pool, amount, allowDup, AbstractDungeon.miscRng);
+        logger.debug("getRandomCommonOrison");
+        ret.forEach(o -> logger.debug("rolled: " + o.id));
+        return ret;
     }
 
     /**
@@ -70,7 +80,8 @@ public class OrisonLib {
      */
     public static List<AbstractOrison> pickRandomByRarity(List<AbstractOrison> list, int n, boolean allowDup, Random random) {
         if (list == null || list.isEmpty() || n <= 0) {
-            return Collections.emptyList();
+            // 不能用Collections.emptyList()，因為那是不可變的List
+            return new ArrayList<>();
         }
 
         if (!allowDup && n >= list.size()) {

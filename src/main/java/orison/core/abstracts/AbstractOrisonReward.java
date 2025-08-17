@@ -8,12 +8,15 @@ import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
+import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.CustomReward;
 import basemod.helpers.CardModifierManager;
@@ -76,28 +79,34 @@ public abstract class AbstractOrisonReward extends CustomReward {
         }
     }
 
-    protected static List<AbstractCard> getCardsWithoutOrisonFirst(List<AbstractCard> cards, int amount,
-            Random random) {
+    /** @return Pair of no-orison card list and with-orison card list */
+    protected static Pair<List<AbstractCard>, List<AbstractCard>> getCardsWithoutOrisonFirst(
+            List<AbstractCard> cards, int amount, Random random) {
         List<AbstractCard> orisonCards = new ArrayList<>();
         List<AbstractCard> noOrisonCards = new ArrayList<>();
         for (AbstractCard c : cards) {
+            if (!canApplyOrison(c))
+                continue;
             if (CardModifierManager.modifiers(c).stream().anyMatch(AbstractOrison.class::isInstance))
                 orisonCards.add(c);
             else
                 noOrisonCards.add(c);
         }
-        List<AbstractCard> ret = new ArrayList<>();
-        while (ret.size() < amount && !noOrisonCards.isEmpty()) {
+        List<AbstractCard> first = new ArrayList<>();
+        while (first.size() < amount && !noOrisonCards.isEmpty()) {
             AbstractCard c = noOrisonCards.get(random.random(noOrisonCards.size() - 1));
-            ret.add(c);
+            first.add(c);
             noOrisonCards.remove(c);
+            logger.debug("Rolled no-orison card: " + c.cardID);
         }
-        while (ret.size() < amount && !orisonCards.isEmpty()) {
+        List<AbstractCard> second = new ArrayList<>();
+        while (first.size() + second.size() < amount && !orisonCards.isEmpty()) {
             AbstractCard c = orisonCards.get(random.random(orisonCards.size() - 1));
-            ret.add(c);
+            second.add(c);
             orisonCards.remove(c);
+            logger.debug("Rolled with-orison card: " + c.cardID);
         }
-        return ret;
+        return new Pair<>(first, second);
     }
 
     protected static AbstractOrison getOldOrison(AbstractCard card) {
@@ -105,5 +114,11 @@ public abstract class AbstractOrisonReward extends CustomReward {
             if (m instanceof AbstractOrison)
                 return (AbstractOrison) m;
         return null;
+    }
+
+    protected static boolean canApplyOrison(AbstractCard card) {
+        return card.cost >= -1
+                && card.type != CardType.STATUS && card.type != CardType.CURSE
+                && card.rarity != CardRarity.CURSE;
     }
 }
