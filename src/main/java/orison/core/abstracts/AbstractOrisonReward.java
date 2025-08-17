@@ -8,8 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.random.Random;
@@ -85,7 +83,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
         List<AbstractCard> orisonCards = new ArrayList<>();
         List<AbstractCard> noOrisonCards = new ArrayList<>();
         for (AbstractCard c : cards) {
-            if (!canApplyOrison(c))
+            if (!AbstractOrison.canApplyOrison(c))
                 continue;
             if (CardModifierManager.modifiers(c).stream().anyMatch(AbstractOrison.class::isInstance))
                 orisonCards.add(c);
@@ -114,11 +112,5 @@ public abstract class AbstractOrisonReward extends CustomReward {
             if (m instanceof AbstractOrison)
                 return (AbstractOrison) m;
         return null;
-    }
-
-    protected static boolean canApplyOrison(AbstractCard card) {
-        return card.cost >= -1
-                && card.type != CardType.STATUS && card.type != CardType.CURSE
-                && card.rarity != CardRarity.CURSE;
     }
 }

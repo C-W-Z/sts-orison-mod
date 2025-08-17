@@ -36,7 +36,7 @@ public class ShowOrisonChangeModifier extends AbstractCardModifier {
 
     @Override
     public boolean shouldApply(AbstractCard card) {
-        CardModifierManager.modifiers(card).removeIf(AbstractOrison.class::isInstance);
+        AbstractOrison.removeAllOrisons(card);
         CardModifierManager.modifiers(card).removeIf(ShowOrisonChangeModifier.class::isInstance);
         return true;
     }
