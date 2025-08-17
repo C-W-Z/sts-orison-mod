@@ -13,7 +13,7 @@
     "TEXT": [
       "Burst [${ModID}:BurstIcon]",
       "Adv. Burst",
-      "Gain #b%d #yTemporary #yStrength after playing this card. This card also benefit from the #yStrength gained."
+      "Gain #b%d #yTemporary #yStrength after playing this card."
     ]
   },
   "${ModID}:Computation": {
@@ -55,7 +55,7 @@
     "TEXT": [
       "Might [${ModID}:MightIcon]",
       "Adv. Might",
-      "Gain #b%d #yStrength after playing this card. This card also benefit from the #yStrength gained."
+      "Gain #b%d #yStrength after playing this card."
     ]
   },
   "${ModID}:Mirror": {

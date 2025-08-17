@@ -15,7 +15,7 @@ import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import orison.actions.TriggerAllEnemiesPoisonAction;
 import orison.core.abstracts.AbstractOrison;
 
-// 中毒
+// 毒素
 @SaveIgnore
 public class Toxin extends AbstractOrison {
 

@@ -93,6 +93,8 @@ public class OrisonMod implements
 
     public static Settings.GameLanguage[] SupportedLanguages = {
             Settings.GameLanguage.ENG,
+            Settings.GameLanguage.ZHS,
+            Settings.GameLanguage.ZHT,
     };
 
     private String getLangString() {
