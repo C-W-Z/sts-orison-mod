@@ -1,21 +1,25 @@
 package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
-import static orison.utils.Wiz.actT;
+
+import java.util.Arrays;
+import java.util.List;
 
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
+import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import basemod.helpers.CardModifierManager;
 import orison.cardmodifiers.RetainModifier;
 import orison.core.abstracts.AbstractOrison;
+import orison.core.interfaces.OnInitializeDeck;
 
 // 鏡像
 @SaveIgnore
-public class Mirror extends AbstractOrison {
+public class Mirror extends AbstractOrison implements OnInitializeDeck {
 
     public static final String ID = makeID(Mirror.class.getSimpleName());
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(ID);
@@ -33,12 +37,15 @@ public class Mirror extends AbstractOrison {
     }
 
     @Override
+    public List<AbstractCardModifier> onInitDeckToAddModifiers() {
+        return Arrays.asList(new RetainModifier());
+    }
+
+    @Override
     public boolean onBattleStart(AbstractCard card) {
         AbstractCard copy = card.makeStatEquivalentCopy();
-        CardModifierManager.removeModifiersById(copy, id, false);
-        CardModifierManager.addModifier(copy, new RetainModifier());
+        CardModifierManager.removeModifiersById(copy, id, true);
         addToBot(new MakeTempCardInDrawPileAction(copy, getValue(adv), true, true));
-        actT(() -> CardModifierManager.addModifier(card, new RetainModifier()));
         return true;
     }
 
