@@ -6,4 +6,6 @@ import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
 public class RewardTypePatch {
     @SpireEnum
     public static RewardType RandomOrisonReward;
+    @SpireEnum
+    public static RewardType RandomAdvOrisonReward;
 }

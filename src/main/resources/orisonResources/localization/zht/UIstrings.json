@@ -2,8 +2,17 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["刻印與設定"]
   },
+  "${ModID}:OrisonMenuScreen": {
+    "TEXT": [],
+    "TEXT_DICT": {
+      "": ""
+    }
+  },
   "${ModID}:RandomOrisonReward": {
     "TEXT": ["選擇一個刻印"]
+  },
+  "${ModID}:RandomAdvOrisonReward": {
+    "TEXT": ["選擇一個高級刻印"]
   },
   "${ModID}:Bastion": {
     "TEXT": [

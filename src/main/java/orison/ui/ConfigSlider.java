@@ -44,14 +44,11 @@ public class ConfigSlider implements ConfigUIElement {
 
     @Override
     public void render(SpriteBatch sb) {
-        float y = slider.getY();
-        FontHelper.renderSmartText(sb,
+        FontHelper.renderFontLeft(sb,
                 FontHelper.charDescFont,
                 description,
                 DRAW_START_X,
-                y,
-                text_max_width,
-                line_spacing,
+                slider.getY(),
                 Settings.CREAM_COLOR);
         slider.render(sb);
     }

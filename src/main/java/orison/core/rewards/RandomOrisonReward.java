@@ -32,28 +32,38 @@ public class RandomOrisonReward extends AbstractOrisonReward {
     private static final Texture ICON = TexLoader.getTexture(makeRewardPath(TYPE.name() + ".png"));
     private static final String TEXT = CardCrawlGame.languagePack.getUIString(makeID(TYPE.name())).TEXT[0];
 
-    public static final boolean ADV = false;
+    public boolean adv;
     public int amount;
 
     public RandomOrisonReward(int amount) {
-        super(ICON, TEXT, TYPE);
+        this(ICON, TEXT, TYPE, amount, false);
+    }
+
+    public RandomOrisonReward(Texture icon, String text, RewardType type, int amount, boolean adv) {
+        super(icon, text, type);
         this.amount = amount;
+        this.adv = adv;
 
         Pair<List<AbstractCard>, List<AbstractCard>> cardsRolled = getCardsWithoutOrisonFirst(
                 AbstractDungeon.player.masterDeck.group, amount, AbstractDungeon.cardRandomRng);
         List<AbstractCard> noOrisoCards = cardsRolled.getKey();
         List<AbstractCard> withOrisoCards = cardsRolled.getValue();
 
-        orisons = OrisonLib.getRandomCommonOrison(ADV, noOrisoCards.size(), false);
+        orisons = OrisonLib.getRandomCommonOrison(adv, noOrisoCards.size(), false);
         if (orisons.size() < noOrisoCards.size())
-            orisons.addAll(OrisonLib.getRandomCommonOrison(ADV, noOrisoCards.size() - orisons.size(), true));
+            orisons.addAll(OrisonLib.getRandomCommonOrison(adv, noOrisoCards.size() - orisons.size(), true));
         orisons.forEach(o -> logger.debug("Rolled orison: " + o.id + " on no-orison card"));
 
         for (AbstractCard c : withOrisoCards) {
             List<AbstractCardModifier> oldOrisons = CardModifierManager.modifiers(c)
                     .stream().filter(AbstractOrison.class::isInstance).collect(Collectors.toList());
             oldOrisons.forEach(o -> logger.debug("card " + c.cardID + " has orison: " + o.identifier(c)));
-            List<AbstractOrison> newOrisons = OrisonLib.getRandomCommonOrison(ADV, 1, false, oldOrisons::contains);
+            List<AbstractOrison> newOrisons = OrisonLib.getRandomCommonOrison(adv, 1, false, o -> {
+                for (AbstractCardModifier old : oldOrisons)
+                    if (old.identifier(c).equals(o.id) && ((AbstractOrison) old).adv == o.adv)
+                        return true;
+                return false;
+            });
             if (newOrisons == null || newOrisons.isEmpty()) {
                 logger.error("Rolled orison is NULL or EMPTY on with-orison card: " + c.cardID);
                 continue;

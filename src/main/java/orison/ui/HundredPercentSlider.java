@@ -120,7 +120,7 @@ public class HundredPercentSlider implements ConfigUIElement {
 
             FontHelper.renderFontCentered(sb,
                     FontHelper.tipBodyFont,
-                    df.format((this.volume * 100.0F)) + '%',
+                    df.format(this.volume * 100.0F) + '%',
                     BG_X + 170.0F * Settings.scale,
                     this.y,
                     Settings.GREEN_TEXT_COLOR);
@@ -129,7 +129,7 @@ public class HundredPercentSlider implements ConfigUIElement {
 
             FontHelper.renderFontCentered(sb,
                     FontHelper.tipBodyFont,
-                    df.format((this.volume * 100.0F)) + '%',
+                    df.format(this.volume * 100.0F) + '%',
                     BG_X + 170.0F * Settings.scale,
                     this.y,
                     Settings.BLUE_TEXT_COLOR);
