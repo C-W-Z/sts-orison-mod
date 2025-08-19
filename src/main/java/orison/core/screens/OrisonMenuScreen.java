@@ -5,11 +5,13 @@ import static orison.core.OrisonMod.makeUIPath;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.GameCursor;
 import com.megacrit.cardcrawl.core.Settings;
@@ -27,10 +29,15 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.abstracts.AbstractOrison;
 import orison.core.libs.OrisonLib;
+import orison.ui.ConfigSlider;
+import orison.ui.ConfigUIs;
+import orison.ui.HundredPercentSlider;
 import orison.ui.OrisonUIElement;
 import orison.utils.TexLoader;
 
 public class OrisonMenuScreen implements ScrollBarListener {
+
+    private static final Logger logger = LogManager.getLogger(OrisonMenuScreen.class);
 
     public static OrisonMenuScreen instance = null;
 
@@ -39,6 +46,7 @@ public class OrisonMenuScreen implements ScrollBarListener {
     public static final int ORISONS_PER_LINE = 6;
     public static final float ORISON_GAP = 50 * Settings.scale;
     public static final float PAD = OrisonUIElement.SIZE + ORISON_GAP;
+
     public static final float DRAW_START_X = 420F * Settings.scale + OrisonUIElement.SIZE / 2F;
     public static final float DRAW_START_Y = Settings.HEIGHT / 2F;
 
@@ -67,6 +75,10 @@ public class OrisonMenuScreen implements ScrollBarListener {
     private Hitbox prevBgHb;
     private Hitbox nextBgHb;
 
+    /* ===== TEST FOR SLIDER ===== */
+    // private HundredPercentSlider slider;
+    private ConfigUIs configUIs;
+
     public OrisonMenuScreen() {
         cancelButton = new MenuCancelButton();
 
@@ -82,6 +94,12 @@ public class OrisonMenuScreen implements ScrollBarListener {
         nextBgHb.move(BG_CHOICE_CX + BG_CHOICE_ARROW_GAP_X, BG_CHOICE_CY);
 
         scrollbar = new ScrollBar(this);
+
+        // slider = new HundredPercentSlider(1235 * Settings.xScale, Settings.HEIGHT - 200 * Settings.scale, 0.25F, v -> {
+        //     logger.info("slider: " + MathUtils.round(v * 100F));
+        // });
+        logger.info("Slider X: " + (ConfigSlider.DRAW_END_X - HundredPercentSlider.SLIDE_W));
+        configUIs = new ConfigUIs(Settings.HEIGHT - 200 * Settings.scale);
 
         orisonUIs = new ArrayList<OrisonUIElement>();
         for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
@@ -148,6 +166,10 @@ public class OrisonMenuScreen implements ScrollBarListener {
         if (!CardCrawlGame.cardPopup.isOpen && !isScrollBarScrolling)
             updateScrolling();
 
+        // slider.setTargetY(Settings.HEIGHT - 200 * Settings.scale + scrollY);
+        // slider.update();
+        configUIs.setTargetY(Settings.HEIGHT - 200 * Settings.scale + scrollY);
+        configUIs.update();
         updateOrisons();
 
         cancelButton.update();
@@ -167,6 +189,9 @@ public class OrisonMenuScreen implements ScrollBarListener {
         renderBackgroundChoice(sb);
 
         scrollbar.render(sb);
+
+        // slider.render(sb);
+        configUIs.render(sb);
 
         for (OrisonUIElement orisonUI : orisonUIs)
             orisonUI.render(sb);
