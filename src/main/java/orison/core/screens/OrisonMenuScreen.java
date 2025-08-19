@@ -13,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.GameCursor;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.Hitbox;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.controller.CInputHelper;
@@ -24,13 +27,14 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.abstracts.AbstractOrison;
 import orison.core.libs.OrisonLib;
+import orison.ui.OrisonUIElement;
 import orison.utils.TexLoader;
 
 public class OrisonMenuScreen implements ScrollBarListener {
 
     public static OrisonMenuScreen instance = null;
 
-    public static final String BG_URL = makeUIPath("OrisonMenuScreen/BG.png");
+    public static final String BG_URL = makeUIPath("OrisonMenuScreen/bg/1.png");
 
     public static final int ORISONS_PER_LINE = 6;
     public static final float ORISON_GAP = 50 * Settings.scale;
@@ -40,26 +44,42 @@ public class OrisonMenuScreen implements ScrollBarListener {
 
     private float scrollLowerBound = -Settings.DEFAULT_SCROLL_LIMIT;
     private float scrollUpperBound = Settings.DEFAULT_SCROLL_LIMIT;
-
-    private Texture bg;
+    private ScrollBar scrollbar;
+    private float scrollY = 0;
+    private boolean grabbedScreen = false;
+    private float grabStartY = 0F;
 
     private MenuCancelButton cancelButton;
     private List<OrisonUIElement> orisonUIs;
-
-    private ScrollBar scrollbar;
-    private float currentDiffY = 0;
-
-    private boolean grabbedScreen = false;
-    private float grabStartY = 0F;
 
     private OrisonUIElement controllerOrison = null;
     private OrisonUIElement hoveredOrison = null;
     private OrisonUIElement clickStartedOrison = null;
 
+    /* ===== BACKGROUND ===== */
+    public static final int MAX_BG_INDEX = 6;
+    public static final float BG_CHOICE_ARROW_GAP_X = 50 * Settings.scale;
+    public static final float BG_CHOICE_CX = 150 * Settings.scale;
+    public static final float BG_CHOICE_CY = Settings.HEIGHT - 100 * Settings.scale;
+    private List<Texture> bgTextures;
+    private int currentBgIndex = 0;
+    private Texture bg;
+    private Hitbox prevBgHb;
+    private Hitbox nextBgHb;
+
     public OrisonMenuScreen() {
         cancelButton = new MenuCancelButton();
 
-        bg = TexLoader.getTexture(BG_URL);
+        bgTextures = new ArrayList<>();
+        bgTextures.add(null);
+        for (int i = 1; i <= MAX_BG_INDEX; i++)
+            bgTextures.add(TexLoader.getTexture(makeUIPath("OrisonMenuScreen/bg/" + i + ".png")));
+        currentBgIndex = 0;
+        bg = bgTextures.get(currentBgIndex);
+        prevBgHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
+        nextBgHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
+        prevBgHb.move(BG_CHOICE_CX - BG_CHOICE_ARROW_GAP_X, BG_CHOICE_CY);
+        nextBgHb.move(BG_CHOICE_CX + BG_CHOICE_ARROW_GAP_X, BG_CHOICE_CY);
 
         scrollbar = new ScrollBar(this);
 
@@ -80,12 +100,13 @@ public class OrisonMenuScreen implements ScrollBarListener {
     }
 
     public void open() {
+        CardCrawlGame.mainMenuScreen.darken();
         cancelButton.show(CardCrawlGame.languagePack.getUIString("DungeonMapScreen").TEXT[1]);
         InputHelper.justClickedLeft = false;
         InputHelper.justReleasedClickLeft = false;
 
         hoveredOrison = null;
-        currentDiffY = scrollLowerBound;
+        scrollY = scrollLowerBound;
     }
 
     public void close() {
@@ -96,11 +117,13 @@ public class OrisonMenuScreen implements ScrollBarListener {
 
     public void update() {
 
+        updateBackgroundChoice();
+
         if (Settings.isControllerMode && controllerOrison != null && !CardCrawlGame.isPopupOpen) {
             if (Gdx.input.getY() > Settings.HEIGHT * 0.75F)
-                currentDiffY += Settings.SCROLL_SPEED;
+                scrollY += Settings.SCROLL_SPEED;
             else if (Gdx.input.getY() < Settings.HEIGHT * 0.25F)
-                currentDiffY -= Settings.SCROLL_SPEED;
+                scrollY -= Settings.SCROLL_SPEED;
         }
 
         if (hoveredOrison != null) {
@@ -141,6 +164,7 @@ public class OrisonMenuScreen implements ScrollBarListener {
 
     public void render(SpriteBatch sb) {
         renderBackground(sb);
+        renderBackgroundChoice(sb);
 
         scrollbar.render(sb);
 
@@ -156,11 +180,89 @@ public class OrisonMenuScreen implements ScrollBarListener {
             int xIndex = i % ORISONS_PER_LINE;
             int yIndex = i / ORISONS_PER_LINE;
             orisonUIs.get(i).targetX = DRAW_START_X + xIndex * PAD;
-            orisonUIs.get(i).targetY = DRAW_START_Y + currentDiffY - yIndex * PAD;
+            orisonUIs.get(i).targetY = DRAW_START_Y + scrollY - yIndex * PAD;
             orisonUIs.get(i).update();
             if (orisonUIs.get(i).hb.hovered)
                 hoveredOrison = orisonUIs.get(i);
         }
+    }
+
+    private void prevBackground() {
+        // currentBgIndex = (currentBgIndex - 1 + MAX_BG_INDEX + 1) % (MAX_BG_INDEX +
+        // 1);
+        currentBgIndex = (currentBgIndex + MAX_BG_INDEX) % (MAX_BG_INDEX + 1);
+        bg = bgTextures.get(currentBgIndex);
+    }
+
+    private void nextBackground() {
+        currentBgIndex = (currentBgIndex + 1) % (MAX_BG_INDEX + 1);
+        bg = bgTextures.get(currentBgIndex);
+    }
+
+    private void updateBackgroundChoice() {
+        prevBgHb.update();
+        nextBgHb.update();
+
+        if (prevBgHb.clicked) {
+            prevBgHb.clicked = false;
+            CardCrawlGame.sound.play("UI_CLICK_1");
+            prevBackground();
+            // TODO: save in config
+        }
+
+        if (nextBgHb.clicked) {
+            nextBgHb.clicked = false;
+            CardCrawlGame.sound.play("UI_CLICK_1");
+            nextBackground();
+            // TODO: save in config
+        }
+
+        if (InputHelper.justClickedLeft) {
+            if (prevBgHb.hovered)
+                prevBgHb.clickStarted = true;
+            if (nextBgHb.hovered)
+                nextBgHb.clickStarted = true;
+        }
+    }
+
+    private void renderBackgroundChoice(SpriteBatch sb) {
+        sb.setColor(Color.WHITE);
+
+        FontHelper.renderFontCentered(
+                sb,
+                FontHelper.cardTitleFont,
+                "Background",
+                BG_CHOICE_CX,
+                BG_CHOICE_CY + 50,
+                Settings.GOLD_COLOR,
+                1.25F);
+
+        FontHelper.renderFontCentered(
+                sb,
+                FontHelper.cardTitleFont,
+                String.valueOf(currentBgIndex),
+                BG_CHOICE_CX,
+                BG_CHOICE_CY,
+                Settings.GOLD_COLOR);
+
+        if (prevBgHb.hovered)
+            sb.setColor(Color.LIGHT_GRAY);
+        else
+            sb.setColor(Color.WHITE);
+
+        sb.draw(ImageMaster.CF_LEFT_ARROW, prevBgHb.cX - 24.0F, prevBgHb.cY - 24.0F, 24.0F, 24.0F, 48.0F, 48.0F,
+                Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
+
+        if (nextBgHb.hovered)
+            sb.setColor(Color.LIGHT_GRAY);
+        else
+            sb.setColor(Color.WHITE);
+
+        sb.draw(ImageMaster.CF_RIGHT_ARROW, nextBgHb.cX - 24.0F, nextBgHb.cY - 24.0F, 24.0F, 24.0F, 48.0F,
+                48.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
+
+        prevBgHb.render(sb);
+        nextBgHb.render(sb);
     }
 
     private void renderBackground(SpriteBatch sb) {
@@ -193,15 +295,15 @@ public class OrisonMenuScreen implements ScrollBarListener {
         int y = InputHelper.mY;
         if (!grabbedScreen) {
             if (InputHelper.scrolledDown)
-                currentDiffY += Settings.SCROLL_SPEED;
+                scrollY += Settings.SCROLL_SPEED;
             else if (InputHelper.scrolledUp)
-                currentDiffY -= Settings.SCROLL_SPEED;
+                scrollY -= Settings.SCROLL_SPEED;
             if (InputHelper.justClickedLeft) {
                 grabbedScreen = true;
-                grabStartY = y - currentDiffY;
+                grabStartY = y - scrollY;
             }
         } else if (InputHelper.isMouseDown) {
-            currentDiffY = y - grabStartY;
+            scrollY = y - grabStartY;
         } else {
             grabbedScreen = false;
         }
@@ -223,31 +325,29 @@ public class OrisonMenuScreen implements ScrollBarListener {
     }
 
     private void resetScrolling() {
-        if (currentDiffY < scrollLowerBound)
-            currentDiffY = MathHelper.scrollSnapLerpSpeed(currentDiffY, scrollLowerBound);
-        else if (currentDiffY > scrollUpperBound)
-            currentDiffY = MathHelper.scrollSnapLerpSpeed(currentDiffY, scrollUpperBound);
+        if (scrollY < scrollLowerBound)
+            scrollY = MathHelper.scrollSnapLerpSpeed(scrollY, scrollLowerBound);
+        else if (scrollY > scrollUpperBound)
+            scrollY = MathHelper.scrollSnapLerpSpeed(scrollY, scrollUpperBound);
     }
 
     @Override
     public void scrolledUsingBar(float newPercent) {
-        currentDiffY = MathHelper.valueFromPercentBetween(scrollLowerBound, scrollUpperBound,
-                newPercent);
+        scrollY = MathHelper.valueFromPercentBetween(scrollLowerBound, scrollUpperBound, newPercent);
         updateBarPosition();
     }
 
     private void updateBarPosition() {
-        float percent = MathHelper.percentFromValueBetween(scrollLowerBound, scrollUpperBound,
-                currentDiffY);
+        float percent = MathHelper.percentFromValueBetween(scrollLowerBound, scrollUpperBound, scrollY);
         scrollbar.parentScrolledToPercent(percent);
     }
 
     // TODO: 支援Controller Input
     // private void updateControllerInput() {
-    //     if (!Settings.isControllerMode)
-    //         return;
-    //     selectionIndex = 0;
-    //     boolean anyHovered = false;
-    //     // ...
+    // if (!Settings.isControllerMode)
+    // return;
+    // selectionIndex = 0;
+    // boolean anyHovered = false;
+    // // ...
     // }
 }

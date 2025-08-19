@@ -1,10 +1,11 @@
-package orison.core.screens;
+package orison.ui;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -24,7 +25,8 @@ public class OrisonUIElement {
     protected float cX;
     protected float cY;
     protected float drawScale;
-    protected Hitbox hb;
+
+    public Hitbox hb;
 
     public float targetX;
     public float targetY;
@@ -37,8 +39,7 @@ public class OrisonUIElement {
         this.cY = cY * Settings.scale;
         this.drawScale = 1F;
 
-        this.hb = new Hitbox(this.cX - SIZE / 2F, this.cY - SIZE / 2F, SIZE, SIZE);
-        this.hb.resize(SIZE * this.drawScale, SIZE * this.drawScale);
+        this.hb = new Hitbox(SIZE * this.drawScale, SIZE * this.drawScale);
         this.hb.move(this.cX, this.cY);
 
         this.targetX = this.cX;
@@ -62,8 +63,8 @@ public class OrisonUIElement {
 
         updateHoverLogic();
 
-        // if (this.hb.hovered && InputHelper.justClickedLeft)
-        //     this.onClick();
+        if (this.hb.hovered && InputHelper.justClickedLeft)
+            this.onClick();
     }
 
     public void render(SpriteBatch sb) {
@@ -94,6 +95,8 @@ public class OrisonUIElement {
     }
 
     protected void onHover() {
+        CardCrawlGame.sound.playV("UI_HOVER", 0.75F);
+
         this.drawScale = 1.0F;
         this.targetDrawScale = 1.0F;
 
@@ -106,7 +109,9 @@ public class OrisonUIElement {
         this.targetDrawScale = 0.75F;
     }
 
-    // protected void onClick() {}
+    protected void onClick() {
+        CardCrawlGame.sound.playA("UI_CLICK_1", -0.1F);
+    }
 
     void renderHb(SpriteBatch sb) {
         if (this.hb.clickStarted)
