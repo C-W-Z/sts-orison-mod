@@ -1,4 +1,7 @@
 {
+  "${ModID}:ORISON_BUTTON": {
+    "TEXT": ["Orisons and Configs"]
+  },
   "${ModID}:RandomOrisonReward": {
     "TEXT": ["Choose an Orison"]
   },

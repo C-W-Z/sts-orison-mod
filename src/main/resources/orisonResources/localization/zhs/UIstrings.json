@@ -1,4 +1,7 @@
 {
+  "${ModID}:ORISON_BUTTON": {
+    "TEXT": ["刻印与设定"]
+  },
   "${ModID}:RandomOrisonReward": {
     "TEXT": ["选择一个刻印"]
   },
