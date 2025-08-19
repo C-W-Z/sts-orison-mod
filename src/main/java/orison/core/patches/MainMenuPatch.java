@@ -18,7 +18,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 
 import javassist.CtBehavior;
-import orison.core.screens.OrisonMenuScreen;
+import orison.core.screens.OrisonConfigScreen;
 
 public class MainMenuPatch {
 
@@ -68,10 +68,10 @@ public class MainMenuPatch {
             if (__instance.result == Enums.ORISON_BUTTON) {
                 CardCrawlGame.sound.play("UNLOCK_PING");
                 // Open the Orison screen
-                if (OrisonMenuScreen.instance == null) {
-                    OrisonMenuScreen.instance = new OrisonMenuScreen();
+                if (OrisonConfigScreen.instance == null) {
+                    OrisonConfigScreen.instance = new OrisonConfigScreen();
                 }
-                OrisonMenuScreen.instance.open();
+                OrisonConfigScreen.instance.open();
                 CardCrawlGame.mainMenuScreen.screen = Enums.ORISON_VIEW;
             }
         }
@@ -83,7 +83,7 @@ public class MainMenuPatch {
         @SpirePostfixPatch
         public static void updateSpirePass(MainMenuScreen __instance) {
             if (__instance.screen == Enums.ORISON_VIEW) {
-                OrisonMenuScreen.instance.update();
+                OrisonConfigScreen.instance.update();
             }
         }
     }
@@ -94,7 +94,7 @@ public class MainMenuPatch {
         @SpirePostfixPatch
         public static void renderSpirePass(MainMenuScreen __instance, SpriteBatch sb) {
             if (__instance.screen == Enums.ORISON_VIEW) {
-                OrisonMenuScreen.instance.render(sb);
+                OrisonConfigScreen.instance.render(sb);
             }
         }
     }

@@ -35,13 +35,11 @@ import orison.ui.HundredPercentSlider;
 import orison.ui.OrisonUIElement;
 import orison.utils.TexLoader;
 
-public class OrisonMenuScreen implements ScrollBarListener {
+public class OrisonConfigScreen implements ScrollBarListener {
 
-    private static final Logger logger = LogManager.getLogger(OrisonMenuScreen.class);
+    private static final Logger logger = LogManager.getLogger(OrisonConfigScreen.class);
 
-    public static OrisonMenuScreen instance = null;
-
-    public static final String BG_URL = makeUIPath("OrisonMenuScreen/bg/1.png");
+    public static OrisonConfigScreen instance = null;
 
     public static final int ORISONS_PER_LINE = 6;
     public static final float ORISON_GAP = 50 * Settings.scale;
@@ -79,13 +77,13 @@ public class OrisonMenuScreen implements ScrollBarListener {
     // private HundredPercentSlider slider;
     private ConfigUIs configUIs;
 
-    public OrisonMenuScreen() {
+    public OrisonConfigScreen() {
         cancelButton = new MenuCancelButton();
 
         bgTextures = new ArrayList<>();
         bgTextures.add(null);
         for (int i = 1; i <= MAX_BG_INDEX; i++)
-            bgTextures.add(TexLoader.getTexture(makeUIPath("OrisonMenuScreen/bg/" + i + ".png")));
+            bgTextures.add(TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + i + ".png")));
         currentBgIndex = 0;
         bg = bgTextures.get(currentBgIndex);
         prevBgHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);

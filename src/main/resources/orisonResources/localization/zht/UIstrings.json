@@ -2,7 +2,7 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["刻印與設定"]
   },
-  "${ModID}:OrisonMenuScreen": {
+  "${ModID}:OrisonConfigScreen": {
     "TEXT": [],
     "TEXT_DICT": {
       "": ""
