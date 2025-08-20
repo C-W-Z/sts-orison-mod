@@ -28,9 +28,10 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.abstracts.AbstractOrison;
+import orison.core.configs.OrisonConfig;
 import orison.core.libs.OrisonLib;
 import orison.ui.ConfigSlider;
-import orison.ui.ConfigUIs;
+import orison.ui.ConfigOptionPanel;
 import orison.ui.HundredPercentSlider;
 import orison.ui.OrisonUIElement;
 import orison.utils.TexLoader;
@@ -73,19 +74,23 @@ public class OrisonConfigScreen implements ScrollBarListener {
     private Hitbox prevBgHb;
     private Hitbox nextBgHb;
 
-    /* ===== TEST FOR SLIDER ===== */
+    /* ===== UI ===== */
     // private HundredPercentSlider slider;
-    private ConfigUIs configUIs;
+    private ConfigOptionPanel configUIs;
 
     public OrisonConfigScreen() {
         cancelButton = new MenuCancelButton();
 
         bgTextures = new ArrayList<>();
-        bgTextures.add(null);
-        for (int i = 1; i <= MAX_BG_INDEX; i++)
-            bgTextures.add(TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + i + ".png")));
-        currentBgIndex = 0;
-        bg = bgTextures.get(currentBgIndex);
+        for (int i = 0; i <= MAX_BG_INDEX; i++)
+            bgTextures.add(null);
+        currentBgIndex = OrisonConfig.Preference.CONFIG_SCREEN_BG;
+        if (currentBgIndex != 0) {
+            bg = TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + currentBgIndex + ".png"));
+            bgTextures.set(currentBgIndex, bg);
+        } else {
+            bg = null;
+        }
         prevBgHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
         nextBgHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
         prevBgHb.move(BG_CHOICE_CX - BG_CHOICE_ARROW_GAP_X, BG_CHOICE_CY);
@@ -93,11 +98,12 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
         scrollbar = new ScrollBar(this);
 
-        // slider = new HundredPercentSlider(1235 * Settings.xScale, Settings.HEIGHT - 200 * Settings.scale, 0.25F, v -> {
-        //     logger.info("slider: " + MathUtils.round(v * 100F));
+        // slider = new HundredPercentSlider(1235 * Settings.xScale, Settings.HEIGHT -
+        // 200 * Settings.scale, 0.25F, v -> {
+        // logger.info("slider: " + MathUtils.round(v * 100F));
         // });
         logger.info("Slider X: " + (ConfigSlider.DRAW_END_X - HundredPercentSlider.SLIDE_W));
-        configUIs = new ConfigUIs(Settings.HEIGHT - 200 * Settings.scale);
+        configUIs = new ConfigOptionPanel(Settings.HEIGHT - 200 * Settings.scale);
 
         orisonUIs = new ArrayList<OrisonUIElement>();
         for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
@@ -211,15 +217,22 @@ public class OrisonConfigScreen implements ScrollBarListener {
     }
 
     private void prevBackground() {
-        // currentBgIndex = (currentBgIndex - 1 + MAX_BG_INDEX + 1) % (MAX_BG_INDEX +
-        // 1);
+        // currentBgIndex = (currentBgIndex-1 + MAX_BG_INDEX+1) % (MAX_BG_INDEX+1);
         currentBgIndex = (currentBgIndex + MAX_BG_INDEX) % (MAX_BG_INDEX + 1);
         bg = bgTextures.get(currentBgIndex);
+        if (bg == null && currentBgIndex != 0) {
+            bg = TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + currentBgIndex + ".png"));
+            bgTextures.set(currentBgIndex, bg);
+        }
     }
 
     private void nextBackground() {
         currentBgIndex = (currentBgIndex + 1) % (MAX_BG_INDEX + 1);
         bg = bgTextures.get(currentBgIndex);
+        if (bg == null && currentBgIndex != 0) {
+            bg = TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + currentBgIndex + ".png"));
+            bgTextures.set(currentBgIndex, bg);
+        }
     }
 
     private void updateBackgroundChoice() {
@@ -230,14 +243,14 @@ public class OrisonConfigScreen implements ScrollBarListener {
             prevBgHb.clicked = false;
             CardCrawlGame.sound.play("UI_CLICK_1");
             prevBackground();
-            // TODO: save in config
+            OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
         }
 
         if (nextBgHb.clicked) {
             nextBgHb.clicked = false;
             CardCrawlGame.sound.play("UI_CLICK_1");
             nextBackground();
-            // TODO: save in config
+            OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
         }
 
         if (InputHelper.justClickedLeft) {

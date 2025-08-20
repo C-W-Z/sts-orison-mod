@@ -14,12 +14,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
+import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 
 import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.abstracts.AbstractOrisonReward;
+import orison.core.configs.OrisonConfig;
 import orison.core.libs.OrisonLib;
 import orison.core.patches.RewardTypePatch;
 import orison.utils.TexLoader;
@@ -75,6 +79,22 @@ public class RandomOrisonReward extends AbstractOrisonReward {
         cardsToApplyOrison = new ArrayList<>();
         cardsToApplyOrison.addAll(noOrisoCards);
         cardsToApplyOrison.addAll(withOrisoCards);
+
+        for (AbstractOrison o : orisons) {
+            if (o.adv)
+                continue;
+            float advChance = 0F;
+            if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
+                if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)
+                    advChance += OrisonConfig.Reward.BOSS_DROP_ORISON_ADV_CHANCE;
+                else if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite)
+                    advChance += OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE;
+                else
+                    advChance += OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE;
+            }
+            if (AbstractDungeon.miscRng.randomBoolean(advChance))
+                o.adv = true;
+        }
 
         initializeCardsToDisplay();
     }

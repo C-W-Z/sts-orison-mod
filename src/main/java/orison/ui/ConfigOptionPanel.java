@@ -1,17 +1,25 @@
 package orison.ui;
 
+import static orison.core.OrisonMod.makeID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 
+import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.ConfigUIElement;
 
-public class ConfigUIs implements ConfigUIElement {
+public class ConfigOptionPanel implements ConfigUIElement {
+
+    public static Map<String, String> configTextDict = CardCrawlGame.languagePack
+            .getUIString(makeID(ConfigOptionPanel.class.getSimpleName())).TEXT_DICT;
 
     private static float LINE_SPACING = Settings.BIG_TEXT_MODE ? (40.0F * Settings.scale) : (32.0F * Settings.scale);
 
@@ -19,20 +27,18 @@ public class ConfigUIs implements ConfigUIElement {
     private float realHeight;
 
     public static final List<String> descriptions = Arrays.asList(
-            "The chance of normal Monsters dropping Orisons",
-            "The chance of Elites dropping Orisons");
+            configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
+            configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE));
 
     public static final List<Supplier<Float>> values = Arrays.asList(
-            () -> 0.25F,
-            () -> 1F);
+            () -> OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
+            () -> OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE);
 
     public static final List<Consumer<Float>> onChanges = Arrays.asList(
-            v -> {
-            },
-            v -> {
-            });
+            v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v),
+            v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v));
 
-    public ConfigUIs(float y) {
+    public ConfigOptionPanel(float y) {
         float height = 0;
         scrollables = new ArrayList<>();
         for (int i = 0; i < descriptions.size(); i++) {
@@ -42,7 +48,6 @@ public class ConfigUIs implements ConfigUIElement {
                     values.get(i).get(),
                     onChanges.get(i)));
             height += scrollables.get(i).getHeight();
-
         }
         realHeight = height + (scrollables.size() - 1) * LINE_SPACING;
     }

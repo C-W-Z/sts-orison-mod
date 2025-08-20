@@ -9,6 +9,7 @@ import orison.cardvars.AbstractEasyDynamicVariable;
 import orison.core.abstracts.AbstractEasyCard;
 import orison.core.abstracts.AbstractEasyPotion;
 import orison.core.abstracts.AbstractEasyRelic;
+import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.libs.OrisonLib;
 import orison.core.libs.RewardLib;
@@ -224,6 +225,7 @@ public class OrisonMod implements
 
     @Override
     public void receivePostInitialize() {
+        OrisonConfig.initialize();
         initializeOrisonExtensions();
         OrisonLib.initialize();
         RewardLib.initialize();
