@@ -2,8 +2,21 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["Orisons and Configs"]
   },
+  "${ModID}:ConfigOptionPanel": {
+    "TEXT_DICT": {
+      "MONSTER_DROP_ORISON_CHANCE": "Orison Drop Rate after Normal Battles",
+      "MONSTER_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Normal Battles being Adv.",
+      "ELITE_DROP_ORISON_CHANCE": "Orison Drop Rate after Elite Battles",
+      "ELITE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Elite Battles being Adv.",
+      "BOSS_DROP_ORISON_CHANCE": "Orison Drop Rate after Boss Battles",
+      "BOSS_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Boss Battles being Adv."
+    }
+  },
   "${ModID}:RandomOrisonReward": {
-    "TEXT": ["Choose an Orison"]
+    "TEXT": ["Select an Orison"]
+  },
+  "${ModID}:RandomAdvOrisonReward": {
+    "TEXT": ["Select an Adv. Orison"]
   },
   "${ModID}:Bastion": {
     "TEXT": [

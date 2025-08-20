@@ -88,11 +88,23 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
             orisonUIs.add(new OrisonUIElement(orison, x, y));
         }
+        for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
+            AbstractOrison orison = OrisonLib.allOrisons.get(i);
+
+            int xIndex = (i + OrisonLib.allOrisons.size()) % ORISONS_PER_LINE;
+            int yIndex = (i + OrisonLib.allOrisons.size()) / ORISONS_PER_LINE;
+
+            float x = DRAW_START_X + xIndex * PAD;
+            float y = DRAW_START_Y - (configUIs.getHeight() + 2 * ORISON_GAP) - yIndex * PAD;
+
+            orisonUIs.add(new OrisonUIElement(orison.newInstance(true), x, y));
+        }
 
         calculateScrollBounds();
     }
 
     public void open() {
+        CardCrawlGame.sound.play("UNLOCK_PING");
         CardCrawlGame.mainMenuScreen.darken();
         cancelButton.show(CardCrawlGame.languagePack.getUIString("DungeonMapScreen").TEXT[1]);
         InputHelper.justClickedLeft = false;

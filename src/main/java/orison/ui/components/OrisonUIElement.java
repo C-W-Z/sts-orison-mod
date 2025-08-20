@@ -64,7 +64,7 @@ public class OrisonUIElement {
         updateHoverLogic();
 
         if (this.hb.hovered && InputHelper.justClickedLeft)
-            this.onClick();
+            CardCrawlGame.sound.playA("UI_CLICK_1", -0.1F);
     }
 
     public void render(SpriteBatch sb) {
@@ -88,6 +88,8 @@ public class OrisonUIElement {
 
     public void updateHoverLogic() {
         this.hb.update();
+        if (this.hb.justHovered)
+            CardCrawlGame.sound.playV("UI_HOVER", 0.75F);
         if (this.hb.hovered)
             this.onHover();
         else
@@ -95,8 +97,6 @@ public class OrisonUIElement {
     }
 
     protected void onHover() {
-        CardCrawlGame.sound.playV("UI_HOVER", 0.75F);
-
         this.drawScale = 1.0F;
         this.targetDrawScale = 1.0F;
 
@@ -107,10 +107,6 @@ public class OrisonUIElement {
 
     protected void onUnhover() {
         this.targetDrawScale = 0.75F;
-    }
-
-    protected void onClick() {
-        CardCrawlGame.sound.playA("UI_CLICK_1", -0.1F);
     }
 
     void renderHb(SpriteBatch sb) {

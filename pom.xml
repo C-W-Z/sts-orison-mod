@@ -16,7 +16,7 @@
     </properties>
 
     <name>Orison</name>
-    <version>0.0.0</version>
+    <version>1.0.0</version>
     <description>刻印模組</description>
     <groupId>orison</groupId>
     <artifactId>orison</artifactId>

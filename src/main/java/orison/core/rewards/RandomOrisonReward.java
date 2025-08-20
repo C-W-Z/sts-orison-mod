@@ -50,7 +50,7 @@ public class RandomOrisonReward extends AbstractOrisonReward {
         this.adv = adv;
 
         Pair<List<AbstractCard>, List<AbstractCard>> cardsRolled = getCardsWithoutOrisonFirst(
-                AbstractDungeon.player.masterDeck.group, amount, AbstractDungeon.cardRandomRng);
+                AbstractDungeon.player.masterDeck.group, amount, AbstractDungeon.miscRng);
         List<AbstractCard> noOrisoCards = cardsRolled.getKey();
         List<AbstractCard> withOrisoCards = cardsRolled.getValue();
 

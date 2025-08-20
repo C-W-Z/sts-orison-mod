@@ -17,7 +17,7 @@ public class TextConfig implements ConfigUIElement {
     }
 
     public static final float DRAW_START_X = 400F * Settings.scale;
-    public static final float DRAW_END_X = Settings.WIDTH - 400F * Settings.scale - ScrollBar.TRACK_W / 2F;
+    public static final float DRAW_END_X = Settings.WIDTH - 375F * Settings.scale - ScrollBar.TRACK_W / 2F;
 
     private String description;
     private HundredPercentSlider slider;

@@ -66,7 +66,6 @@ public class MainMenuPatch {
         @SpirePostfixPatch
         public static void handleClick(MenuButton __instance) {
             if (__instance.result == Enums.ORISON_BUTTON) {
-                CardCrawlGame.sound.play("UNLOCK_PING");
                 // Open the Orison screen
                 if (OrisonConfigScreen.instance == null) {
                     OrisonConfigScreen.instance = new OrisonConfigScreen();

@@ -24,7 +24,8 @@ public class ConfigScreenBgRenderer {
     public static final int MAX_BG_INDEX = 6;
     public static final float BG_CHOICE_ARROW_GAP_X = 50 * Settings.scale;
     public static final float BG_CHOICE_CX = 150 * Settings.scale;
-    public static final float BG_CHOICE_CY = Settings.HEIGHT - 100 * Settings.scale;
+    public static final float BG_CHOICE_CY = Settings.HEIGHT - 125 * Settings.yScale;
+    public static final float BG_CHOICE_TEXT_CY = Settings.HEIGHT - 75 * Settings.yScale;
     private List<Texture> bgTextures;
     private int currentBgIndex = 0;
     private Texture bg;
@@ -119,7 +120,7 @@ public class ConfigScreenBgRenderer {
                 FontHelper.cardTitleFont,
                 "Background",
                 BG_CHOICE_CX,
-                BG_CHOICE_CY + 50,
+                BG_CHOICE_TEXT_CY,
                 Settings.GOLD_COLOR,
                 1.25F);
 

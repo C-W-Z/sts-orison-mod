@@ -28,6 +28,8 @@ public class OrisonConfig {
                 logger.error("OrisonConfig.Preference.initialize() failed");
                 e.printStackTrace();
             }
+
+            loadConfigs();
         }
 
         public static void loadConfigs() {
