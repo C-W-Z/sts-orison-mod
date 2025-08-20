@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
 
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.ConfigUIElement;
@@ -24,28 +26,36 @@ public class ConfigOptionPanel implements ConfigUIElement {
     private float realHeight;
     private float nextYPos;
 
+    private float y;
+
     public ConfigOptionPanel(float y) {
+        this.y = y;
         nextYPos = y;
         scrollables = new ArrayList<>();
 
-        addOption(new ConfigSlider(nextYPos,
+        addOption(new TextConfig(nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v)));
-        addOption(new ConfigSlider(nextYPos,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+
+        addOption(new TextConfig(nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v)));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new ConfigSlider(nextYPos,
+        addOption(new TextConfig(nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v)));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new ConfigSlider(nextYPos,
+        addOption(new TextConfig(nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v)));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
     }
 
     private void addOption(ConfigUIElement element) {
@@ -64,6 +74,7 @@ public class ConfigOptionPanel implements ConfigUIElement {
             scrollables.get(i).setTargetY(targetY - height - i * LINE_SPACING);
             height += scrollables.get(i).getHeight();
         }
+        this.y = targetY - realHeight;
     }
 
     @Override
@@ -76,6 +87,12 @@ public class ConfigOptionPanel implements ConfigUIElement {
     public void render(SpriteBatch sb) {
         for (ConfigUIElement ui : scrollables)
             ui.render(sb);
+
+        if (Settings.isDebug || Settings.isInfo) {
+            sb.setColor(Color.RED);
+            sb.draw(ImageMaster.DEBUG_HITBOX_IMG, TextConfig.DRAW_START_X, this.y,
+                    TextConfig.DRAW_END_X - TextConfig.DRAW_START_X, realHeight);
+        }
     }
 
     @Override

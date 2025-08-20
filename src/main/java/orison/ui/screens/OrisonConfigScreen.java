@@ -24,7 +24,7 @@ import orison.core.abstracts.AbstractOrison;
 import orison.core.libs.OrisonLib;
 import orison.ui.components.ConfigOptionPanel;
 import orison.ui.components.ConfigScreenBgRenderer;
-import orison.ui.components.ConfigSlider;
+import orison.ui.components.TextConfig;
 import orison.ui.components.HundredPercentSlider;
 import orison.ui.components.OrisonUIElement;
 
@@ -39,7 +39,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
     public static final float PAD = OrisonUIElement.SIZE + ORISON_GAP;
 
     public static final float DRAW_START_X = 420F * Settings.scale + OrisonUIElement.SIZE / 2F;
-    public static final float DRAW_START_Y = Settings.HEIGHT / 2F;
+    public static final float DRAW_START_Y = Settings.HEIGHT - 200 * Settings.scale;
 
     private float scrollLowerBound = -Settings.DEFAULT_SCROLL_LIMIT;
     private float scrollUpperBound = Settings.DEFAULT_SCROLL_LIMIT;
@@ -73,8 +73,8 @@ public class OrisonConfigScreen implements ScrollBarListener {
         // 200 * Settings.scale, 0.25F, v -> {
         // logger.info("slider: " + MathUtils.round(v * 100F));
         // });
-        logger.info("Slider X: " + (ConfigSlider.DRAW_END_X - HundredPercentSlider.SLIDE_W));
-        configUIs = new ConfigOptionPanel(Settings.HEIGHT - 200 * Settings.scale);
+        logger.info("Slider X: " + (TextConfig.DRAW_END_X - HundredPercentSlider.SLIDE_W));
+        configUIs = new ConfigOptionPanel(DRAW_START_Y);
 
         orisonUIs = new ArrayList<OrisonUIElement>();
         for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
@@ -84,7 +84,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
             int yIndex = i / ORISONS_PER_LINE;
 
             float x = DRAW_START_X + xIndex * PAD;
-            float y = DRAW_START_Y - yIndex * PAD;
+            float y = DRAW_START_Y - (configUIs.getHeight() + 2 * ORISON_GAP) - yIndex * PAD;
 
             orisonUIs.add(new OrisonUIElement(orison, x, y));
         }
@@ -141,9 +141,9 @@ public class OrisonConfigScreen implements ScrollBarListener {
         if (!CardCrawlGame.cardPopup.isOpen && !isScrollBarScrolling)
             updateScrolling();
 
-        // slider.setTargetY(Settings.HEIGHT - 200 * Settings.scale + scrollY);
+        // slider.setTargetY(DRAW_START_Y + scrollY);
         // slider.update();
-        configUIs.setTargetY(Settings.HEIGHT - 200 * Settings.scale + scrollY);
+        configUIs.setTargetY(DRAW_START_Y + scrollY);
         configUIs.update();
         updateOrisons();
 
@@ -179,7 +179,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
             int xIndex = i % ORISONS_PER_LINE;
             int yIndex = i / ORISONS_PER_LINE;
             orisonUIs.get(i).targetX = DRAW_START_X + xIndex * PAD;
-            orisonUIs.get(i).targetY = DRAW_START_Y + scrollY - yIndex * PAD;
+            orisonUIs.get(i).targetY = DRAW_START_Y - (configUIs.getHeight() + 2 * ORISON_GAP) + scrollY - yIndex * PAD;
             orisonUIs.get(i).update();
             if (orisonUIs.get(i).hb.hovered)
                 hoveredOrison = orisonUIs.get(i);

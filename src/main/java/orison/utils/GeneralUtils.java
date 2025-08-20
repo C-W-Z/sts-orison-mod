@@ -22,4 +22,8 @@ public class GeneralUtils {
     public static float clamp(float v, float min, float max) {
         return Math.max(min, Math.min(v, max));
     }
+
+    public static int clamp(int v, int min, int max) {
+        return Math.max(min, Math.min(v, max));
+    }
 }

@@ -68,6 +68,10 @@ public class CustomRangeSlider implements ConfigUIElement {
         this.targetY = this.y;
 
         this.df = new DecimalFormat(getPattern(precision, isPercent));
+
+        // for precision in modifyValue()
+        if (isPercent)
+            this.precision += 2;
     }
 
     private String getPattern(int precision, boolean isPercent) {

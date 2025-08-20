@@ -1,6 +1,7 @@
 package orison.ui.components;
 
 import static orison.core.OrisonMod.makeUIPath;
+import static orison.utils.GeneralUtils.clamp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ConfigScreenBgRenderer {
         bgTextures = new ArrayList<>();
         for (int i = 0; i <= MAX_BG_INDEX; i++)
             bgTextures.add(null);
-        currentBgIndex = OrisonConfig.Preference.CONFIG_SCREEN_BG;
+        currentBgIndex = clamp(OrisonConfig.Preference.CONFIG_SCREEN_BG, 0, MAX_BG_INDEX);
         if (currentBgIndex != 0) {
             bg = TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + currentBgIndex + ".png"));
             bgTextures.set(currentBgIndex, bg);

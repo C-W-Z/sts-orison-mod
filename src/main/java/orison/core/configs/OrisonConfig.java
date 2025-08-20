@@ -1,6 +1,7 @@
 package orison.core.configs;
 
 import static orison.core.OrisonMod.modID;
+import static orison.utils.GeneralUtils.clamp;
 
 import java.util.Properties;
 
@@ -27,7 +28,9 @@ public class OrisonConfig {
                 logger.error("OrisonConfig.Preference.initialize() failed");
                 e.printStackTrace();
             }
+        }
 
+        public static void loadConfigs() {
             if (config == null)
                 return;
             CONFIG_SCREEN_BG = config.getInt(ID_CONFIG_SCREEN_BG);
@@ -35,6 +38,7 @@ public class OrisonConfig {
 
         public static void save(String ID, int value) {
             saveConfig(config, ID, value);
+            loadConfigs();
         }
     }
 
@@ -74,14 +78,7 @@ public class OrisonConfig {
                 e.printStackTrace();
             }
 
-            if (config == null)
-                return;
-            MONSTER_DROP_ORISON_CHANCE = config.getFloat(ID_MONSTER_DROP_ORISON_CHANCE);
-            MONSTER_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_MONSTER_DROP_ORISON_ADV_CHANCE);
-            ELITE_DROP_ORISON_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_CHANCE);
-            ELITE_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_ADV_CHANCE);
-            BOSS_DROP_ORISON_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_CHANCE);
-            BOSS_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_ADV_CHANCE);
+            loadConfigs();
         }
 
         public static void loadConfigs() {
@@ -93,6 +90,13 @@ public class OrisonConfig {
             ELITE_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_ADV_CHANCE);
             BOSS_DROP_ORISON_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_CHANCE);
             BOSS_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_ADV_CHANCE);
+
+            MONSTER_DROP_ORISON_CHANCE = clamp(MONSTER_DROP_ORISON_CHANCE, 0, 1);
+            MONSTER_DROP_ORISON_ADV_CHANCE = clamp(MONSTER_DROP_ORISON_ADV_CHANCE, 0, 1);
+            ELITE_DROP_ORISON_CHANCE = clamp(ELITE_DROP_ORISON_CHANCE, 0, 1);
+            ELITE_DROP_ORISON_ADV_CHANCE = clamp(ELITE_DROP_ORISON_ADV_CHANCE, 0, 1);
+            BOSS_DROP_ORISON_CHANCE = clamp(BOSS_DROP_ORISON_CHANCE, 0, 1);
+            BOSS_DROP_ORISON_ADV_CHANCE = clamp(BOSS_DROP_ORISON_ADV_CHANCE, 0, 1);
         }
 
         public static void save(String ID, float value) {
