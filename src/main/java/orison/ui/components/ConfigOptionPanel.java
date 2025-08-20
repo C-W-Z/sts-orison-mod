@@ -3,11 +3,8 @@ package orison.ui.components;
 import static orison.core.OrisonMod.makeID;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -25,31 +22,39 @@ public class ConfigOptionPanel implements ConfigUIElement {
 
     public List<ConfigUIElement> scrollables;
     private float realHeight;
-
-    public static final List<String> descriptions = Arrays.asList(
-            configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
-            configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE));
-
-    public static final List<Supplier<Float>> values = Arrays.asList(
-            () -> OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
-            () -> OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE);
-
-    public static final List<Consumer<Float>> onChanges = Arrays.asList(
-            v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v),
-            v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v));
+    private float nextYPos;
 
     public ConfigOptionPanel(float y) {
-        float height = 0;
+        nextYPos = y;
         scrollables = new ArrayList<>();
-        for (int i = 0; i < descriptions.size(); i++) {
-            scrollables.add(new ConfigSlider(
-                    y - height - i * LINE_SPACING,
-                    descriptions.get(i),
-                    values.get(i).get(),
-                    onChanges.get(i)));
-            height += scrollables.get(i).getHeight();
-        }
-        realHeight = height + (scrollables.size() - 1) * LINE_SPACING;
+
+        addOption(new ConfigSlider(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
+                OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v)));
+        addOption(new ConfigSlider(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE),
+                OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v)));
+
+        addOption(new ConfigSlider(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE),
+                OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v)));
+
+        addOption(new ConfigSlider(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE),
+                OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v)));
+    }
+
+    private void addOption(ConfigUIElement element) {
+        scrollables.add(element);
+        float elementHeight = element.getHeight();
+        nextYPos -= elementHeight + LINE_SPACING;
+        if (scrollables.size() > 1)
+            realHeight += LINE_SPACING;
+        realHeight += elementHeight;
     }
 
     @Override

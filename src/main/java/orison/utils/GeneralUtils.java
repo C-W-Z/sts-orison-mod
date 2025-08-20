@@ -18,4 +18,8 @@ public class GeneralUtils {
     public static String removePrefix(String ID) {
         return ID.substring(ID.indexOf(":") + 1);
     }
+
+    public static float clamp(float v, float min, float max) {
+        return Math.max(min, Math.min(v, max));
+    }
 }

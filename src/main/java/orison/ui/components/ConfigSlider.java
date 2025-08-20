@@ -24,6 +24,8 @@ public class ConfigSlider implements ConfigUIElement {
 
     public ConfigSlider(float y, String description, float value, Consumer<Float> onChange) {
         this.description = description;
+        if (description == null)
+            this.description = "Something went wrong here";
         this.slider = new HundredPercentSlider(DRAW_END_X - HundredPercentSlider.SLIDE_W, y, value, onChange);
 
         line_spacing = Settings.BIG_TEXT_MODE ? (40.0F * Settings.scale) : (32.0F * Settings.scale);

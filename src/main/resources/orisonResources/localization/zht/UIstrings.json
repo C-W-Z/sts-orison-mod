@@ -4,8 +4,10 @@
   },
   "${ModID}:ConfigOptionPanel": {
     "TEXT_DICT": {
-      "MONSTER_DROP_ORISON_CHANCE": "普通敵人掉落刻印的機率",
-      "MONSTER_DROP_ORISON_ADV_CHANCE": "普通敵人掉落的刻印是高級刻印的機率"
+      "MONSTER_DROP_ORISON_CHANCE": "普通戰鬥掉落刻印的機率",
+      "MONSTER_DROP_ORISON_ADV_CHANCE": "普通戰鬥掉落的刻印是高級刻印的機率",
+      "ELITE_DROP_ORISON_CHANCE": "菁英戰鬥掉落刻印的機率",
+      "ELITE_DROP_ORISON_ADV_CHANCE": "菁英戰鬥掉落的刻印是高級刻印的機率"
     }
   },
   "${ModID}:RandomOrisonReward": {

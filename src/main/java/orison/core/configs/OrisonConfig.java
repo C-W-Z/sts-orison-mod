@@ -84,8 +84,22 @@ public class OrisonConfig {
             BOSS_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_ADV_CHANCE);
         }
 
+        public static void loadConfigs() {
+            if (config == null)
+                return;
+            MONSTER_DROP_ORISON_CHANCE = config.getFloat(ID_MONSTER_DROP_ORISON_CHANCE);
+            MONSTER_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_MONSTER_DROP_ORISON_ADV_CHANCE);
+            ELITE_DROP_ORISON_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_CHANCE);
+            ELITE_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_ADV_CHANCE);
+            BOSS_DROP_ORISON_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_CHANCE);
+            BOSS_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_ADV_CHANCE);
+        }
+
         public static void save(String ID, float value) {
+            if (config == null)
+                return;
             saveConfig(config, ID, value);
+            loadConfigs();
         }
     }
 
