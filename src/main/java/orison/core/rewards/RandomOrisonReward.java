@@ -27,6 +27,7 @@ import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.configs.OrisonConfig;
 import orison.core.libs.OrisonLib;
 import orison.core.patches.RewardTypePatch;
+import orison.core.savables.OrisonRng;
 import orison.utils.TexLoader;
 
 public class RandomOrisonReward extends AbstractOrisonReward {
@@ -50,7 +51,7 @@ public class RandomOrisonReward extends AbstractOrisonReward {
         this.adv = adv;
 
         Pair<List<AbstractCard>, List<AbstractCard>> cardsRolled = getCardsWithoutOrisonFirst(
-                AbstractDungeon.player.masterDeck.group, amount, AbstractDungeon.miscRng);
+                AbstractDungeon.player.masterDeck.group, amount, OrisonRng.get());
         List<AbstractCard> noOrisoCards = cardsRolled.getKey();
         List<AbstractCard> withOrisoCards = cardsRolled.getValue();
 
@@ -92,7 +93,7 @@ public class RandomOrisonReward extends AbstractOrisonReward {
                 advChance += OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE;
             else if (room instanceof MonsterRoom)
                 advChance += OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE;
-            o.adv = AbstractDungeon.miscRng.randomBoolean(advChance);
+            o.adv = OrisonRng.get().randomBoolean(advChance);
         }
 
         initializeCardsToDisplay();

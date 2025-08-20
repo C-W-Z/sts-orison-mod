@@ -13,6 +13,7 @@ import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.libs.OrisonLib;
 import orison.core.libs.RewardLib;
+import orison.core.savables.OrisonRng;
 import orison.core.savables.OrisonSave;
 import orison.utils.OrisonExtensionScanner;
 import orison.utils.ProAudio;
@@ -48,6 +49,7 @@ import org.scannotation.AnnotationDB;
 
 @SpireInitializer
 public class OrisonMod implements
+        PostDungeonInitializeSubscriber,
         PostInitializeSubscriber,
         EditCardsSubscriber,
         EditRelicsSubscriber,
@@ -230,6 +232,7 @@ public class OrisonMod implements
         OrisonLib.initialize();
         RewardLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
+        BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
     }
 
     public static void initializeOrisonExtensions() {
@@ -270,5 +273,10 @@ public class OrisonMod implements
     public static void unregister(OrisonExtension extension) {
         orisonExtensions.remove(extension);
         logger.info(extension.getClass().getName() + " Unregistered!");
+    }
+
+    @Override
+    public void receivePostDungeonInitialize() {
+        OrisonRng.onPostDungeonInitialize();
     }
 }

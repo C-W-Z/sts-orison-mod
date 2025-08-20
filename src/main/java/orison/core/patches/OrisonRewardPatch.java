@@ -23,6 +23,7 @@ import javassist.CtBehavior;
 import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.configs.OrisonConfig;
 import orison.core.rewards.RandomOrisonReward;
+import orison.core.savables.OrisonRng;
 
 public class OrisonRewardPatch {
 
@@ -53,7 +54,10 @@ public class OrisonRewardPatch {
             else if (room instanceof MonsterRoom)
                 chance += OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE;
 
-            if (!AbstractDungeon.miscRng.randomBoolean(chance))
+            // Remember OrisonRng counter before any rolled by OrisonRng
+            OrisonRng.rememberCounter();
+
+            if (!OrisonRng.get().randomBoolean(chance))
                 return;
 
             if (__instance.rewards.isEmpty()) {

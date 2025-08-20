@@ -12,11 +12,11 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.random.Random;
 
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.savables.OrisonRng;
 import orison.misc.ErrorOrison;
 
 public class OrisonLib {
@@ -64,7 +64,7 @@ public class OrisonLib {
         pool.removeIf(Objects::isNull);
         if (except != null)
             pool.removeIf(except);
-        List<AbstractOrison> ret = pickRandomByRarity(pool, amount, allowDup, AbstractDungeon.miscRng);
+        List<AbstractOrison> ret = pickRandomByRarity(pool, amount, allowDup, OrisonRng.get());
         logger.debug("getRandomCommonOrison");
         ret.forEach(o -> logger.debug("rolled: " + o.id));
         return ret;
