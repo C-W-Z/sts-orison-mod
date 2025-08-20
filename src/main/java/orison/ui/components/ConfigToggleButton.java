@@ -1,4 +1,4 @@
-package orison.ui;
+package orison.ui.components;
 
 import java.util.HashSet;
 import java.util.Set;

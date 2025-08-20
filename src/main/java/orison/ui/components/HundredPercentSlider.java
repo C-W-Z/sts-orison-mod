@@ -1,4 +1,4 @@
-package orison.ui;
+package orison.ui.components;
 
 import java.text.DecimalFormat;
 import java.util.function.Consumer;

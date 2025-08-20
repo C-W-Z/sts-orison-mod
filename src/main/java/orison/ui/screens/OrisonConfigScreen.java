@@ -1,4 +1,4 @@
-package orison.core.screens;
+package orison.ui.screens;
 
 import static orison.core.OrisonMod.makeUIPath;
 
@@ -30,10 +30,10 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.configs.OrisonConfig;
 import orison.core.libs.OrisonLib;
-import orison.ui.ConfigSlider;
-import orison.ui.ConfigOptionPanel;
-import orison.ui.HundredPercentSlider;
-import orison.ui.OrisonUIElement;
+import orison.ui.components.ConfigOptionPanel;
+import orison.ui.components.ConfigSlider;
+import orison.ui.components.HundredPercentSlider;
+import orison.ui.components.OrisonUIElement;
 import orison.utils.TexLoader;
 
 public class OrisonConfigScreen implements ScrollBarListener {

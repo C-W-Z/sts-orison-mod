@@ -1,4 +1,4 @@
-package orison.ui;
+package orison.ui.components;
 
 import static orison.core.OrisonMod.makeID;
 

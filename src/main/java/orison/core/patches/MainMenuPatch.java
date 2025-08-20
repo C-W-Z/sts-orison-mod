@@ -18,7 +18,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 
 import javassist.CtBehavior;
-import orison.core.screens.OrisonConfigScreen;
+import orison.ui.screens.OrisonConfigScreen;
 
 public class MainMenuPatch {
 
