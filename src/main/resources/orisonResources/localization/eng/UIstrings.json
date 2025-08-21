@@ -62,6 +62,20 @@
       "Draw #b%d card(s) after playing this card."
     ]
   },
+  "${ModID}:Forging": {
+    "TEXT": [
+      "Forging [${ModID}:ForgingIcon]",
+      "Adv. Forging [${ModID}:AdvForgingIcon]",
+      "After playing this card, choose to #yUpgrade #b%d card(s) in the Draw Pile or Discard Pile."
+    ]
+  },
+  "${ModID}:Healing": {
+    "TEXT": [
+      "Healing [${ModID}:HealingIcon]",
+      "Adv. Healing [${ModID}:AdvHealingIcon]",
+      "Heal #b%d health after playing this card."
+    ]
+  },
   "${ModID}:Insight": {
     "TEXT": [
       "Insight [${ModID}:InsightIcon]",
@@ -81,6 +95,13 @@
       "Mirror [${ModID}:MirrorIcon]",
       "Adv. Mirror [${ModID}:AdvMirrorIcon]",
       "When the battle starts, shuffle #b%d copy(s) of this card into the Draw Pile. This card and the mirror cards will become #yRetain."
+    ]
+  },
+  "${ModID}:Resistance": {
+    "TEXT": [
+      "Resistance [${ModID}:ResistanceIcon]",
+      "Adv. Resistance [${ModID}:AdvResistanceIcon]",
+      "Gain #b%d stack(s) of #yArtifact after playing this card."
     ]
   },
   "${ModID}:Spike": {

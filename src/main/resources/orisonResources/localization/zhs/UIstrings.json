@@ -62,6 +62,20 @@
       "打出后抽 #b%d 张牌。"
     ]
   },
+  "${ModID}:Forging": {
+    "TEXT": [
+      "锻造 [${ModID}:ForgingIcon]",
+      "高级锻造 [${ModID}:AdvForgingIcon]",
+      "打出后选择 #y升级 #b%d 张抽牌堆或弃牌堆中的牌。"
+    ]
+  },
+  "${ModID}:Healing": {
+    "TEXT": [
+      "治愈 [${ModID}:HealingIcon]",
+      "高级治愈 [${ModID}:AdvHealingIcon]",
+      "打出后回复 #b%d 点生命值。"
+    ]
+  },
   "${ModID}:Insight": {
     "TEXT": [
       "灵感 [${ModID}:InsightIcon]",
@@ -81,6 +95,13 @@
       "镜像 [${ModID}:MirrorIcon]",
       "高级镜像 [${ModID}:AdvMirrorIcon]",
       "战斗开始时将 #b%d 张此牌的复制洗入抽牌堆。此牌与镜像卡牌均获得 #y保留 。"
+    ]
+  },
+  "${ModID}:Resistance": {
+    "TEXT": [
+      "抵抗 [${ModID}:ResistanceIcon]",
+      "高级抵抗 [${ModID}:AdvResistanceIcon]",
+      "打出后获得 #b%d 层 #y人工制品 。"
     ]
   },
   "${ModID}:Spike": {
