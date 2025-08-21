@@ -233,6 +233,7 @@ public class OrisonMod implements
         RewardLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
         BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
+        // Settings.isInfo = true;
     }
 
     public static void initializeOrisonExtensions() {
