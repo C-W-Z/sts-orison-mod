@@ -23,87 +23,91 @@
   "${ModID}:Bastion": {
     "TEXT": [
       "铁壁 [${ModID}:BastionIcon]",
-      "高级铁壁",
+      "高级铁壁 [${ModID}:AdvBastionIcon]",
       "打出后获得 #b%d 点 #y格挡 。"
     ]
   },
   "${ModID}:Burst": {
     "TEXT": [
       "爆发 [${ModID}:BurstIcon]",
-      "高级爆发",
+      "高级爆发 [${ModID}:AdvBurstIcon]",
       "打出后获得 #b%d 点 #y临时 #y力量 。"
     ]
   },
   "${ModID}:Computation": {
     "TEXT": [
       "筹算 [${ModID}:ComputationIcon]",
-      "高级筹算",
+      "高级筹算 [${ModID}:AdvComputationIcon]",
       "打出后获得 #b%d 点 [E] 。"
     ]
   },
   "${ModID}:Drain": {
     "TEXT": [
       "衰竭 [${ModID}:DrainIcon]",
-      "高级衰竭",
+      "高级衰竭 [${ModID}:AdvDrainIcon]",
       "打出后使所有敌人失去 #b%d 点 #y临时 #y力量 。"
     ]
   },
   "${ModID}:Echo": {
     "TEXT": [
       "回声 [${ModID}:EchoIcon]",
-      "高级回声",
+      "高级回声 [${ModID}:AdvEchoIcon]",
       "打出后额外生效 #b%d 次，获得 #b%d #y金币 。 #y消耗 、 #y固有 。"
     ]
   },
   "${ModID}:Finesse": {
-    "TEXT": ["妙手 [${ModID}:FinesseIcon]", "高级妙手", "打出后抽 #b%d 张牌。"]
+    "TEXT": [
+      "妙手 [${ModID}:FinesseIcon]",
+      "高级妙手 [${ModID}:AdvFinesseIcon]",
+      "打出后抽 #b%d 张牌。"
+    ]
   },
   "${ModID}:Insight": {
     "TEXT": [
       "灵感 [${ModID}:InsightIcon]",
-      "高级灵感",
+      "高级灵感 [${ModID}:AdvInsightIcon]",
       "打出后将 #b%d 张「%s」洗入抽牌堆。"
     ]
   },
   "${ModID}:Might": {
     "TEXT": [
       "蛮力 [${ModID}:MightIcon]",
-      "高级蛮力",
+      "高级蛮力 [${ModID}:AdvMightIcon]",
       "打出后获得 #b%d 点 #y力量 。"
     ]
   },
   "${ModID}:Mirror": {
     "TEXT": [
       "镜像 [${ModID}:MirrorIcon]",
-      "高级镜像",
+      "高级镜像 [${ModID}:AdvMirrorIcon]",
       "战斗开始时将 #b%d 张此牌的复制洗入抽牌堆。此牌与镜像卡牌均获得 #y保留 。"
     ]
   },
   "${ModID}:Spike": {
     "TEXT": [
       "尖刺 [${ModID}:SpikeIcon]",
-      "高级尖刺",
+      "高级尖刺 [${ModID}:AdvSpikeIcon]",
       "打出后获得 #b%d 层 #y荆棘 ，对所有敌人造成 #b%d%% #y荆棘 的反击伤害。"
     ]
   },
   "${ModID}:Toxin": {
     "TEXT": [
       "毒素 [${ModID}:ToxinIcon]",
-      "高级毒素",
+      "高级毒素 [${ModID}:AdvToxinIcon]",
       "打出后对所有敌人施加 #b%d 层 #y中毒 ，触发所有敌人 #b%d%% 的 #y中毒 。"
     ]
   },
   "${ModID}:Vulnerable": {
     "TEXT": [
       "易伤 [${ModID}:VulnerableIcon]",
-      "高级易伤",
+      "高级易伤 [${ModID}:AdvVulnerableIcon]",
       "打出后 #y易伤 所有敌人 #b%d 回合。"
     ]
   },
   "${ModID}:Weakness": {
     "TEXT": [
       "虚弱 [${ModID}:WeaknessIcon]",
-      "高级虚弱",
+      "高级虚弱 [${ModID}:AdvWeaknessIcon]",
       "打出后 #y虚弱 所有敌人 #b%d 回合。"
     ]
   }

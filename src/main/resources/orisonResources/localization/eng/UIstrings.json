@@ -23,91 +23,91 @@
   "${ModID}:Bastion": {
     "TEXT": [
       "Bastion [${ModID}:BastionIcon]",
-      "Adv. Bastion",
+      "Adv. Bastion [${ModID}:AdvBastionIcon]",
       "Gain #b%d #yBlocks after playing this card."
     ]
   },
   "${ModID}:Burst": {
     "TEXT": [
       "Burst [${ModID}:BurstIcon]",
-      "Adv. Burst",
+      "Adv. Burst [${ModID}:AdvBurstIcon]",
       "Gain #b%d #yTemporary #yStrength after playing this card."
     ]
   },
   "${ModID}:Computation": {
     "TEXT": [
       "Computation [${ModID}:ComputationIcon]",
-      "Adv. Computation",
+      "Adv. Computation [${ModID}:AdvComputationIcon]",
       "Gain #b%d [E] after playing this card."
     ]
   },
   "${ModID}:Drain": {
     "TEXT": [
       "Drain [${ModID}:DrainIcon]",
-      "Adv. Drain",
+      "Adv. Drain [${ModID}:AdvDrainIcon]",
       "After playing this card, all enemies #yTemporarily lose #b%d #yStrength."
     ]
   },
   "${ModID}:Echo": {
     "TEXT": [
       "Echo [${ModID}:EchoIcon]",
-      "Adv. Echo",
+      "Adv. Echo [${ModID}:AdvEchoIcon]",
       "This card take effect #b%d additional time(s) and grants you #b%d #yGold when played. #yExhaust. #yInnate."
     ]
   },
   "${ModID}:Finesse": {
     "TEXT": [
       "Finesse [${ModID}:FinesseIcon]",
-      "Adv. Finesse",
+      "Adv. Finesse [${ModID}:AdvFinesseIcon]",
       "Draw #b%d card(s) after playing this card."
     ]
   },
   "${ModID}:Insight": {
     "TEXT": [
       "Insight [${ModID}:InsightIcon]",
-      "Adv. Insight",
+      "Adv. Insight [${ModID}:AdvInsightIcon]",
       "Shuffle #b%d \"%s\" into the Draw Pile after playing this card."
     ]
   },
   "${ModID}:Might": {
     "TEXT": [
       "Might [${ModID}:MightIcon]",
-      "Adv. Might",
+      "Adv. Might [${ModID}:AdvMightIcon]",
       "Gain #b%d #yStrength after playing this card."
     ]
   },
   "${ModID}:Mirror": {
     "TEXT": [
       "Mirror [${ModID}:MirrorIcon]",
-      "Adv. Mirror",
+      "Adv. Mirror [${ModID}:AdvMirrorIcon]",
       "When the battle starts, shuffle #b%d copy(s) of this card into the Draw Pile. This card and the mirror cards will become #yRetain."
     ]
   },
   "${ModID}:Spike": {
     "TEXT": [
       "Spike [${ModID}:SpikeIcon]",
-      "Adv. Spike",
+      "Adv. Spike [${ModID}:AdvSpikeIcon]",
       "After playing this card, gain #b%d stack(s) of #yThorns and deal #b%d%% damage of your #yThorns to all enemies."
     ]
   },
   "${ModID}:Toxin": {
     "TEXT": [
       "Toxin [${ModID}:ToxinIcon]",
-      "Adv. Toxin",
+      "Adv. Toxin [${ModID}:AdvToxinIcon]",
       "After playing this card, inflict #b%d stack(s) of #yPoison to all enemies and trigger #b%d%% of their #yPoison."
     ]
   },
   "${ModID}:Vulnerable": {
     "TEXT": [
       "Vulnerable [${ModID}:VulnerableIcon]",
-      "Adv. Vulnerable",
+      "Adv. Vulnerable [${ModID}:AdvVulnerableIcon]",
       "After playing this card, inflict #yVulnerable to all enemies for #b%d turn(s)."
     ]
   },
   "${ModID}:Weakness": {
     "TEXT": [
       "Weakness [${ModID}:WeaknessIcon]",
-      "Adv. Weakness",
+      "Adv. Weakness [${ModID}:AdvWeaknessIcon]",
       "After playing this card, inflict #yWeak to all enemies for #b%d turn(s)."
     ]
   }
