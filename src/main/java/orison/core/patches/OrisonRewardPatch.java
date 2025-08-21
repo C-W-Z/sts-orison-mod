@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
+import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
@@ -53,9 +54,13 @@ public class OrisonRewardPatch {
                 chance += OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE;
             else if (room instanceof MonsterRoom)
                 chance += OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE;
+            else if (room instanceof TreasureRoom)
+                chance += OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE;
 
-            // Remember OrisonRng counter before any rolled by OrisonRng
-            OrisonRng.rememberCounter();
+            if (room instanceof MonsterRoom) {
+                // Remember OrisonRng counter before any rolled by OrisonRng
+                OrisonRng.rememberCounter();
+            }
 
             if (!OrisonRng.get().randomBoolean(chance))
                 return;
@@ -64,7 +69,7 @@ public class OrisonRewardPatch {
                 logger.error("setupItemReward: CombatRewardScreen.rewards is EMPTY");
             } else {
                 RewardItem lastReward = __instance.rewards.get(__instance.rewards.size() - 1);
-                if (lastReward.cards.size() > 0) {
+                if (lastReward.cards != null && lastReward.cards.size() > 0) {
                     // is card reward
                 }
             }

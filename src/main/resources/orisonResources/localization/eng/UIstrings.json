@@ -9,7 +9,9 @@
       "ELITE_DROP_ORISON_CHANCE": "Orison Drop Rate after Elite Battles",
       "ELITE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Elite Battles being Adv.",
       "BOSS_DROP_ORISON_CHANCE": "Orison Drop Rate after Boss Battles",
-      "BOSS_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Boss Battles being Adv."
+      "BOSS_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Boss Battles being Adv.",
+      "TREASURE_DROP_ORISON_CHANCE": "Orisons Drop Rate in Treasure Chests",
+      "TREASURE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Treasure Chests being Adv."
     }
   },
   "${ModID}:RandomOrisonReward": {

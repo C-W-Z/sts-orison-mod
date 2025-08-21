@@ -68,6 +68,18 @@ public class ConfigOptionPanel implements ConfigUIElement {
                 OrisonConfig.Reward.BOSS_DROP_ORISON_ADV_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+
+        addOption(new TextConfig(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE),
+                OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+
+        addOption(new TextConfig(nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE),
+                OrisonConfig.Reward.TREASURE_DROP_ORISON_ADV_CHANCE,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE, v),
+                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
     }
 
     private void addOption(ConfigUIElement element) {

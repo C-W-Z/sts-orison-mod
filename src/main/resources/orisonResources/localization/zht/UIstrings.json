@@ -9,7 +9,9 @@
       "ELITE_DROP_ORISON_CHANCE": "菁英戰鬥後掉落刻印的機率",
       "ELITE_DROP_ORISON_ADV_CHANCE": "菁英戰鬥後掉落的刻印是高級刻印的機率",
       "BOSS_DROP_ORISON_CHANCE": "首領戰鬥後掉落刻印的機率",
-      "BOSS_DROP_ORISON_ADV_CHANCE": "首領戰鬥後掉落的刻印是高級刻印的機率"
+      "BOSS_DROP_ORISON_ADV_CHANCE": "首領戰鬥後掉落的刻印是高級刻印的機率",
+      "TREASURE_DROP_ORISON_CHANCE": "寶箱中出現刻印的機率",
+      "TREASURE_DROP_ORISON_ADV_CHANCE": "寶箱中出現的刻印是高級刻印的機率"
     }
   },
   "${ModID}:RandomOrisonReward": {

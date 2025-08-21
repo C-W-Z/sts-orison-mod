@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
+import com.megacrit.cardcrawl.rooms.TreasureRoom;
 
 import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
@@ -93,6 +94,8 @@ public class RandomOrisonReward extends AbstractOrisonReward {
                 advChance += OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE;
             else if (room instanceof MonsterRoom)
                 advChance += OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE;
+            else if (room instanceof TreasureRoom)
+                advChance += OrisonConfig.Reward.TREASURE_DROP_ORISON_ADV_CHANCE;
             o.adv = OrisonRng.get().randomBoolean(advChance);
         }
 

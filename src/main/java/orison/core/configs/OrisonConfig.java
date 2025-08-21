@@ -47,14 +47,17 @@ public class OrisonConfig {
     public static class Reward {
         public static SpireConfig config;
 
-        public static String ID_MONSTER_DROP_ORISON_CHANCE = "MONSTER_DROP_ORISON_CHANCE";
-        public static String ID_MONSTER_DROP_ORISON_ADV_CHANCE = "MONSTER_DROP_ORISON_ADV_CHANCE";
+        public static final String ID_MONSTER_DROP_ORISON_CHANCE = "MONSTER_DROP_ORISON_CHANCE";
+        public static final String ID_MONSTER_DROP_ORISON_ADV_CHANCE = "MONSTER_DROP_ORISON_ADV_CHANCE";
 
-        public static String ID_ELITE_DROP_ORISON_CHANCE = "ELITE_DROP_ORISON_CHANCE";
-        public static String ID_ELITE_DROP_ORISON_ADV_CHANCE = "ELITE_DROP_ORISON_ADV_CHANCE";
+        public static final String ID_ELITE_DROP_ORISON_CHANCE = "ELITE_DROP_ORISON_CHANCE";
+        public static final String ID_ELITE_DROP_ORISON_ADV_CHANCE = "ELITE_DROP_ORISON_ADV_CHANCE";
 
-        public static String ID_BOSS_DROP_ORISON_CHANCE = "BOSS_DROP_ORISON_CHANCE";
-        public static String ID_BOSS_DROP_ORISON_ADV_CHANCE = "BOSS_DROP_ORISON_ADV_CHANCE";
+        public static final String ID_BOSS_DROP_ORISON_CHANCE = "BOSS_DROP_ORISON_CHANCE";
+        public static final String ID_BOSS_DROP_ORISON_ADV_CHANCE = "BOSS_DROP_ORISON_ADV_CHANCE";
+
+        public static final String ID_TREASURE_DROP_ORISON_CHANCE = "TREASURE_DROP_ORISON_CHANCE";
+        public static final String ID_TREASURE_DROP_ORISON_ADV_CHANCE = "TREASURE_DROP_ORISON_ADV_CHANCE";
 
         public static float MONSTER_DROP_ORISON_CHANCE = 0.25F;
         public static float MONSTER_DROP_ORISON_ADV_CHANCE = 0F;
@@ -65,6 +68,9 @@ public class OrisonConfig {
         public static float BOSS_DROP_ORISON_CHANCE = 1F;
         public static float BOSS_DROP_ORISON_ADV_CHANCE = 1F;
 
+        public static float TREASURE_DROP_ORISON_CHANCE = 1F;
+        public static float TREASURE_DROP_ORISON_ADV_CHANCE = 0.25F;
+
         public static void initialize() {
             try {
                 Properties defaults = new Properties();
@@ -74,6 +80,8 @@ public class OrisonConfig {
                 defaults.setProperty(ID_ELITE_DROP_ORISON_ADV_CHANCE, String.valueOf(ELITE_DROP_ORISON_ADV_CHANCE));
                 defaults.setProperty(ID_BOSS_DROP_ORISON_CHANCE, String.valueOf(BOSS_DROP_ORISON_CHANCE));
                 defaults.setProperty(ID_BOSS_DROP_ORISON_ADV_CHANCE, String.valueOf(BOSS_DROP_ORISON_ADV_CHANCE));
+                defaults.setProperty(ID_TREASURE_DROP_ORISON_CHANCE, String.valueOf(TREASURE_DROP_ORISON_CHANCE));
+                defaults.setProperty(ID_TREASURE_DROP_ORISON_ADV_CHANCE, String.valueOf(TREASURE_DROP_ORISON_ADV_CHANCE));
                 config = new SpireConfig(modID, Reward.class.getSimpleName(), defaults);
             } catch (Exception e) {
                 logger.error("OrisonConfig.Reward.initialize() failed");
@@ -92,6 +100,8 @@ public class OrisonConfig {
             ELITE_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_ELITE_DROP_ORISON_ADV_CHANCE);
             BOSS_DROP_ORISON_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_CHANCE);
             BOSS_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_BOSS_DROP_ORISON_ADV_CHANCE);
+            TREASURE_DROP_ORISON_CHANCE = config.getFloat(ID_TREASURE_DROP_ORISON_CHANCE);
+            TREASURE_DROP_ORISON_ADV_CHANCE = config.getFloat(ID_TREASURE_DROP_ORISON_ADV_CHANCE);
 
             MONSTER_DROP_ORISON_CHANCE = clamp(MONSTER_DROP_ORISON_CHANCE, 0, 1);
             MONSTER_DROP_ORISON_ADV_CHANCE = clamp(MONSTER_DROP_ORISON_ADV_CHANCE, 0, 1);
@@ -99,6 +109,8 @@ public class OrisonConfig {
             ELITE_DROP_ORISON_ADV_CHANCE = clamp(ELITE_DROP_ORISON_ADV_CHANCE, 0, 1);
             BOSS_DROP_ORISON_CHANCE = clamp(BOSS_DROP_ORISON_CHANCE, 0, 1);
             BOSS_DROP_ORISON_ADV_CHANCE = clamp(BOSS_DROP_ORISON_ADV_CHANCE, 0, 1);
+            TREASURE_DROP_ORISON_CHANCE = clamp(TREASURE_DROP_ORISON_CHANCE, 0, 1);
+            TREASURE_DROP_ORISON_ADV_CHANCE = clamp(TREASURE_DROP_ORISON_ADV_CHANCE, 0, 1);
         }
 
         public static void save(String ID, float value) {

@@ -30,7 +30,7 @@ public class TextConfig implements ConfigUIElement {
     public TextConfig(float y, String labal, float value, Consumer<Float> onChange, Type type) {
         this.description = labal;
         if (labal == null)
-            this.description = "Something went wrong here";
+            this.description = "[Missing Text]";
 
         switch (type) {
             case HUNDRED_PERCENT_SLIDER:
