@@ -26,7 +26,7 @@ public class Resistance extends AbstractOrison {
     }
 
     public Resistance(boolean adv) {
-        super(ID, true, false, adv);
+        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
     }
 
     public static int getValue(boolean adv) {
