@@ -11,6 +11,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
@@ -32,7 +33,6 @@ public class OrisonRewardPatch {
 
     @SpirePatch2(clz = CardRewardScreen.class, method = "takeReward")
     public static class CardRewardScreenPatch {
-
         @SpirePostfixPatch
         public static void Postfix(CardRewardScreen __instance) {
             if (__instance.rItem instanceof AbstractOrisonReward)
@@ -65,18 +65,20 @@ public class OrisonRewardPatch {
             if (!OrisonRng.get().randomBoolean(chance))
                 return;
 
+            RewardItem lastReward = null;
             if (__instance.rewards.isEmpty()) {
                 logger.error("setupItemReward: CombatRewardScreen.rewards is EMPTY");
             } else {
-                RewardItem lastReward = __instance.rewards.get(__instance.rewards.size() - 1);
-                if (lastReward.cards != null && lastReward.cards.size() > 0) {
-                    // is card reward
-                }
+                lastReward = __instance.rewards.get(__instance.rewards.size() - 1);
+                if (lastReward.type != RewardType.CARD || lastReward.cards == null || lastReward.cards.isEmpty())
+                    lastReward = null;
             }
 
             RandomOrisonReward reward = new RandomOrisonReward(3);
             if (reward.canAddToRewards())
                 __instance.rewards.add(reward);
+
+            RewardLinkPatch.setRewardLink(reward, lastReward);
         }
 
         private static class Locator extends SpireInsertLocator {
