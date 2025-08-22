@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.controller.CInputHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
-import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.ConfigUIElement;
 import orison.core.libs.OrisonLib;
 
@@ -23,6 +22,8 @@ public class OrisonDisplay implements ConfigUIElement {
     public static final int ORISONS_PER_LINE = 6;
     public static final float ORISON_GAP = 50 * Settings.scale;
     public static final float PAD = OrisonUIElement.SIZE + ORISON_GAP;
+    public static final float WIDTH = ORISONS_PER_LINE * PAD - ORISON_GAP;
+
 
     private float drawStartX;
     private float targetY;
@@ -33,33 +34,25 @@ public class OrisonDisplay implements ConfigUIElement {
     private OrisonUIElement hoveredOrison = null;
     private OrisonUIElement clickStartedOrison = null;
 
-    public OrisonDisplay(float draw_start_x, float draw_start_y) {
+    public OrisonDisplay(float centerX, float drawStartY) {
         orisonUIs = new ArrayList<OrisonUIElement>();
 
-        this.drawStartX = draw_start_x;
-        this.targetY = draw_start_y;
+        this.drawStartX = centerX - WIDTH / 2;
+        this.targetY = drawStartY;
 
         for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
-            AbstractOrison orison = OrisonLib.allOrisons.get(i);
-
             int xIndex = i % ORISONS_PER_LINE;
             int yIndex = i / ORISONS_PER_LINE;
-
-            float x = draw_start_x + OrisonUIElement.SIZE / 2 + xIndex * PAD;
-            float y = draw_start_y - OrisonUIElement.SIZE / 2 - yIndex * PAD;
-
-            orisonUIs.add(new OrisonUIElement(orison, x, y));
+            float x = drawStartX + OrisonUIElement.SIZE / 2 + xIndex * PAD;
+            float y = drawStartY - OrisonUIElement.SIZE / 2 - yIndex * PAD;
+            orisonUIs.add(new OrisonUIElement(OrisonLib.allOrisons.get(i), x, y));
         }
         for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
-            AbstractOrison orison = OrisonLib.allOrisons.get(i);
-
             int xIndex = (i + OrisonLib.allOrisons.size()) % ORISONS_PER_LINE;
             int yIndex = (i + OrisonLib.allOrisons.size()) / ORISONS_PER_LINE;
-
-            float x = draw_start_x + xIndex * PAD;
-            float y = draw_start_y - yIndex * PAD;
-
-            orisonUIs.add(new OrisonUIElement(orison.newInstance(true), x, y));
+            float x = drawStartX + OrisonUIElement.SIZE / 2 + xIndex * PAD;
+            float y = drawStartY - OrisonUIElement.SIZE / 2 - yIndex * PAD;
+            orisonUIs.add(new OrisonUIElement(OrisonLib.allOrisons.get(i).newInstance(true), x, y));
         }
     }
 
@@ -111,7 +104,7 @@ public class OrisonDisplay implements ConfigUIElement {
         if (Settings.isDebug || Settings.isInfo) {
             sb.setColor(Color.RED);
             sb.draw(ImageMaster.DEBUG_HITBOX_IMG, drawStartX, targetY - getHeight(),
-                    ORISONS_PER_LINE * PAD - ORISON_GAP, getHeight());
+                    WIDTH, getHeight());
         }
     }
 

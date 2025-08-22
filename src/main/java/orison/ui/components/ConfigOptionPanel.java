@@ -26,60 +26,65 @@ public class ConfigOptionPanel implements ConfigUIElement {
     private float realHeight;
     private float nextYPos;
 
-    private float y;
+    private float x; // 左側x座標
+    private float rightX; // 右側x座標
+    private float y; // 底部y座標
 
-    public ConfigOptionPanel(float y) {
-        this.y = y;
+    public ConfigOptionPanel(float x, float rightX, float y) {
+        this.x = x;
+        this.rightX = rightX;
         nextYPos = y;
         scrollables = new ArrayList<>();
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.BOSS_DROP_ORISON_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.BOSS_DROP_ORISON_ADV_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
 
-        addOption(new TextConfig(nextYPos,
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.TREASURE_DROP_ORISON_ADV_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE, v),
                 TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+
+        this.y = y - realHeight + scrollables.get(0).getHeight() / 2;
     }
 
     private void addOption(ConfigUIElement element) {
@@ -98,7 +103,7 @@ public class ConfigOptionPanel implements ConfigUIElement {
             scrollables.get(i).setTargetY(targetY - height - i * LINE_SPACING);
             height += scrollables.get(i).getHeight();
         }
-        this.y = targetY - realHeight;
+        this.y = targetY - realHeight + scrollables.get(0).getHeight() / 2;
     }
 
     @Override
@@ -114,8 +119,9 @@ public class ConfigOptionPanel implements ConfigUIElement {
 
         if (Settings.isDebug || Settings.isInfo) {
             sb.setColor(Color.RED);
-            sb.draw(ImageMaster.DEBUG_HITBOX_IMG, TextConfig.DRAW_START_X, this.y,
-                    TextConfig.DRAW_END_X - TextConfig.DRAW_START_X, realHeight);
+            sb.draw(ImageMaster.DEBUG_HITBOX_IMG,
+                    this.x, this.y,
+                    rightX - x, realHeight);
         }
     }
 
