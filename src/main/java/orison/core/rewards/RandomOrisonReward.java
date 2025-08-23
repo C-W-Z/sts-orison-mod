@@ -37,13 +37,13 @@ public class RandomOrisonReward extends AbstractOrisonReward {
 
     public static final RewardType TYPE = RewardTypePatch.RandomOrisonReward;
     private static final Texture ICON = TexLoader.getTexture(makeRewardPath(TYPE.name() + ".png"));
-    private static final String TEXT = CardCrawlGame.languagePack.getUIString(makeID(TYPE.name())).TEXT[0];
+    private static final String[] TEXT = CardCrawlGame.languagePack.getUIString(makeID(TYPE.name())).TEXT;
 
     public boolean adv;
     public int amount;
 
     public RandomOrisonReward(int amount) {
-        this(ICON, TEXT, TYPE, amount, false);
+        this(ICON, TEXT[0], TYPE, amount, false);
     }
 
     public RandomOrisonReward(Texture icon, String text, RewardType type, int amount, boolean adv) {

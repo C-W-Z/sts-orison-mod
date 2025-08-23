@@ -1,5 +1,7 @@
 package orison.core.abstracts;
 
+import static orison.core.OrisonMod.makeID;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.random.Random;
@@ -23,6 +26,9 @@ import orison.cardmodifiers.ShowOrisonChangeModifier;
 public abstract class AbstractOrisonReward extends CustomReward {
 
     private static final Logger logger = LogManager.getLogger(AbstractOrison.class);
+    public static final String[] TEXT = CardCrawlGame.languagePack
+            .getUIString(makeID(AbstractOrisonReward.class.getSimpleName())).TEXT;
+
 
     protected String text;
     protected List<AbstractOrison> orisons;
@@ -40,7 +46,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
     @Override
     public boolean claimReward() {
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
-            AbstractDungeon.cardRewardScreen.customCombatOpen(cards, text, true);
+            AbstractDungeon.cardRewardScreen.customCombatOpen(cards, TEXT[0], true);
             AbstractDungeon.cardRewardScreen.rItem = this;
             AbstractDungeon.previousScreen = AbstractDungeon.CurrentScreen.COMBAT_REWARD;
         }

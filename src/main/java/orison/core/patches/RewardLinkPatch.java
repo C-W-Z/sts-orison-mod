@@ -1,8 +1,7 @@
 package orison.core.patches;
 
-import java.util.ArrayList;
+import static orison.core.OrisonMod.makeID;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.LineFinder;
 import com.evacipated.cardcrawl.modthespire.lib.Matcher;
@@ -13,11 +12,10 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -31,6 +29,8 @@ import orison.core.abstracts.AbstractOrisonReward;
 
 /** Only support links between Orison Reward & Card Reward */
 public class RewardLinkPatch {
+
+    public static final String[] TEXT = CardCrawlGame.languagePack.getUIString(makeID(RewardLinkPatch.class.getSimpleName())).TEXT;
 
     @SpirePatch(clz = RewardItem.class, method = SpirePatch.CLASS)
     public static class RewardLink {
@@ -68,7 +68,7 @@ public class RewardLinkPatch {
             if (__instance.type != RewardType.CARD || !__instance.hb.hovered || RewardLink.link.get(__instance) == null)
                 return;
             TipHelper.renderGenericTip(360.0F * Settings.scale, InputHelper.mY + 50.0F * Settings.scale,
-                    "互斥", "獲取這件遺物將會在這個寶箱中移除 " + FontHelper.colorString("刻印獎勵", "y") + " 。");
+                    TEXT[0], TEXT[1] + FontHelper.colorString(TEXT[2], "y") + TEXT[4]);
         }
 
         private static class LocatorCard extends SpireInsertLocator {
@@ -88,7 +88,7 @@ public class RewardLinkPatch {
                 return;
             if (__instance.hb.hovered)
                 TipHelper.renderGenericTip(360.0F * Settings.scale, InputHelper.mY + 50.0F * Settings.scale,
-                        "互斥", "獲取這件遺物將會在這個寶箱中移除 " + FontHelper.colorString("卡牌獎勵", "y") + " 。");
+                        TEXT[0], TEXT[1] + FontHelper.colorString(TEXT[3], "y") + TEXT[4]);
             // 畫連結的鎖鏈圖示
             ReflectionHacks.privateMethod(RewardItem.class, "renderRelicLink", SpriteBatch.class)
                     .invoke(__instance, sb);

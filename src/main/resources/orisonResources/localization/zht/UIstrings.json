@@ -14,6 +14,12 @@
       "TREASURE_DROP_ORISON_ADV_CHANCE": "寶箱中出現的刻印是高級刻印的機率"
     }
   },
+  "${ModID}:RewardLinkPatch": {
+    "TEXT": ["互斥", "獲取這個獎勵將會移除 ", "刻印獎勵", "卡牌獎勵", " 。"]
+  },
+  "${ModID}:AbstractOrisonReward": {
+    "TEXT": ["選擇附加刻印到卡牌"]
+  },
   "${ModID}:RandomOrisonReward": {
     "TEXT": ["選擇一個刻印"]
   },

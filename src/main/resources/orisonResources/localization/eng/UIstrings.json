@@ -14,11 +14,23 @@
       "TREASURE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Treasure Chests being Adv."
     }
   },
+  "${ModID}:RewardLinkPatch": {
+    "TEXT": [
+      "Linked",
+      "Obtaining this will remove ",
+      "Orison Reward",
+      "Card Reward",
+      "."
+    ]
+  },
+  "${ModID}:AbstractOrisonReward": {
+    "TEXT": ["Choose to attach an Orison to the card"]
+  },
   "${ModID}:RandomOrisonReward": {
-    "TEXT": ["Select an Orison"]
+    "TEXT": ["Choose an Orison"]
   },
   "${ModID}:RandomAdvOrisonReward": {
-    "TEXT": ["Select an Adv. Orison"]
+    "TEXT": ["Choose an Adv. Orison"]
   },
   "${ModID}:Bastion": {
     "TEXT": [
