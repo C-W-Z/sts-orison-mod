@@ -16,7 +16,7 @@
     </properties>
 
     <name>Orison</name>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <description>刻印模組\nSteam Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=3550528092</description>
     <groupId>orison</groupId>
     <artifactId>orison</artifactId>
