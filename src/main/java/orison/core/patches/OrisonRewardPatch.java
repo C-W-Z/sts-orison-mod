@@ -47,14 +47,18 @@ public class OrisonRewardPatch {
             AbstractRoom room = AbstractDungeon.getCurrRoom();
 
             float chance = 0F;
+            boolean linked = false;
 
-            if (room instanceof MonsterRoomBoss)
+            if (room instanceof MonsterRoomBoss) {
                 chance += OrisonConfig.Reward.BOSS_DROP_ORISON_CHANCE;
-            else if (room instanceof MonsterRoomElite)
+                linked = OrisonConfig.Reward.BOSS_DROP_ORISON_LINKED;
+            } else if (room instanceof MonsterRoomElite) {
                 chance += OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE;
-            else if (room instanceof MonsterRoom)
+                linked = OrisonConfig.Reward.ELITE_DROP_ORISON_LINKED;
+            } else if (room instanceof MonsterRoom) {
                 chance += OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE;
-            else if (room instanceof TreasureRoom)
+                linked = OrisonConfig.Reward.MONSTER_DROP_ORISON_LINKED;
+            } else if (room instanceof TreasureRoom)
                 chance += OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE;
 
             if (room instanceof MonsterRoom) {
@@ -78,7 +82,9 @@ public class OrisonRewardPatch {
             if (reward.canAddToRewards())
                 __instance.rewards.add(reward);
 
-            RewardLinkPatch.setRewardLink(reward, lastReward);
+
+            if (linked)
+                RewardLinkPatch.setRewardLink(reward, lastReward);
         }
 
         private static class Locator extends SpireInsertLocator {

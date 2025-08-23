@@ -6,10 +6,13 @@
     "TEXT_DICT": {
       "MONSTER_DROP_ORISON_CHANCE": "Orison Drop Rate after Normal Battles",
       "MONSTER_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Normal Battles being Adv.",
+      "MONSTER_DROP_ORISON_LINKED": "Can only pick 1 between Card and Orison Reward after Normal Battles.",
       "ELITE_DROP_ORISON_CHANCE": "Orison Drop Rate after Elite Battles",
       "ELITE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Elite Battles being Adv.",
+      "ELITE_DROP_ORISON_LINKED": "Can only pick 1 between Card and Orison Reward after Elite Battles.",
       "BOSS_DROP_ORISON_CHANCE": "Orison Drop Rate after Boss Battles",
       "BOSS_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Boss Battles being Adv.",
+      "BOSS_DROP_ORISON_LINKED": "Can only pick 1 between Card and Orison Reward after Boss Battles.",
       "TREASURE_DROP_ORISON_CHANCE": "Orisons Drop Rate in Treasure Chests",
       "TREASURE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Treasure Chests being Adv."
     }

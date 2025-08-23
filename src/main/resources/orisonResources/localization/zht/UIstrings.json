@@ -6,16 +6,19 @@
     "TEXT_DICT": {
       "MONSTER_DROP_ORISON_CHANCE": "普通戰鬥後掉落刻印的機率",
       "MONSTER_DROP_ORISON_ADV_CHANCE": "普通戰鬥後掉落的刻印是高級刻印的機率",
+      "MONSTER_DROP_ORISON_LINKED": "普通戰鬥掉落的卡牌和刻印獎勵只能二選一",
       "ELITE_DROP_ORISON_CHANCE": "菁英戰鬥後掉落刻印的機率",
       "ELITE_DROP_ORISON_ADV_CHANCE": "菁英戰鬥後掉落的刻印是高級刻印的機率",
+      "ELITE_DROP_ORISON_LINKED": "菁英戰鬥掉落的卡牌和刻印獎勵只能二選一",
       "BOSS_DROP_ORISON_CHANCE": "首領戰鬥後掉落刻印的機率",
       "BOSS_DROP_ORISON_ADV_CHANCE": "首領戰鬥後掉落的刻印是高級刻印的機率",
+      "BOSS_DROP_ORISON_LINKED": "首領戰鬥掉落的卡牌和刻印獎勵只能二選一",
       "TREASURE_DROP_ORISON_CHANCE": "寶箱中出現刻印的機率",
       "TREASURE_DROP_ORISON_ADV_CHANCE": "寶箱中出現的刻印是高級刻印的機率"
     }
   },
   "${ModID}:RewardLinkPatch": {
-    "TEXT": ["互斥", "獲取這個獎勵將會移除 ", "刻印獎勵", "卡牌獎勵", " 。"]
+    "TEXT": ["互斥", "獲取這件獎勵將會移除 ", "刻印獎勵", "卡牌獎勵", " 。"]
   },
   "${ModID}:AbstractOrisonReward": {
     "TEXT": ["選擇附加刻印到卡牌"]

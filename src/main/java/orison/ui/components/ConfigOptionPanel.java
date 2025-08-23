@@ -39,50 +39,57 @@ public class ConfigOptionPanel implements ConfigUIElement {
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_ADV_CHANCE, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_LINKED),
+                OrisonConfig.Reward.MONSTER_DROP_ORISON_LINKED,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_LINKED, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_CHANCE, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.ELITE_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_ADV_CHANCE, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_LINKED),
+                OrisonConfig.Reward.ELITE_DROP_ORISON_LINKED,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_ELITE_DROP_ORISON_LINKED, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.BOSS_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_CHANCE, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.BOSS_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_ADV_CHANCE, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_LINKED),
+                OrisonConfig.Reward.BOSS_DROP_ORISON_LINKED,
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_BOSS_DROP_ORISON_LINKED, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_CHANCE, v)));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE),
                 OrisonConfig.Reward.TREASURE_DROP_ORISON_ADV_CHANCE,
-                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE, v),
-                TextConfig.Type.HUNDRED_PERCENT_SLIDER));
+                v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_TREASURE_DROP_ORISON_ADV_CHANCE, v)));
 
         this.y = y - realHeight + scrollables.get(0).getHeight() / 2;
     }
