@@ -15,6 +15,8 @@ import orison.core.libs.OrisonLib;
 import orison.core.libs.RewardLib;
 import orison.core.savables.OrisonRng;
 import orison.core.savables.OrisonSave;
+import orison.extensions.morimensmod.MorimensModExtension;
+import orison.extensions.vanilla.VanillaExtension;
 import orison.utils.OrisonExtensionScanner;
 import orison.utils.ProAudio;
 
@@ -234,33 +236,36 @@ public class OrisonMod implements
     }
 
     public static void initializeOrisonExtensions() {
-        Set<String> foundExtensions = OrisonExtensionScanner.scanOrisonExtensions();
+        new VanillaExtension();
+        new MorimensModExtension();
+
+        // Set<String> foundExtensions = OrisonExtensionScanner.scanOrisonExtensions();
 
         // 載入並初始化找到的類
-        for (String className : foundExtensions) {
-            Class<?> clazz;
-            try {
-                clazz = Class.forName(className);
-            } catch (ClassNotFoundException e) {
-                logger.error("Failed to get Class {}", className);
-                e.printStackTrace();
-                continue;
-            }
+        // for (String className : foundExtensions) {
+        //     Class<?> clazz;
+        //     try {
+        //         clazz = Class.forName(className);
+        //     } catch (ClassNotFoundException e) {
+        //         logger.error("Failed to get Class {}", className);
+        //         e.printStackTrace();
+        //         continue;
+        //     }
 
-            if (!OrisonExtensionScanner.isOrisonExtension(clazz)) {
-                logger.info("{} is NOT an Orison Extension", className);
-                continue;
-            }
+        //     if (!OrisonExtensionScanner.isOrisonExtension(clazz)) {
+        //         logger.info("{} is NOT an Orison Extension", className);
+        //         continue;
+        //     }
 
-            try {
-                // 實例化
-                clazz.getConstructor().newInstance();
-                logger.info("Orison Extension {} is loaded", className);
-            } catch (Exception e) {
-                logger.error("Failed to initialize {}", className, e);
-                e.printStackTrace();
-            }
-        }
+        //     try {
+        //         // 實例化
+        //         clazz.getConstructor().newInstance();
+        //         logger.info("Orison Extension {} is loaded", className);
+        //     } catch (Exception e) {
+        //         logger.error("Failed to initialize {}", className, e);
+        //         e.printStackTrace();
+        //     }
+        // }
     }
 
     public static void register(OrisonExtension extension) {
