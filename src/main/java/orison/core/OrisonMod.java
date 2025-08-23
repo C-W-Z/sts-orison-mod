@@ -169,8 +169,9 @@ public class OrisonMod implements
     @Override
     public void receiveEditRelics() {
         new AutoAdd(modID)
-                .packageFilter(AbstractOrisonRelic.class)
+                .packageFilter("orison.core.relics")
                 .any(AbstractOrisonRelic.class, (info, relic) -> {
+                    logger.info("add relic " + relic.relicId);
                     BaseMod.addRelic(relic, RelicType.SHARED);
                     if (!info.seen)
                         UnlockTracker.markRelicAsSeen(relic.relicId);

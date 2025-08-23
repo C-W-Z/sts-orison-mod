@@ -1,7 +1,7 @@
 [
   {
     "PROPER_NAME": "刻印",
-    "NAMES": ["刻印", "orison"],
-    "DESCRIPTION": ""
+    "NAMES": ["刻印", "Orison"],
+    "DESCRIPTION": "一種獎勵類型，可以附加在卡牌上，使其獲得額外效果。"
   }
 ]

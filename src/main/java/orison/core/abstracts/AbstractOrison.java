@@ -6,6 +6,9 @@ import static orison.utils.GeneralUtils.removePrefix;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,11 +18,13 @@ import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
+import orison.core.relics.DeusExMachina;
 import orison.utils.TexLoader;
 
 /*
@@ -28,6 +33,8 @@ import orison.utils.TexLoader;
  * 2. 有一個無參數Constructor，用於OrisonLib中的AutoAdd
  */
 public abstract class AbstractOrison extends AbstractCardModifier {
+
+    private static final Logger logger = LogManager.getLogger(AbstractOrison.class);
 
     public static final float DEFAULT_RARITY = 100F;
 
@@ -50,8 +57,13 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         this.id = id;
         this.hasAdv = hasAdv;
         this.hasDisabledImg = hasDisabledImg;
-        if (hasAdv)
+        if (hasAdv) {
             this.adv = adv;
+            if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(DeusExMachina.ID)) {
+                logger.info("relic DeusExMachina take effect");
+                this.adv = true;
+            }
+        }
         this.rarity = rarity;
         initializeImages();
     }

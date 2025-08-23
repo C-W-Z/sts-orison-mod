@@ -1,7 +1,7 @@
 [
   {
     "PROPER_NAME": "Orison",
-    "NAMES": ["orison", "orisons"],
-    "DESCRIPTION": ""
+    "NAMES": ["Orison", "orison", "orisons"],
+    "DESCRIPTION": "A type of reward that can be attached to a card to grant it additional effects."
   }
 ]

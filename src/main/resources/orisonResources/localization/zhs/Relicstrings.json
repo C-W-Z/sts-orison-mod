@@ -1,7 +1,7 @@
 {
-  "${ModID}:": {
-    "NAME": "",
+  "${ModID}:DeusExMachina": {
+    "NAME": "机械降神",
     "FLAVOR": "",
-    "DESCRIPTIONS": [""]
+    "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   }
 }

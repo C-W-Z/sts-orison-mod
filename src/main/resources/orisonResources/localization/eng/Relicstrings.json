@@ -1,7 +1,7 @@
 {
-  "${ModID}:": {
-    "NAME": "",
+  "${ModID}:DeusExMachina": {
+    "NAME": "Deus Ex Machina",
     "FLAVOR": "",
-    "DESCRIPTIONS": [""]
+    "DESCRIPTIONS": ["Whenever you get an #y${ModID}:Orison, make it become Advanced."]
   }
 }
