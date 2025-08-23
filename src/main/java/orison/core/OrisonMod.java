@@ -8,7 +8,7 @@ import basemod.interfaces.*;
 import orison.cardvars.AbstractEasyDynamicVariable;
 import orison.core.abstracts.AbstractEasyCard;
 import orison.core.abstracts.AbstractEasyPotion;
-import orison.core.abstracts.AbstractEasyRelic;
+import orison.core.abstracts.AbstractOrisonRelic;
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.libs.OrisonLib;
@@ -168,12 +168,9 @@ public class OrisonMod implements
     @Override
     public void receiveEditRelics() {
         new AutoAdd(modID)
-                .packageFilter(AbstractEasyRelic.class)
-                .any(AbstractEasyRelic.class, (info, relic) -> {
-                    if (relic.color == null)
-                        BaseMod.addRelic(relic, RelicType.SHARED);
-                    else
-                        BaseMod.addRelicToCustomPool(relic, relic.color);
+                .packageFilter(AbstractOrisonRelic.class)
+                .any(AbstractOrisonRelic.class, (info, relic) -> {
+                    BaseMod.addRelic(relic, RelicType.SHARED);
                     if (!info.seen)
                         UnlockTracker.markRelicAsSeen(relic.relicId);
                 });
