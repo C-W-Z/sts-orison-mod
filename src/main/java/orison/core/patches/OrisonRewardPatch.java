@@ -66,8 +66,10 @@ public class OrisonRewardPatch {
                 OrisonRng.rememberCounter();
             }
 
-            if (!OrisonRng.get().randomBoolean(chance))
+            if (!OrisonRng.get().randomBoolean(chance)) {
+                logger.info("OrisonRng rolled NOT to generate orison reward");
                 return;
+            }
 
             RewardItem lastReward = null;
             if (__instance.rewards.isEmpty()) {
@@ -79,9 +81,11 @@ public class OrisonRewardPatch {
             }
 
             RandomOrisonReward reward = new RandomOrisonReward(3);
-            if (reward.canAddToRewards())
-                __instance.rewards.add(reward);
-
+            if (!reward.canAddToRewards()) {
+                logger.error("RandomOrisonReward.canAddToRewards() return false, drop reward failed");
+                return;
+            }
+            __instance.rewards.add(reward);
 
             if (linked)
                 RewardLinkPatch.setRewardLink(reward, lastReward);

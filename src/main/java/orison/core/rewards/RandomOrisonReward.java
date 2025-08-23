@@ -59,12 +59,12 @@ public class RandomOrisonReward extends AbstractOrisonReward {
         orisons = OrisonLib.getRandomCommonOrison(adv, noOrisoCards.size(), false);
         if (orisons.size() < noOrisoCards.size())
             orisons.addAll(OrisonLib.getRandomCommonOrison(adv, noOrisoCards.size() - orisons.size(), true));
-        orisons.forEach(o -> logger.debug("Rolled orison: " + o.id + " on no-orison card"));
+        orisons.forEach(o -> logger.info("Rolled orison: " + o.id + " on no-orison card"));
 
         for (AbstractCard c : withOrisoCards) {
             List<AbstractCardModifier> oldOrisons = CardModifierManager.modifiers(c)
                     .stream().filter(AbstractOrison.class::isInstance).collect(Collectors.toList());
-            oldOrisons.forEach(o -> logger.debug("card " + c.cardID + " has orison: " + o.identifier(c)));
+            oldOrisons.forEach(o -> logger.info("card " + c.cardID + " has orison: " + o.identifier(c)));
             List<AbstractOrison> newOrisons = OrisonLib.getRandomCommonOrison(adv, 1, false, o -> {
                 for (AbstractCardModifier old : oldOrisons)
                     if (old.identifier(c).equals(o.id) && ((AbstractOrison) old).adv == o.adv)
@@ -75,7 +75,7 @@ public class RandomOrisonReward extends AbstractOrisonReward {
                 logger.error("Rolled orison is NULL or EMPTY on with-orison card: " + c.cardID);
                 continue;
             }
-            newOrisons.forEach(o -> logger.debug("Rolled orison: " + o.id + " on with-orison card: " + c.cardID));
+            newOrisons.forEach(o -> logger.info("Rolled orison: " + o.id + " on with-orison card: " + c.cardID));
             orisons.addAll(newOrisons);
         }
 

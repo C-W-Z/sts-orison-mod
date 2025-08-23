@@ -101,14 +101,14 @@ public abstract class AbstractOrisonReward extends CustomReward {
             AbstractCard c = noOrisonCards.get(random.random(noOrisonCards.size() - 1));
             first.add(c);
             noOrisonCards.remove(c);
-            logger.debug("Rolled no-orison card: " + c.cardID);
+            logger.info("Rolled no-orison card: " + c.cardID);
         }
         List<AbstractCard> second = new ArrayList<>();
         while (first.size() + second.size() < amount && !orisonCards.isEmpty()) {
             AbstractCard c = orisonCards.get(random.random(orisonCards.size() - 1));
             second.add(c);
             orisonCards.remove(c);
-            logger.debug("Rolled with-orison card: " + c.cardID);
+            logger.info("Rolled with-orison card: " + c.cardID);
         }
         return new Pair<>(first, second);
     }
