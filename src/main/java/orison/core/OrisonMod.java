@@ -17,7 +17,6 @@ import orison.core.savables.OrisonRng;
 import orison.core.savables.OrisonSave;
 import orison.extensions.morimensmod.MorimensModExtension;
 import orison.extensions.vanilla.VanillaExtension;
-import orison.utils.OrisonExtensionScanner;
 import orison.utils.ProAudio;
 
 import com.badlogic.gdx.Gdx;
@@ -235,37 +234,10 @@ public class OrisonMod implements
         // Settings.isInfo = true;
     }
 
+    /** 如果有其他模組想要新增OrisonExtension，就直接SpirePostfixPatch這個函式即可 */
     public static void initializeOrisonExtensions() {
         new VanillaExtension();
         new MorimensModExtension();
-
-        // Set<String> foundExtensions = OrisonExtensionScanner.scanOrisonExtensions();
-
-        // 載入並初始化找到的類
-        // for (String className : foundExtensions) {
-        //     Class<?> clazz;
-        //     try {
-        //         clazz = Class.forName(className);
-        //     } catch (ClassNotFoundException e) {
-        //         logger.error("Failed to get Class {}", className);
-        //         e.printStackTrace();
-        //         continue;
-        //     }
-
-        //     if (!OrisonExtensionScanner.isOrisonExtension(clazz)) {
-        //         logger.info("{} is NOT an Orison Extension", className);
-        //         continue;
-        //     }
-
-        //     try {
-        //         // 實例化
-        //         clazz.getConstructor().newInstance();
-        //         logger.info("Orison Extension {} is loaded", className);
-        //     } catch (Exception e) {
-        //         logger.error("Failed to initialize {}", className, e);
-        //         e.printStackTrace();
-        //     }
-        // }
     }
 
     public static void register(OrisonExtension extension) {

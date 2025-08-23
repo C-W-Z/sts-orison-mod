@@ -21,6 +21,8 @@ public class OrisonExtensionScanner {
 
     private static final Logger logger = LogManager.getLogger(OrisonExtensionScanner.class);
 
+    /** @deprecated */
+    @Deprecated
     public static Set<String> scanOrisonExtensions() {
         Set<String> foundClasses = new HashSet<>();
         ClassPool pool = ClassPool.getDefault();
