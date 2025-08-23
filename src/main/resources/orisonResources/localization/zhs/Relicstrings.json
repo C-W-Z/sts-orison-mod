@@ -1,4 +1,9 @@
 {
+  "${ModID}:BurialGroundsSighs": {
+    "NAME": "埋骨地絮语",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["战斗后必定掉落 #y${ModID}:刻印 奖励。"]
+  },
   "${ModID}:DeusExMachina": {
     "NAME": "机械降神",
     "FLAVOR": "",

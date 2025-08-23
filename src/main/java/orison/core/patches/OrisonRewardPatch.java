@@ -13,9 +13,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
+import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
@@ -24,6 +24,7 @@ import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import javassist.CtBehavior;
 import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.configs.OrisonConfig;
+import orison.core.relics.BurialGroundsSighs;
 import orison.core.rewards.RandomOrisonReward;
 import orison.core.savables.OrisonRng;
 
@@ -49,21 +50,25 @@ public class OrisonRewardPatch {
             float chance = 0F;
             boolean linked = false;
 
-            if (room instanceof MonsterRoomBoss) {
+            if (room instanceof TreasureRoom)
+                chance += OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE;
+            else if (room instanceof MonsterRoomBoss) {
                 chance += OrisonConfig.Reward.BOSS_DROP_ORISON_CHANCE;
                 linked = OrisonConfig.Reward.BOSS_DROP_ORISON_LINKED;
             } else if (room instanceof MonsterRoomElite) {
                 chance += OrisonConfig.Reward.ELITE_DROP_ORISON_CHANCE;
                 linked = OrisonConfig.Reward.ELITE_DROP_ORISON_LINKED;
-            } else if (room instanceof MonsterRoom) {
+            } else if (isAfterCombat()) {
                 chance += OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE;
                 linked = OrisonConfig.Reward.MONSTER_DROP_ORISON_LINKED;
-            } else if (room instanceof TreasureRoom)
-                chance += OrisonConfig.Reward.TREASURE_DROP_ORISON_CHANCE;
+            }
 
-            if (room instanceof MonsterRoom) {
+            if (isAfterCombat()) {
                 // Remember OrisonRng counter before any rolled by OrisonRng
                 OrisonRng.rememberCounter();
+
+                if (AbstractDungeon.player.hasRelic(BurialGroundsSighs.ID))
+                    chance = 1F;
             }
 
             if (!OrisonRng.get().randomBoolean(chance)) {
@@ -98,5 +103,15 @@ public class OrisonRewardPatch {
                 return LineFinder.findInOrder(ctMethodToPatch, matcher);
             }
         }
+    }
+
+    public static boolean isAfterCombat() {
+        if (AbstractDungeon.currMapNode == null)
+            return false;
+        AbstractRoom room = AbstractDungeon.getCurrRoom();
+        if (room == null)
+            return false;
+        return (room.event == null || (room.event != null && !room.event.noCardsInRewards))
+                && !(room instanceof TreasureRoom) && !(room instanceof RestRoom);
     }
 }

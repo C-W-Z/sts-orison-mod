@@ -1,7 +1,14 @@
 {
+  "${ModID}:BurialGroundsSighs": {
+    "NAME": "Burial Ground's Sighs",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["#y${ModID}:Orisons always appear in combat rewards."]
+  },
   "${ModID}:DeusExMachina": {
     "NAME": "Deus Ex Machina",
     "FLAVOR": "",
-    "DESCRIPTIONS": ["Whenever you get an #y${ModID}:Orison, make it become Advanced."]
+    "DESCRIPTIONS": [
+      "Whenever you get an #y${ModID}:Orison, make it become Advanced."
+    ]
   }
 }
