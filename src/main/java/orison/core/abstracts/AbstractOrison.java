@@ -135,6 +135,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
 
     @Override
     public void onRender(AbstractCard card, SpriteBatch sb) {
+        if (card.isFlipped || card.isLocked)
+            return;
         Pair<Texture, Color> imgAndColor = getImageAndColor();
         Vector2 offset = new Vector2(-115, 115);
         onRenderHelper(sb, card, imgAndColor.getKey(), offset, 80, 80, imgAndColor.getValue());
@@ -142,6 +144,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
 
     @Override
     public void onSingleCardViewRender(AbstractCard card, SpriteBatch sb) {
+        if (card.isFlipped || card.isLocked)
+            return;
         Pair<Texture, Color> imgAndColor = getImageAndColor();
         Vector2 offset = new Vector2(-230, 230);
         onSCVRenderHelper(sb, card, imgAndColor.getKey(), offset, 160, 160, imgAndColor.getValue());
