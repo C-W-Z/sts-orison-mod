@@ -28,6 +28,7 @@ import javassist.CtBehavior;
 import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.configs.OrisonConfig;
 import orison.core.relics.BurialGroundsSighs;
+import orison.core.relics.ReEvolution;
 import orison.core.relics.TwistedTwinsBlack;
 import orison.core.relics.TwistedTwinsWhite;
 import orison.core.rewards.RandomOrisonReward;
@@ -99,14 +100,21 @@ public class OrisonRewardPatch {
                 amount -= 2;
 
             RandomOrisonReward reward = new RandomOrisonReward(amount);
-            if (!reward.canAddToRewards()) {
+            if (reward.canAddToRewards()) {
+                __instance.rewards.add(reward);
+                if (linked && lastReward != null)
+                    RewardLinkPatch.setRewardLink(reward, lastReward);
+            } else {
                 logger.error("RandomOrisonReward.canAddToRewards() return false, drop reward failed");
-                return;
             }
-            __instance.rewards.add(reward);
 
-            if (linked && lastReward != null)
-                RewardLinkPatch.setRewardLink(reward, lastReward);
+            if (room instanceof MonsterRoomElite && AbstractDungeon.player.hasRelic(ReEvolution.ID)) {
+                RandomOrisonReward reward2 = new RandomOrisonReward(amount);
+                if (reward.canAddToRewards())
+                    __instance.rewards.add(reward2);
+                else
+                    logger.error("RandomOrisonReward.canAddToRewards() return false, drop second reward failed");
+            }
         }
 
         private static class Locator extends SpireInsertLocator {

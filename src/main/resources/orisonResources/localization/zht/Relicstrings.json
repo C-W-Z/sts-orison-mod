@@ -25,5 +25,10 @@
     "DESCRIPTIONS": [
       "未來的 #y${ModID}:刻印 獎勵中，可選項 #r-2 。 [E] 上限 #b+1 。"
     ]
+  },
+  "${ModID}:ReEvolution": {
+    "NAME": "【密契】再衍化",
+    "FLAVOR": "繁衍吧，繁衍吧。讓流淌著母樹鮮血的靈魂遍及世界。",
+    "DESCRIPTIONS": ["菁英敵人被打敗時多掉落 #b1 件 #y${ModID}:刻印 獎勵。"]
   }
 }
