@@ -9,10 +9,10 @@
     "FLAVOR": "",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
-  "${ModID}:UnstainedChronicle": {
-    "NAME": "【密契】无垢启示录",
-    "FLAVOR": "",
-    "DESCRIPTIONS": ["每当你获得一张牌时，为其附加一个随机 #y${ModID}:刻印 。"]
+  "${ModID}:ReEvolution": {
+    "NAME": "【密契】再衍化",
+    "FLAVOR": "繁衍吧，繁衍吧。让流淌着母树鲜血的灵魂遍及世界。",
+    "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件 #y${ModID}:刻印 奖励。"]
   },
   "${ModID}:TwistedTwinsWhite": {
     "NAME": "【密契】扭曲双子·白",
@@ -26,9 +26,9 @@
       "未来的 #y${ModID}:刻印 奖励中，可选项 #r-2 。 [E] 上限 #b+1 。"
     ]
   },
-  "${ModID}:ReEvolution": {
-    "NAME": "【密契】再衍化",
-    "FLAVOR": "繁衍吧，繁衍吧。让流淌着母树鲜血的灵魂遍及世界。",
-    "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件 #y${ModID}:刻印 奖励。"]
+  "${ModID}:UnstainedChronicle": {
+    "NAME": "【密契】无垢启示录",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["每当你获得一张牌时，为其附加一个随机 #y${ModID}:刻印 。"]
   }
 }

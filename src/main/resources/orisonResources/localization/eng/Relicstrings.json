@@ -11,11 +11,11 @@
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
-  "${ModID}:UnstainedChronicle": {
-    "NAME": "[Covenant] Unstained Chronicle",
-    "FLAVOR": "",
+  "${ModID}:ReEvolution": {
+    "NAME": "[Covenant] Re-evolution",
+    "FLAVOR": "Procreate, procreate. Let the souls carrying the blood of the Mother Tree spread across the world.",
     "DESCRIPTIONS": [
-      "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."
+      "Elites drop #b1 additional #y${ModID}:Orison reward when defeated."
     ]
   },
   "${ModID}:TwistedTwinsWhite": {
@@ -32,11 +32,11 @@
       "In the future #y${ModID}:Orison rewards, number of options #r-2. Max [E] limit #b+1."
     ]
   },
-  "${ModID}:ReEvolution": {
-    "NAME": "[Covenant] Re-evolution",
-    "FLAVOR": "Procreate, procreate. Let the souls carrying the blood of the Mother Tree spread across the world.",
+  "${ModID}:UnstainedChronicle": {
+    "NAME": "[Covenant] Unstained Chronicle",
+    "FLAVOR": "",
     "DESCRIPTIONS": [
-      "Elites drop #b1 additional #y${ModID}:Orison reward when defeated."
+      "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."
     ]
   }
 }
