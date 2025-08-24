@@ -18,10 +18,10 @@ import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import basemod.Pair;
-import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.CustomReward;
 import basemod.helpers.CardModifierManager;
 import orison.cardmodifiers.ShowOrisonChangeModifier;
+import orison.utils.OrisonHelper;
 
 public abstract class AbstractOrisonReward extends CustomReward {
 
@@ -29,14 +29,12 @@ public abstract class AbstractOrisonReward extends CustomReward {
     public static final String[] TEXT = CardCrawlGame.languagePack
             .getUIString(makeID(AbstractOrisonReward.class.getSimpleName())).TEXT;
 
-
-    protected String text;
     protected List<AbstractOrison> orisons;
     protected List<AbstractCard> cardsToApplyOrison;
+    protected ArrayList<AbstractCard> cardsToDisplay;
 
-    public AbstractOrisonReward(Texture icon, String text, RewardType type) {
-        super(icon, text, type);
-        this.text = text;
+    public AbstractOrisonReward(Texture icon, RewardType type) {
+        super(icon, TEXT[0], type);
     }
 
     public boolean canAddToRewards() {
@@ -46,7 +44,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
     @Override
     public boolean claimReward() {
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
-            AbstractDungeon.cardRewardScreen.customCombatOpen(cards, TEXT[0], true);
+            AbstractDungeon.cardRewardScreen.customCombatOpen(cardsToDisplay, TEXT[0], true);
             AbstractDungeon.cardRewardScreen.rItem = this;
             AbstractDungeon.previousScreen = AbstractDungeon.CurrentScreen.COMBAT_REWARD;
         }
@@ -54,7 +52,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
     }
 
     public void takeReward() {
-        int i = cards.indexOf(AbstractDungeon.cardRewardScreen.discoveryCard);
+        int i = cardsToDisplay.indexOf(AbstractDungeon.cardRewardScreen.discoveryCard);
         if (i < 0) {
             logger.error("discoveryCard NOT found in Orison Reward cards");
             return;
@@ -71,15 +69,15 @@ public abstract class AbstractOrisonReward extends CustomReward {
 
     /** Call this function at the end of OrisonRewards' Contructor */
     protected void initializeCardsToDisplay() {
-        cards = new ArrayList<>();
+        cardsToDisplay = new ArrayList<>();
         for (int i = 0; i < orisons.size() && i < cardsToApplyOrison.size(); i++) {
             AbstractCard tmpCard = cardsToApplyOrison.get(i).makeStatEquivalentCopy();
-            AbstractOrison oldOrison = getOldOrison(tmpCard);
-            if (oldOrison == null)
+            List<AbstractOrison> oldOrison = OrisonHelper.getOrisons(tmpCard);
+            if (oldOrison.isEmpty())
                 CardModifierManager.addModifier(tmpCard, orisons.get(i));
             else
-                CardModifierManager.addModifier(tmpCard, new ShowOrisonChangeModifier(oldOrison, orisons.get(i)));
-            cards.add(tmpCard);
+                CardModifierManager.addModifier(tmpCard, new ShowOrisonChangeModifier(oldOrison.get(0), orisons.get(i)));
+            cardsToDisplay.add(tmpCard);
         }
     }
 
@@ -91,7 +89,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
         for (AbstractCard c : cards) {
             if (!AbstractOrison.canApplyOrison(c))
                 continue;
-            if (CardModifierManager.modifiers(c).stream().anyMatch(AbstractOrison.class::isInstance))
+            if (OrisonHelper.hasOrisons(c))
                 orisonCards.add(c);
             else
                 noOrisonCards.add(c);
@@ -111,12 +109,5 @@ public abstract class AbstractOrisonReward extends CustomReward {
             logger.info("Rolled with-orison card: " + c.cardID);
         }
         return new Pair<>(first, second);
-    }
-
-    protected static AbstractOrison getOldOrison(AbstractCard card) {
-        for (AbstractCardModifier m : CardModifierManager.modifiers(card))
-            if (m instanceof AbstractOrison)
-                return (AbstractOrison) m;
-        return null;
     }
 }

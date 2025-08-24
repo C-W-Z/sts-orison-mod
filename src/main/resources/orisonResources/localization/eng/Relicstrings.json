@@ -10,5 +10,12 @@
     "DESCRIPTIONS": [
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
+  },
+  "${ModID}:UnstainedChronicle": {
+    "NAME": "Unstained Chronicle",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."
+    ]
   }
 }

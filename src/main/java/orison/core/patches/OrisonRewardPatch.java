@@ -9,6 +9,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInsertLocator;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
@@ -16,7 +17,9 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.rooms.RestRoom;
+import com.megacrit.cardcrawl.rooms.ShopRoom;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
+import com.megacrit.cardcrawl.rooms.TreasureRoomBoss;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
@@ -43,6 +46,13 @@ public class OrisonRewardPatch {
 
     @SpirePatch2(clz = CombatRewardScreen.class, method = "setupItemReward")
     public static class CombatRewardScreenPatch {
+
+        @SpirePrefixPatch
+        public static void Prefix() {
+            // Remember OrisonRng counter before any rolled by OrisonRng
+            OrisonRng.rememberCounter();
+        }
+
         @SpireInsertPatch(locator = Locator.class)
         public static void Insert(CombatRewardScreen __instance) {
             AbstractRoom room = AbstractDungeon.getCurrRoom();
@@ -63,13 +73,8 @@ public class OrisonRewardPatch {
                 linked = OrisonConfig.Reward.MONSTER_DROP_ORISON_LINKED;
             }
 
-            if (isAfterCombat()) {
-                // Remember OrisonRng counter before any rolled by OrisonRng
-                OrisonRng.rememberCounter();
-
-                if (AbstractDungeon.player.hasRelic(BurialGroundsSighs.ID))
-                    chance = 1F;
-            }
+            if (isAfterCombat() && AbstractDungeon.player.hasRelic(BurialGroundsSighs.ID))
+                chance = 1F;
 
             if (!OrisonRng.get().randomBoolean(chance)) {
                 logger.info("OrisonRng rolled NOT to generate orison reward");
@@ -112,6 +117,9 @@ public class OrisonRewardPatch {
         if (room == null)
             return false;
         return (room.event == null || (room.event != null && !room.event.noCardsInRewards))
-                && !(room instanceof TreasureRoom) && !(room instanceof RestRoom);
+                && !(room instanceof TreasureRoom)
+                && !(room instanceof TreasureRoomBoss)
+                && !(room instanceof RestRoom)
+                && !(room instanceof ShopRoom);
     }
 }

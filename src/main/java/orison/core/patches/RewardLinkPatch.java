@@ -47,8 +47,12 @@ public class RewardLinkPatch {
     public static class UpdatePatch {
         @SpireInsertPatch(locator = Locator.class)
         public static void Insert(RewardItem __instance) {
-            if (RewardLink.link.get(__instance) != null)
-                RewardLink.link.get(__instance).redText = __instance.hb.hovered;
+            if (RewardLink.link.get(__instance) != null) {
+                if (!AbstractDungeon.combatRewardScreen.rewards.contains(RewardLink.link.get(__instance)))
+                    RewardLink.link.set(__instance, null);
+                else
+                    RewardLink.link.get(__instance).redText = __instance.hb.hovered;
+            }
         }
 
         private static class Locator extends SpireInsertLocator {

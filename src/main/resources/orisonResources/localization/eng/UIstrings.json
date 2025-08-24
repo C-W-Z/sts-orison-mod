@@ -27,13 +27,7 @@
     ]
   },
   "${ModID}:AbstractOrisonReward": {
-    "TEXT": ["Choose to attach an Orison to card"]
-  },
-  "${ModID}:RandomOrisonReward": {
-    "TEXT": ["Choose an Orison"]
-  },
-  "${ModID}:RandomAdvOrisonReward": {
-    "TEXT": ["Choose an Adv. Orison"]
+    "TEXT": ["Attach an Orison to a card"]
   },
   "${ModID}:Bastion": {
     "TEXT": [

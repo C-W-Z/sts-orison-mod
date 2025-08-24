@@ -8,5 +8,10 @@
     "NAME": "機械降神",
     "FLAVOR": "",
     "DESCRIPTIONS": ["每當你獲得 #y${ModID}:刻印 ，將其變為高級。"]
+  },
+  "${ModID}:UnstainedChronicle": {
+    "NAME": "無垢啟示錄",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["每當你獲得一張牌時，為其附加一個隨機 #y${ModID}:刻印 。"]
   }
 }

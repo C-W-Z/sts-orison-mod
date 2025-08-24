@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.Settings;
@@ -97,9 +96,10 @@ public abstract class AbstractOrison extends AbstractCardModifier {
 
     public static boolean canApplyOrison(AbstractCard card) {
         return card.cost >= -1
-                && card.type != CardType.STATUS && card.type != CardType.CURSE
-                && card.rarity != CardRarity.CURSE
-                && card.color != CardColor.COLORLESS;
+                && card.type != CardType.STATUS
+                && card.type != CardType.CURSE
+                && card.rarity != CardRarity.CURSE;
+                // && card.color != CardColor.COLORLESS;
     }
 
     public static void removeAllOrisons(AbstractCard card) {

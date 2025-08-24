@@ -21,13 +21,7 @@
     "TEXT": ["互斥", "獲取這件獎勵將會移除 ", "刻印獎勵", "卡牌獎勵", " 。"]
   },
   "${ModID}:AbstractOrisonReward": {
-    "TEXT": ["選擇附加刻印到卡牌"]
-  },
-  "${ModID}:RandomOrisonReward": {
-    "TEXT": ["選擇一個刻印"]
-  },
-  "${ModID}:RandomAdvOrisonReward": {
-    "TEXT": ["選擇一個高級刻印"]
+    "TEXT": ["選擇附加一個刻印到卡牌"]
   },
   "${ModID}:Bastion": {
     "TEXT": [
