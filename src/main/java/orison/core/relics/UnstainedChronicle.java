@@ -12,8 +12,10 @@ import basemod.helpers.CardModifierManager;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.abstracts.AbstractOrisonRelic;
 import orison.core.libs.OrisonLib;
+import orison.core.patches.fix.RewardFixingPatch;
 import orison.utils.OrisonHelper;
 
+/** @see RewardFixingPatch.GetRewardCardsPatch */
 public class UnstainedChronicle extends AbstractOrisonRelic {
 
     public static final String ID = makeID(UnstainedChronicle.class.getSimpleName());

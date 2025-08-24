@@ -21,13 +21,13 @@
   "${ModID}:TwistedTwinsWhite": {
     "NAME": "[Covenant] Twisted Twins: White",
     "FLAVOR": "",
-    "DESCRIPTIONS": ["In the future #y${ModID}:Orison rewards, option #b+1."]
+    "DESCRIPTIONS": ["In the future #y${ModID}:Orison rewards, number of options #b+1."]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "[Covenant] Twisted Twins: Black",
     "FLAVOR": "",
     "DESCRIPTIONS": [
-      "In the future #y${ModID}:Orison rewards, option #r-2. Max [E] limit #b+1."
+      "In the future #y${ModID}:Orison rewards, number of options #r-2. Max [E] limit #b+1."
     ]
   }
 }

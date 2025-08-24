@@ -28,6 +28,8 @@ import javassist.CtBehavior;
 import orison.core.abstracts.AbstractOrisonReward;
 import orison.core.configs.OrisonConfig;
 import orison.core.relics.BurialGroundsSighs;
+import orison.core.relics.TwistedTwinsBlack;
+import orison.core.relics.TwistedTwinsWhite;
 import orison.core.rewards.RandomOrisonReward;
 import orison.core.savables.OrisonRng;
 
@@ -90,7 +92,13 @@ public class OrisonRewardPatch {
                     lastReward = null;
             }
 
-            RandomOrisonReward reward = new RandomOrisonReward(3);
+            int amount = 3;
+            if (AbstractDungeon.player.hasRelic(TwistedTwinsWhite.ID))
+                amount += 1;
+            if (AbstractDungeon.player.hasRelic(TwistedTwinsBlack.ID))
+                amount -= 2;
+
+            RandomOrisonReward reward = new RandomOrisonReward(amount);
             if (!reward.canAddToRewards()) {
                 logger.error("RandomOrisonReward.canAddToRewards() return false, drop reward failed");
                 return;
