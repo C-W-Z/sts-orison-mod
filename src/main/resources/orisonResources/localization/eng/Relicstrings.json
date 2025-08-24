@@ -1,18 +1,18 @@
 {
   "${ModID}:BurialGroundsSighs": {
-    "NAME": "Burial Ground's Sighs",
+    "NAME": "Covenant: Burial Ground's Sighs",
     "FLAVOR": "",
     "DESCRIPTIONS": ["#y${ModID}:Orisons always appear in combat rewards."]
   },
   "${ModID}:DeusExMachina": {
-    "NAME": "Deus Ex Machina",
+    "NAME": "Covenant: Deus Ex Machina",
     "FLAVOR": "",
     "DESCRIPTIONS": [
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
   "${ModID}:UnstainedChronicle": {
-    "NAME": "Unstained Chronicle",
+    "NAME": "Covenant: Unstained Chronicle",
     "FLAVOR": "",
     "DESCRIPTIONS": [
       "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."

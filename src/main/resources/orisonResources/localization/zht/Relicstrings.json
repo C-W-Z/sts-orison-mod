@@ -1,16 +1,16 @@
 {
   "${ModID}:BurialGroundsSighs": {
-    "NAME": "埋骨地絮語",
+    "NAME": "密契：埋骨地絮語",
     "FLAVOR": "",
     "DESCRIPTIONS": ["戰鬥後必定掉落 #y${ModID}:刻印 獎勵。"]
   },
   "${ModID}:DeusExMachina": {
-    "NAME": "機械降神",
+    "NAME": "密契：機械降神",
     "FLAVOR": "",
     "DESCRIPTIONS": ["每當你獲得 #y${ModID}:刻印 ，將其變為高級。"]
   },
   "${ModID}:UnstainedChronicle": {
-    "NAME": "無垢啟示錄",
+    "NAME": "密契：無垢啟示錄",
     "FLAVOR": "",
     "DESCRIPTIONS": ["每當你獲得一張牌時，為其附加一個隨機 #y${ModID}:刻印 。"]
   }
