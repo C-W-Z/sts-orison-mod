@@ -1,21 +1,33 @@
 {
   "${ModID}:BurialGroundsSighs": {
-    "NAME": "Covenant: Burial Ground's Sighs",
+    "NAME": "[Covenant] Burial Ground's Sighs",
     "FLAVOR": "",
     "DESCRIPTIONS": ["#y${ModID}:Orisons always appear in combat rewards."]
   },
   "${ModID}:DeusExMachina": {
-    "NAME": "Covenant: Deus Ex Machina",
+    "NAME": "[Covenant] Deus Ex Machina",
     "FLAVOR": "",
     "DESCRIPTIONS": [
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
   "${ModID}:UnstainedChronicle": {
-    "NAME": "Covenant: Unstained Chronicle",
+    "NAME": "[Covenant] Unstained Chronicle",
     "FLAVOR": "",
     "DESCRIPTIONS": [
       "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."
+    ]
+  },
+  "${ModID}:TwistedTwinsWhite": {
+    "NAME": "[Covenant] Twisted Twins: White",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["In the future #y${ModID}:Orison rewards, option #b+1."]
+  },
+  "${ModID}:TwistedTwinsBlack": {
+    "NAME": "[Covenant] Twisted Twins: Black",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "In the future #y${ModID}:Orison rewards, option #r-2. Max [E] limit #b+1."
     ]
   }
 }

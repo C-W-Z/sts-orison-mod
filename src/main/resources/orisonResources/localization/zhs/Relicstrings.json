@@ -1,17 +1,29 @@
 {
   "${ModID}:BurialGroundsSighs": {
-    "NAME": "密契：埋骨地絮语",
+    "NAME": "【密契】埋骨地絮语",
     "FLAVOR": "",
     "DESCRIPTIONS": ["战斗后必定掉落 #y${ModID}:刻印 奖励。"]
   },
   "${ModID}:DeusExMachina": {
-    "NAME": "密契：机械降神",
+    "NAME": "【密契】机械降神",
     "FLAVOR": "",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
   "${ModID}:UnstainedChronicle": {
-    "NAME": "密契：无垢启示录",
+    "NAME": "【密契】无垢启示录",
     "FLAVOR": "",
     "DESCRIPTIONS": ["每当你获得一张牌时，为其附加一个随机 #y${ModID}:刻印 。"]
+  },
+  "${ModID}:TwistedTwinsWhite": {
+    "NAME": "【密契】扭曲双子·白",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["未来的 #y${ModID}:刻印 奖励中，可选项 #b+1 。"]
+  },
+  "${ModID}:TwistedTwinsBlack": {
+    "NAME": "【密契】扭曲双子·黑",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "未来的 #y${ModID}:刻印 奖励中，可选项 #r-2 。 [E] 上限 #b+1 。"
+    ]
   }
 }
