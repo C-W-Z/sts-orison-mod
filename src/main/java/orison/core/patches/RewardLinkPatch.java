@@ -39,6 +39,8 @@ public class RewardLinkPatch {
 
     /** Only support links between Orison Reward & Card Reward */
     public static void setRewardLink(RewardItem orisonReward, RewardItem cardReward) {
+        if (orisonReward == null || cardReward == null)
+            return;
         RewardLink.link.set(orisonReward, cardReward);
         RewardLink.link.set(cardReward, orisonReward);
     }

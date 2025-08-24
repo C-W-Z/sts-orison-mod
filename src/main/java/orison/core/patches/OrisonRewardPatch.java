@@ -97,7 +97,7 @@ public class OrisonRewardPatch {
             }
             __instance.rewards.add(reward);
 
-            if (linked)
+            if (linked && lastReward != null)
                 RewardLinkPatch.setRewardLink(reward, lastReward);
         }
 
