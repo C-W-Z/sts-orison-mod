@@ -23,12 +23,12 @@ public class Vulnerable extends AbstractOrison {
 
     public Vulnerable() {
         this(false);
-        values.add(1);
-        advValues.add(2);
     }
 
     public Vulnerable(boolean adv) {
         super(ID, true, false, adv);
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override

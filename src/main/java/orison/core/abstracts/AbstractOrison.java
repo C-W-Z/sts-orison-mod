@@ -143,6 +143,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+        if (disabled)
+            return;
         takeEffectOnUse(card, target, action);
         if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
             disabled = true;

@@ -11,6 +11,6 @@ public class AprilTribute extends AbstractOrisonRelic {
     public static final String ID = makeID(AprilTribute.class.getSimpleName());
 
     public AprilTribute() {
-        super(ID, RelicTier.RARE, LandingSound.FLAT);
+        super(ID, RelicTier.BOSS, LandingSound.FLAT);
     }
 }
