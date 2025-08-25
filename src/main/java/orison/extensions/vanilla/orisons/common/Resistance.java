@@ -32,7 +32,7 @@ public class Resistance extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                 new ArtifactPower(AbstractDungeon.player, getModifiedValue(0))));
     }

@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
@@ -61,4 +63,7 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
+
+    @Override
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {}
 }

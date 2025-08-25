@@ -31,7 +31,7 @@ public class Healing extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new HealAction(AbstractDungeon.player, AbstractDungeon.player, getModifiedValue(0)));
     }
 

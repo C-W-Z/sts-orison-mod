@@ -13,9 +13,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
@@ -23,6 +26,8 @@ import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
+import orison.core.interfaces.AtStartOfTurnModifier;
+import orison.core.relics.AprilTribute;
 import orison.core.relics.DeusExMachina;
 import orison.utils.TexLoader;
 
@@ -31,7 +36,7 @@ import orison.utils.TexLoader;
  * 1. 標上@SaveIgnore
  * 2. 有一個無參數Constructor，用於OrisonLib中的AutoAdd
  */
-public abstract class AbstractOrison extends AbstractCardModifier {
+public abstract class AbstractOrison extends AbstractCardModifier implements AtStartOfTurnModifier {
 
     private static final Logger logger = LogManager.getLogger(AbstractOrison.class);
 
@@ -91,7 +96,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
         try {
             List<Integer> list = adv ? advValues : values;
             int base = list.get(index);
-            if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic("AprilTribute"))
+            if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
                 base *= 2;
             return base;
         } catch (Exception e) {
@@ -130,6 +135,20 @@ public abstract class AbstractOrison extends AbstractCardModifier {
             return;
         }
     }
+
+    @Override
+    public void atStartOfTurn(AbstractCard card, CardGroup group) {
+        disabled = false;
+    }
+
+    @Override
+    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+        takeEffectOnUse(card, target, action);
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
+            disabled = true;
+    }
+
+    protected abstract void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action);
 
     public abstract AbstractOrison newInstance(boolean adv);
 

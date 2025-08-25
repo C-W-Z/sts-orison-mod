@@ -46,7 +46,7 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         if (card.purgeOnUse)
             return;
         AbstractMonster m = null;

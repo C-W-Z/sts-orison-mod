@@ -30,7 +30,7 @@ public class Finesse extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new DrawCardAction(getModifiedValue(0)));
     }
 

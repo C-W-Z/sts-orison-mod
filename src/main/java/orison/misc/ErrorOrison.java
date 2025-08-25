@@ -2,6 +2,10 @@ package orison.misc;
 
 import static orison.core.OrisonMod.makeID;
 
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+
 import basemod.AutoAdd;
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import orison.core.abstracts.AbstractOrison;
@@ -34,4 +38,7 @@ public class ErrorOrison extends AbstractOrison {
     public String getDescription() {
         return "Something wrong to load the Orison.";
     }
+
+    @Override
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {}
 }

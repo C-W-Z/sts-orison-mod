@@ -32,7 +32,7 @@ public class Insight extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         // 裡面會呼叫makeStatEquivalentCopy()
         addToBot(new MakeTempCardInDrawPileAction(cardToShuffle, getModifiedValue(0), true, true));
     }

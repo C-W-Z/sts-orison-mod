@@ -33,7 +33,7 @@ public class Drain extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         int val = getModifiedValue(0);
         addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
                 m -> new StrengthPower(m, -val)));

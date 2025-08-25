@@ -1,4 +1,11 @@
 {
+  "${ModID}:AprilTribute": {
+    "NAME": "【密契】四月礼赞",
+    "FLAVOR": "",
+    "DESCRIPTIONS": [
+      "#y${ModID}:刻印 的效果翻倍，但每个 #y${ModID}:刻印 每回合最多只能生效一次。"
+    ]
+  },
   "${ModID}:BurialGroundsSighs": {
     "NAME": "【密契】埋骨地絮语",
     "FLAVOR": "",

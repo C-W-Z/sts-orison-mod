@@ -35,7 +35,7 @@ public class Spike extends AbstractOrison {
     }
 
     @Override
-    public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+    protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                 new ThornsPower(AbstractDungeon.player, getModifiedValue(0))));
         addToBot(new InvokeSpikeToAllEnemiesAction(AbstractDungeon.player, getModifiedValue(1)));
