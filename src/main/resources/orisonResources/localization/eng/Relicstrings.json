@@ -1,7 +1,7 @@
 {
   "${ModID}:AprilTribute": {
     "NAME": "[Covenant] April Tribute",
-    "FLAVOR": "",
+    "FLAVOR": "March blooms, lanterns burn bright.\nApril blooms, a sea of blossoms white.\nMay blooms, yet the old have vanished from sight.",
     "DESCRIPTIONS": [
       "Double the effectiveness of #y${ModID}:Orisons, but each #y${ModID}:Orison can only take effect at most once per turn."
     ]
@@ -13,7 +13,7 @@
   },
   "${ModID}:DeusExMachina": {
     "NAME": "[Covenant] Deus Ex Machina",
-    "FLAVOR": "",
+    "FLAVOR": "The roar of gears, the god unseen.\nA shell of steel, a skin machine.\nA will of frost, the mortals keen.",
     "DESCRIPTIONS": [
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
@@ -27,21 +27,21 @@
   },
   "${ModID}:TwistedTwinsWhite": {
     "NAME": "[Covenant] Twisted Twins: White",
-    "FLAVOR": "",
+    "FLAVOR": "It smiles, you sink.\nThe White Twin grants you grace, and bids you rest.",
     "DESCRIPTIONS": [
       "In the future #y${ModID}:Orison rewards, number of options #b+1."
     ]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "[Covenant] Twisted Twins: Black",
-    "FLAVOR": "",
+    "FLAVOR": "It gazes, you wane.\nThe Black Twin grants you power, but bids you forget.",
     "DESCRIPTIONS": [
       "In the future #y${ModID}:Orison rewards, number of options #r-2. Max [E] limit #b+1."
     ]
   },
   "${ModID}:UnstainedChronicle": {
     "NAME": "[Covenant] Unstained Chronicle",
-    "FLAVOR": "",
+    "FLAVOR": "\"The Realm endures\"\nIt records the past, present and future of a realm.",
     "DESCRIPTIONS": [
       "Whenever you add a card into your deck, attach a random #y${ModID}:Orison to it."
     ]

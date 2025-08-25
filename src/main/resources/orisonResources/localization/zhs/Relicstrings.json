@@ -1,7 +1,7 @@
 {
   "${ModID}:AprilTribute": {
     "NAME": "【密契】四月礼赞",
-    "FLAVOR": "",
+    "FLAVOR": "三月花开，张灯结彩。\n四月花开，繁花似海。\n五月花开，昔人不再。",
     "DESCRIPTIONS": [
       "#y${ModID}:刻印 的效果翻倍，但每个 #y${ModID}:刻印 每回合最多只能生效一次。"
     ]
@@ -13,7 +13,7 @@
   },
   "${ModID}:DeusExMachina": {
     "NAME": "【密契】机械降神",
-    "FLAVOR": "",
+    "FLAVOR": "齿轮的轰鸣，神明的降临。\n钢铁的外衣，机械的表皮。\n冰冷的意志，众生的低吟。",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
   "${ModID}:ReEvolution": {
@@ -23,19 +23,19 @@
   },
   "${ModID}:TwistedTwinsWhite": {
     "NAME": "【密契】扭曲双子·白",
-    "FLAVOR": "",
+    "FLAVOR": "祂微笑，你沉陷。\n白色双子赠你温柔、予你安眠。",
     "DESCRIPTIONS": ["未来的 #y${ModID}:刻印 奖励中，可选项 #b+1 。"]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "【密契】扭曲双子·黑",
-    "FLAVOR": "",
+    "FLAVOR": "祂凝视，你湮灭。\n黑色双子赐你力量、引你忘却。",
     "DESCRIPTIONS": [
       "未来的 #y${ModID}:刻印 奖励中，可选项 #r-2 。 [E] 上限 #b+1 。"
     ]
   },
   "${ModID}:UnstainedChronicle": {
     "NAME": "【密契】无垢启示录",
-    "FLAVOR": "",
+    "FLAVOR": "「神国永恒」\n它记载着某个国度的过去、现在与未来。",
     "DESCRIPTIONS": ["每当你获得一张牌时，为其附加一个随机 #y${ModID}:刻印 。"]
   }
 }
