@@ -1,7 +1,7 @@
 {
   "${ModID}:AprilTribute": {
     "NAME": "[Covenant] April Tribute",
-    "FLAVOR": "March blooms, lanterns burn bright.\nApril blooms, a sea of blossoms white.\nMay blooms, yet the old have vanished from sight.",
+    "FLAVOR": "March blooms, lanterns burn bright. April blooms, a sea of blossoms white. May blooms, yet the old have vanished from sight.",
     "DESCRIPTIONS": [
       "Double the effectiveness of #y${ModID}:Orisons, but each #y${ModID}:Orison can only take effect at most once per turn."
     ]
