@@ -63,7 +63,9 @@ However, all included art, text, and other media assets are excluded from this l
 
 - **B.I.A.V.Studio** — 授權移植遊戲機制與素材
 - **忘卻前夜玩家社群**
-  - 淸淸梓燃 — 模組建議
+  - 淸淸梓燃 — 模組建議、部分遺物的風味文字
+  - 银河行星 — 部分遺物的風味文字
+  - 十三月新聞台 — 部分遺物的風味文字
 - **MegaCrit** — Slay the Spire
 - **BaseMod / ModTheSpire 社群** — 技術支援與模組框架
 
