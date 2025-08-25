@@ -20,7 +20,7 @@
   },
   "${ModID}:ReEvolution": {
     "NAME": "[Covenant] Re-evolution",
-    "FLAVOR": "Procreate, procreate. Let the souls carrying the blood of the Mother Tree spread across the world.",
+    "FLAVOR": "Procreate, procreate. Let the souls carrying the blood of the Mother Tree spreads.",
     "DESCRIPTIONS": [
       "Elites drop #b1 additional #y${ModID}:Orison reward when defeated."
     ]
