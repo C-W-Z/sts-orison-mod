@@ -28,21 +28,17 @@ public class Spike extends AbstractOrison {
 
     public Spike(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 6 : 3;
-    }
-
-    public static int getValue2(boolean adv) {
-        return adv ? 50 : 25;
+        values.add(3);
+        values.add(25);
+        advValues.add(6);
+        advValues.add(50);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new ThornsPower(AbstractDungeon.player, getValue(adv))));
-        addToBot(new InvokeSpikeToAllEnemiesAction(AbstractDungeon.player, getValue2(adv)));
+                new ThornsPower(AbstractDungeon.player, getModifiedValue(0))));
+        addToBot(new InvokeSpikeToAllEnemiesAction(AbstractDungeon.player, getModifiedValue(1)));
     }
 
     @Override
@@ -57,6 +53,6 @@ public class Spike extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv), getValue2(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
     }
 }

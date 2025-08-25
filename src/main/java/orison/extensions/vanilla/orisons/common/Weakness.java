@@ -27,16 +27,15 @@ public class Weakness extends AbstractOrison {
 
     public Weakness(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, getValue(adv),
-                m -> new WeakPower(m, getValue(adv), false)));
+        int val = getModifiedValue(0);
+        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
+                m -> new WeakPower(m, val, false)));
     }
 
     @Override
@@ -51,6 +50,6 @@ public class Weakness extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

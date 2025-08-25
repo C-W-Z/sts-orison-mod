@@ -28,18 +28,17 @@ public class Burst extends AbstractOrison {
 
     public Burst(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 4 : 2;
+        values.add(2);
+        advValues.add(4);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
+        int val = getModifiedValue(0);
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new StrengthPower(AbstractDungeon.player, getValue(adv))));
+                new StrengthPower(AbstractDungeon.player, val)));
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new LoseStrengthPower(AbstractDungeon.player, getValue(adv))));
+                new LoseStrengthPower(AbstractDungeon.player, val)));
     }
 
     @Override
@@ -54,6 +53,6 @@ public class Burst extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

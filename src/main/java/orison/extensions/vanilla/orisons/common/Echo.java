@@ -34,14 +34,10 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
 
     public Echo(boolean adv) {
         super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
-    }
-
-    public static int getValue2(boolean adv) {
-        return adv ? 10 : 5;
+        values.add(1);
+        values.add(5);
+        advValues.add(2);
+        advValues.add(10);
     }
 
     @Override
@@ -56,9 +52,10 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
         AbstractMonster m = null;
         if (action.target instanceof AbstractMonster)
             m = (AbstractMonster) action.target;
-        for (int i = 0; i < getValue(adv); i++)
+        int val = getModifiedValue(0);
+        for (int i = 0; i < val; i++)
             GameActionManager.queueExtraCard(card, m);
-        addToBot(new GainGoldAction(getValue2(adv)));
+        addToBot(new GainGoldAction(getModifiedValue(1)));
     }
 
     @Override
@@ -73,6 +70,6 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv), getValue2(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
     }
 }

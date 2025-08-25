@@ -48,6 +48,9 @@ public abstract class AbstractOrison extends AbstractCardModifier {
     protected Texture advDisabledImage = null;
     public float rarity = DEFAULT_RARITY;
 
+    protected List<Integer> values;
+    protected List<Integer> advValues;
+
     public AbstractOrison(String id, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
         this(id, DEFAULT_RARITY, hasAdv, hasDisabledImg, adv);
     }
@@ -64,6 +67,8 @@ public abstract class AbstractOrison extends AbstractCardModifier {
             }
         }
         this.rarity = rarity;
+        this.values = new ArrayList<>();
+        this.advValues = new ArrayList<>();
         initializeImages();
     }
 
@@ -75,6 +80,54 @@ public abstract class AbstractOrison extends AbstractCardModifier {
             advImage = TexLoader.getTexture(makeOrisonPath("Adv" + removePrefix(id) + ".png"));
             if (hasDisabledImg)
                 advDisabledImage = TexLoader.getTexture(makeOrisonPath("Adv" + removePrefix(id) + "Disabled.png"));
+        }
+    }
+
+    public int getModifiedValue(int index) {
+        return getModifiedValue(index, this.adv);
+    }
+
+    public int getModifiedValue(int index, boolean adv) {
+        try {
+            List<Integer> list = adv ? advValues : values;
+            int base = list.get(index);
+            if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic("AprilTribute"))
+                base *= 2;
+            return base;
+        } catch (Exception e) {
+            logger.error("Try to getModifiedValue() with out-of-range index with orison: " + id);
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getValue(int index) {
+        return getValue(index, this.adv);
+    }
+
+    public int getValue(int index, boolean adv) {
+        try {
+            List<Integer> list = adv ? advValues : values;
+            return list.get(index);
+        } catch (Exception e) {
+            logger.error("Try to getValue() with out-of-range index with orison: " + id);
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public void setValue(int index, int newVal) {
+        setValue(index, newVal, this.adv);
+    }
+
+    public void setValue(int index, int newVal, boolean adv) {
+        try {
+            List<Integer> list = adv ? advValues : values;
+            list.set(index, newVal);
+        } catch (Exception e) {
+            logger.error("Try to setValue() with out-of-range index with orison: " + id);
+            e.printStackTrace();
+            return;
         }
     }
 
@@ -99,7 +152,7 @@ public abstract class AbstractOrison extends AbstractCardModifier {
                 && card.type != CardType.STATUS
                 && card.type != CardType.CURSE
                 && card.rarity != CardRarity.CURSE;
-                // && card.color != CardColor.COLORLESS;
+        // && card.color != CardColor.COLORLESS;
     }
 
     public static void removeAllOrisons(AbstractCard card) {

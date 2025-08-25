@@ -25,15 +25,13 @@ public class Forging extends AbstractOrison {
 
     public Forging(boolean adv) {
         super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new ForgingAction(getValue(adv)));
+        addToBot(new ForgingAction(getModifiedValue(0)));
     }
 
     @Override
@@ -48,6 +46,6 @@ public class Forging extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

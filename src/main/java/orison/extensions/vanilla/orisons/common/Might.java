@@ -27,16 +27,14 @@ public class Might extends AbstractOrison {
 
     public Might(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new StrengthPower(AbstractDungeon.player, getValue(adv))));
+                new StrengthPower(AbstractDungeon.player, getModifiedValue(0))));
     }
 
     @Override
@@ -51,6 +49,6 @@ public class Might extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

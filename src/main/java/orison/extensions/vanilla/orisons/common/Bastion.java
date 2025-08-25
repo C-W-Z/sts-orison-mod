@@ -26,15 +26,13 @@ public class Bastion extends AbstractOrison {
 
     public Bastion(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 10 : 5;
+        values.add(5);
+        advValues.add(10);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new GainBlockAction(AbstractDungeon.player, getValue(adv)));
+        addToBot(new GainBlockAction(AbstractDungeon.player, getModifiedValue(0)));
     }
 
     @Override
@@ -49,6 +47,6 @@ public class Bastion extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

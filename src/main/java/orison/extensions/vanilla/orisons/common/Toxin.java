@@ -28,21 +28,18 @@ public class Toxin extends AbstractOrison {
 
     public Toxin(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 6 : 3;
-    }
-
-    public static int getValue2(boolean adv) {
-        return adv ? 30 : 15;
+        values.add(3);
+        values.add(15);
+        advValues.add(6);
+        advValues.add(30);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, getValue(adv),
-                m -> new PoisonPower(m, AbstractDungeon.player, getValue(adv))));
-        addToBot(new TriggerAllEnemiesPoisonAction(AbstractDungeon.player, getValue2(adv)));
+        int val = getModifiedValue(0);
+        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
+                m -> new PoisonPower(m, AbstractDungeon.player, val)));
+        addToBot(new TriggerAllEnemiesPoisonAction(AbstractDungeon.player, getModifiedValue(1)));
     }
 
     @Override
@@ -57,6 +54,6 @@ public class Toxin extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv), getValue2(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
     }
 }

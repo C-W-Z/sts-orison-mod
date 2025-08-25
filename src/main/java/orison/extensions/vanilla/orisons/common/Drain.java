@@ -28,18 +28,17 @@ public class Drain extends AbstractOrison {
 
     public Drain(boolean adv) {
         super(ID, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, getValue(adv),
-                m -> new StrengthPower(m, -getValue(adv))));
-        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, getValue(adv),
-                m -> new GainStrengthPower(m, getValue(adv))));
+        int val = getModifiedValue(0);
+        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
+                m -> new StrengthPower(m, -val)));
+        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
+                m -> new GainStrengthPower(m, val)));
     }
 
     @Override
@@ -54,6 +53,6 @@ public class Drain extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

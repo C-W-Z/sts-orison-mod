@@ -27,16 +27,14 @@ public class Resistance extends AbstractOrison {
 
     public Resistance(boolean adv) {
         super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new ArtifactPower(AbstractDungeon.player, getValue(adv))));
+                new ArtifactPower(AbstractDungeon.player, getModifiedValue(0))));
     }
 
     @Override
@@ -51,6 +49,6 @@ public class Resistance extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

@@ -30,10 +30,8 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
 
     public Mirror(boolean adv) {
         super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-    }
-
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
+        values.add(1);
+        advValues.add(2);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
     public boolean onBattleStart(AbstractCard card) {
         AbstractCard copy = card.makeStatEquivalentCopy();
         CardModifierManager.removeModifiersById(copy, id, true);
-        addToBot(new MakeTempCardInDrawPileAction(copy, getValue(adv), true, true));
+        addToBot(new MakeTempCardInDrawPileAction(copy, getModifiedValue(0), true, true));
         return true;
     }
 
@@ -61,6 +59,6 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }

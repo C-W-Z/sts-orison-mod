@@ -23,20 +23,19 @@ public class Vulnerable extends AbstractOrison {
 
     public Vulnerable() {
         this(false);
+        values.add(1);
+        advValues.add(2);
     }
 
     public Vulnerable(boolean adv) {
         super(ID, true, false, adv);
     }
 
-    public static int getValue(boolean adv) {
-        return adv ? 2 : 1;
-    }
-
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, getValue(adv),
-                m -> new VulnerablePower(m, getValue(adv), false)));
+        int val = getModifiedValue(0);
+        addToBot(new AllEnemyApplyPowerAction(AbstractDungeon.player, val,
+                m -> new VulnerablePower(m, val, false)));
     }
 
     @Override
@@ -51,6 +50,6 @@ public class Vulnerable extends AbstractOrison {
 
     @Override
     public String getDescription() {
-        return String.format(uiStrings.TEXT[2], getValue(adv));
+        return String.format(uiStrings.TEXT[2], getModifiedValue(0));
     }
 }
