@@ -8,7 +8,7 @@
   },
   "${ModID}:BurialGroundsSighs": {
     "NAME": "[Covenant] Burial Ground's Sighs",
-    "FLAVOR": "",
+    "FLAVOR": "Buried are not bones, but unfinished dreams.",
     "DESCRIPTIONS": ["#y${ModID}:Orisons always appear in combat rewards."]
   },
   "${ModID}:DeusExMachina": {
