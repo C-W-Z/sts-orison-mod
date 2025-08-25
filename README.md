@@ -69,6 +69,16 @@ However, all included art, text, and other media assets are excluded from this l
 - **MegaCrit** — Slay the Spire
 - **BaseMod / ModTheSpire 社群** — 技術支援與模組框架
 
+### 風味文字提供者：
+
+- 【密契】四月禮讚：银河行星 & Icya
+- 【密契】埋骨地絮語：ChatGPT
+- 【密契】機械降神：Icya
+- 【密契】再衍化：B.I.A.V.Studio
+- 【密契】扭曲雙子·白：Icya
+- 【密契】扭曲雙子·黑：Icya
+- 【密契】無垢啟示錄：银河行星
+
 ## 聯絡方式／問題回報 Contact / Issue Reporting
 
 1. 在[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=3550528092)留言區或討論區留言
