@@ -52,7 +52,7 @@ However, all included art, text, and other media assets are excluded from this l
 
 本模組亦包含以下非原作內容：
 
-- 由 Icya (C-W-Z) 製作的原創內容（包括程式碼、原創機制、原創刻印、原創事件等）
+- 由 Icya (C-W-Z) 製作的原創內容（包括程式碼、原創機制、原創刻印、原創事件、原創風味文字等）
 - 由玩家社群協助提供之部分內容
 
 > 所有原創或社群提供內容，均未抄襲其他商業作品，並在尊重原作風格下進行創作與調整。
