@@ -18,6 +18,11 @@
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
+  "${ModID}:DreamOfMedicine": {
+    "NAME": "[Covenant] Dream of Medicine",
+    "FLAVOR": "A thousand years ago, flve minutes equaled to forty ounces of fine sand.",
+    "DESCRIPTIONS": ["#r(Unfinished)"]
+  },
   "${ModID}:LifeDrain": {
     "NAME": "[Covenant] Life Drain",
     "FLAVOR": "",
@@ -45,6 +50,11 @@
   "${ModID}:ReturnalLine": {
     "NAME": "[Covenant] Returnal Line",
     "FLAVOR": "A tale told, a wave born;\na wanderer, a vow sworn.",
+    "DESCRIPTIONS": ["#r(Unfinished)"]
+  },
+  "${ModID}:RingOfChamber36": {
+    "NAME": "[Covenant] Ring of Chamber 36",
+    "FLAVOR": "Spin, then forget—this is the entirety of her life.",
     "DESCRIPTIONS": ["#r(Unfinished)"]
   },
   "${ModID}:TwistedTwinsBlack": {

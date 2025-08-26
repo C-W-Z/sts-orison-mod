@@ -16,6 +16,11 @@
     "FLAVOR": "齿轮的轰鸣，神明的降临。\n钢铁的外衣，机械的表皮。\n冰冷的意志，众生的低吟。",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
+  "${ModID}:DreamOfMedicine": {
+    "NAME": "【密契】入药之梦",
+    "FLAVOR": "一千年前，五分钟等于四十盎司细沙。",
+    "DESCRIPTIONS": ["#r（制作中）"]
+  },
   "${ModID}:LifeDrain": {
     "NAME": "【密契】生机榨取",
     "FLAVOR": "",
@@ -41,6 +46,11 @@
   "${ModID}:ReturnalLine": {
     "NAME": "【密契】海归线",
     "FLAVOR": "一段传说，一朵浪花；\n一名游子，一纸约定。",
+    "DESCRIPTIONS": ["#r（制作中）"]
+  },
+  "${ModID}:RingOfChamber36": {
+    "NAME": "【密契】36室之环",
+    "FLAVOR": "旋转，然后遗忘——这是她生命的全部。",
     "DESCRIPTIONS": ["#r（制作中）"]
   },
   "${ModID}:TwistedTwinsBlack": {
