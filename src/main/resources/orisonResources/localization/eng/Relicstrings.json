@@ -18,6 +18,11 @@
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
+  "${ModID}:Paradox": {
+    "NAME": "[Covenant] Paradox",
+    "FLAVOR": "The inevitable, the accidental.\nThe finite, the infinite.",
+    "DESCRIPTIONS": ["Each card can have #b2 #y${ModID}:Orisons attached to it."]
+  },
   "${ModID}:ReEvolution": {
     "NAME": "[Covenant] Re-evolution",
     "FLAVOR": "Procreate, procreate. Let the souls carrying the blood of the Mother Tree spreads.",
@@ -25,18 +30,18 @@
       "Elites drop #b1 additional #y${ModID}:Orison reward when defeated."
     ]
   },
-  "${ModID}:TwistedTwinsWhite": {
-    "NAME": "[Covenant] Twisted Twins: White",
-    "FLAVOR": "It smiles, you sink.\nThe White Twin grants you grace, and bids you rest.",
-    "DESCRIPTIONS": [
-      "In the future #y${ModID}:Orison rewards, number of options #b+1."
-    ]
-  },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "[Covenant] Twisted Twins: Black",
     "FLAVOR": "It gazes, you wane.\nThe Black Twin grants you power, but bids you forget.",
     "DESCRIPTIONS": [
       "In the future #y${ModID}:Orison rewards, number of options #r-2. Max [E] limit #b+1."
+    ]
+  },
+  "${ModID}:TwistedTwinsWhite": {
+    "NAME": "[Covenant] Twisted Twins: White",
+    "FLAVOR": "It smiles, you sink.\nThe White Twin grants you grace, and bids you rest.",
+    "DESCRIPTIONS": [
+      "In the future #y${ModID}:Orison rewards, number of options #b+1."
     ]
   },
   "${ModID}:UnstainedChronicle": {

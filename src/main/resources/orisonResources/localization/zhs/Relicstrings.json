@@ -16,15 +16,15 @@
     "FLAVOR": "齿轮的轰鸣，神明的降临。\n钢铁的外衣，机械的表皮。\n冰冷的意志，众生的低吟。",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
+  "${ModID}:Paradox": {
+    "NAME": "【密契】二律背反",
+    "FLAVOR": "必然的，偶然的。\n有限的，无限的。",
+    "DESCRIPTIONS": ["每张卡牌可以附加 #b2 个 #y${ModID}:刻印 。"]
+  },
   "${ModID}:ReEvolution": {
     "NAME": "【密契】再衍化",
     "FLAVOR": "繁衍吧，繁衍吧。让流淌着母树鲜血的灵魂遍及世界。",
     "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件 #y${ModID}:刻印 奖励。"]
-  },
-  "${ModID}:TwistedTwinsWhite": {
-    "NAME": "【密契】扭曲双子·白",
-    "FLAVOR": "祂微笑，你沉陷。\n白色双子赠你温柔、予你安眠。",
-    "DESCRIPTIONS": ["未来的 #y${ModID}:刻印 奖励中，可选项 #b+1 。"]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "【密契】扭曲双子·黑",
@@ -32,6 +32,11 @@
     "DESCRIPTIONS": [
       "未来的 #y${ModID}:刻印 奖励中，可选项 #r-2 。 [E] 上限 #b+1 。"
     ]
+  },
+  "${ModID}:TwistedTwinsWhite": {
+    "NAME": "【密契】扭曲双子·白",
+    "FLAVOR": "祂微笑，你沉陷。\n白色双子赠你温柔、予你安眠。",
+    "DESCRIPTIONS": ["未来的 #y${ModID}:刻印 奖励中，可选项 #b+1 。"]
   },
   "${ModID}:UnstainedChronicle": {
     "NAME": "【密契】无垢启示录",

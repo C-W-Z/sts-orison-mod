@@ -2,6 +2,6 @@
   {
     "PROPER_NAME": "Orison",
     "NAMES": ["Orison", "orison", "orisons"],
-    "DESCRIPTION": "A type of reward that can be attached to a card to grant it additional effects."
+    "DESCRIPTION": "A type of reward that can be attached to a card to grant it additional effects. Only one #yOrison can be attached to each card."
   }
 ]
