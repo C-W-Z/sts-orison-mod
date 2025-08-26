@@ -16,15 +16,32 @@
     "FLAVOR": "齿轮的轰鸣，神明的降临。\n钢铁的外衣，机械的表皮。\n冰冷的意志，众生的低吟。",
     "DESCRIPTIONS": ["每当你获得 #y${ModID}:刻印 ，将其变为高级。"]
   },
+  "${ModID}:LifeDrain": {
+    "NAME": "【密契】生机榨取",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["#r（制作中）"]
+  },
+  "${ModID}:OrganicForm": {
+    "NAME": "【密契】有机型态",
+    "FLAVOR": "鳞翅目正死于孤独、爱与绝望。",
+    "DESCRIPTIONS": ["#r（制作中）"]
+  },
   "${ModID}:Paradox": {
     "NAME": "【密契】二律背反",
     "FLAVOR": "必然的，偶然的。\n有限的，无限的。",
-    "DESCRIPTIONS": ["每张卡牌可以附加 #b2 个 #y${ModID}:刻印 。"]
+    "DESCRIPTIONS": [
+      "#r（制作中） NL 每张卡牌可以附加 #b2 个 #y${ModID}:刻印 。"
+    ]
   },
   "${ModID}:ReEvolution": {
     "NAME": "【密契】再衍化",
     "FLAVOR": "繁衍吧，繁衍吧。让流淌着母树鲜血的灵魂遍及世界。",
     "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件 #y${ModID}:刻印 奖励。"]
+  },
+  "${ModID}:ReturnalLine": {
+    "NAME": "【密契】海归线",
+    "FLAVOR": "一段传说，一朵浪花；\n一名游子，一纸约定。",
+    "DESCRIPTIONS": ["#r（制作中）"]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "【密契】扭曲双子·黑",

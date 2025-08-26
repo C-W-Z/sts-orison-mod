@@ -18,10 +18,22 @@
       "Whenever you get an #y${ModID}:Orison, make it become Advanced."
     ]
   },
+  "${ModID}:LifeDrain": {
+    "NAME": "[Covenant] Life Drain",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["#r(Unfinished)"]
+  },
+  "${ModID}:OrganicForm": {
+    "NAME": "[Covenant] Organic Form",
+    "FLAVOR": "Lepidoptera is dying of loneliness, love and despair.",
+    "DESCRIPTIONS": ["#r(Unfinished)"]
+  },
   "${ModID}:Paradox": {
     "NAME": "[Covenant] Paradox",
     "FLAVOR": "The inevitable, the accidental.\nThe finite, the infinite.",
-    "DESCRIPTIONS": ["Each card can have #b2 #y${ModID}:Orisons attached to it."]
+    "DESCRIPTIONS": [
+      "#r(Unfinished) NL Each card can have #b2 #y${ModID}:Orisons attached to it."
+    ]
   },
   "${ModID}:ReEvolution": {
     "NAME": "[Covenant] Re-evolution",
@@ -29,6 +41,11 @@
     "DESCRIPTIONS": [
       "Elites drop #b1 additional #y${ModID}:Orison reward when defeated."
     ]
+  },
+  "${ModID}:ReturnalLine": {
+    "NAME": "[Covenant] Returnal Line",
+    "FLAVOR": "A tale told, a wave born;\na wanderer, a vow sworn.",
+    "DESCRIPTIONS": ["#r(Unfinished)"]
   },
   "${ModID}:TwistedTwinsBlack": {
     "NAME": "[Covenant] Twisted Twins: Black",
