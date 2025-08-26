@@ -4,6 +4,10 @@
   },
   "${ModID}:ConfigOptionPanel": {
     "TEXT_DICT": {
+      "CAN_ATTACH_ON_UNPLAYABLE_CARD": "刻印可以附加在無法打出的卡牌上",
+      "CAN_ATTACH_ON_STATUS": "刻印可以附加在狀態牌上",
+      "CAN_ATTACH_ON_CURSE": "刻印可以附加在詛咒牌上",
+      "CAN_ATTACH_ON_COLORLESS": "刻印可以附加在無色牌上",
       "MONSTER_DROP_ORISON_CHANCE": "普通戰鬥後掉落刻印的機率",
       "MONSTER_DROP_ORISON_ADV_CHANCE": "普通戰鬥後掉落的刻印是高級刻印的機率",
       "MONSTER_DROP_ORISON_LINKED": "普通戰鬥掉落的卡牌和刻印獎勵只能二選一",

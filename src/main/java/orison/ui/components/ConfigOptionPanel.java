@@ -37,6 +37,26 @@ public class ConfigOptionPanel implements ConfigUIElement {
         scrollables = new ArrayList<>();
 
         addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Orison.ID_CAN_ATTACH_ON_UNPLAYABLE_CARD),
+                OrisonConfig.Orison.CAN_ATTACH_ON_UNPLAYABLE_CARD,
+                v -> OrisonConfig.Orison.save(OrisonConfig.Orison.ID_CAN_ATTACH_ON_UNPLAYABLE_CARD, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Orison.ID_CAN_ATTACH_ON_STATUS),
+                OrisonConfig.Orison.CAN_ATTACH_ON_STATUS,
+                v -> OrisonConfig.Orison.save(OrisonConfig.Orison.ID_CAN_ATTACH_ON_STATUS, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Orison.ID_CAN_ATTACH_ON_CURSE),
+                OrisonConfig.Orison.CAN_ATTACH_ON_CURSE,
+                v -> OrisonConfig.Orison.save(OrisonConfig.Orison.ID_CAN_ATTACH_ON_CURSE, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.Orison.ID_CAN_ATTACH_ON_COLORLESS),
+                OrisonConfig.Orison.CAN_ATTACH_ON_COLORLESS,
+                v -> OrisonConfig.Orison.save(OrisonConfig.Orison.ID_CAN_ATTACH_ON_COLORLESS, v)));
+
+        addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE),
                 OrisonConfig.Reward.MONSTER_DROP_ORISON_CHANCE,
                 v -> OrisonConfig.Reward.save(OrisonConfig.Reward.ID_MONSTER_DROP_ORISON_CHANCE, v)));

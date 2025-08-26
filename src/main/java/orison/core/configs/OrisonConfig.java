@@ -44,6 +44,50 @@ public class OrisonConfig {
         }
     }
 
+    public static class Orison {
+        public static SpireConfig config;
+
+        public static String ID_CAN_ATTACH_ON_UNPLAYABLE_CARD = "CAN_ATTACH_ON_UNPLAYABLE_CARD";
+        public static String ID_CAN_ATTACH_ON_STATUS = "CAN_ATTACH_ON_STATUS";
+        public static String ID_CAN_ATTACH_ON_CURSE = "CAN_ATTACH_ON_CURSE";
+        public static String ID_CAN_ATTACH_ON_COLORLESS = "CAN_ATTACH_ON_COLORLESS";
+
+        public static boolean CAN_ATTACH_ON_UNPLAYABLE_CARD = false;
+        public static boolean CAN_ATTACH_ON_STATUS = false;
+        public static boolean CAN_ATTACH_ON_CURSE = false;
+        public static boolean CAN_ATTACH_ON_COLORLESS = true;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                defaults.setProperty(ID_CAN_ATTACH_ON_UNPLAYABLE_CARD, String.valueOf(CAN_ATTACH_ON_UNPLAYABLE_CARD));
+                defaults.setProperty(ID_CAN_ATTACH_ON_STATUS, String.valueOf(CAN_ATTACH_ON_STATUS));
+                defaults.setProperty(ID_CAN_ATTACH_ON_CURSE, String.valueOf(CAN_ATTACH_ON_CURSE));
+                defaults.setProperty(ID_CAN_ATTACH_ON_COLORLESS, String.valueOf(CAN_ATTACH_ON_COLORLESS));
+                config = new SpireConfig(modID, Orison.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.Orison.initialize() failed");
+                e.printStackTrace();
+            }
+
+            loadConfigs();
+        }
+
+        public static void loadConfigs() {
+            if (config == null)
+                return;
+            CAN_ATTACH_ON_UNPLAYABLE_CARD = config.getBool(ID_CAN_ATTACH_ON_UNPLAYABLE_CARD);
+            CAN_ATTACH_ON_STATUS = config.getBool(ID_CAN_ATTACH_ON_STATUS);
+            CAN_ATTACH_ON_CURSE = config.getBool(ID_CAN_ATTACH_ON_CURSE);
+            CAN_ATTACH_ON_COLORLESS = config.getBool(ID_CAN_ATTACH_ON_COLORLESS);
+        }
+
+        public static void save(String ID, boolean value) {
+            saveConfig(config, ID, value);
+            loadConfigs();
+        }
+    }
+
     public static class Reward {
         public static SpireConfig config;
 
@@ -151,6 +195,7 @@ public class OrisonConfig {
 
     public static void initialize() {
         Preference.initialize();
+        Orison.initialize();
         Reward.initialize();
     }
 

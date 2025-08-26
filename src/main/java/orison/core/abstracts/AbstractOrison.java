@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -26,6 +27,7 @@ import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
+import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.AtStartOfTurnModifier;
 import orison.core.relics.AprilTribute;
 import orison.core.relics.DeusExMachina;
@@ -168,12 +170,16 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         return id;
     }
 
-    public static boolean canApplyOrison(AbstractCard card) {
-        return card.cost >= -1
-                && card.type != CardType.STATUS
-                && card.type != CardType.CURSE
-                && card.rarity != CardRarity.CURSE;
-        // && card.color != CardColor.COLORLESS;
+    public static boolean canAttachOrison(AbstractCard card) {
+        if (!OrisonConfig.Orison.CAN_ATTACH_ON_UNPLAYABLE_CARD && card.cost < -1)
+            return false;
+        if (!OrisonConfig.Orison.CAN_ATTACH_ON_STATUS && card.type == CardType.STATUS)
+            return false;
+        if (!OrisonConfig.Orison.CAN_ATTACH_ON_CURSE && (card.type == CardType.CURSE || card.rarity == CardRarity.CURSE))
+            return false;
+        if (!OrisonConfig.Orison.CAN_ATTACH_ON_COLORLESS && card.color == CardColor.COLORLESS)
+            return false;
+        return true;
     }
 
     public static void removeAllOrisons(AbstractCard card) {
@@ -190,7 +196,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     @Override
     public boolean shouldApply(AbstractCard card) {
-        if (!canApplyOrison(card))
+        if (!canAttachOrison(card))
             return false;
         removeAllOrisons(card);
         return true;

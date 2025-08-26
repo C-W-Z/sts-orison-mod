@@ -87,7 +87,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
         List<AbstractCard> orisonCards = new ArrayList<>();
         List<AbstractCard> noOrisonCards = new ArrayList<>();
         for (AbstractCard c : cards) {
-            if (!AbstractOrison.canApplyOrison(c))
+            if (!AbstractOrison.canAttachOrison(c))
                 continue;
             if (OrisonHelper.hasOrisons(c))
                 orisonCards.add(c);
