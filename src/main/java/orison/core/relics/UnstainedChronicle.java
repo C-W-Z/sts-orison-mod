@@ -39,7 +39,7 @@ public class UnstainedChronicle extends AbstractOrisonRelic {
 
     @Override
     public void onObtainCard(AbstractCard c) {
-        if (OrisonHelper.hasOrisons(c))
+        if (!AbstractOrison.canAttachOrison(c) || OrisonHelper.hasOrisons(c))
             return;
         List<AbstractOrison> orison = OrisonLib.getRandomCommonOrison(false, 1, false);
         if (orison.isEmpty())

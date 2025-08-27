@@ -29,7 +29,9 @@
   "${ModID}:OrganicForm": {
     "NAME": "【密契】有机型态",
     "FLAVOR": "鳞翅目正死于孤独、爱与绝望。",
-    "DESCRIPTIONS": ["#r（制作中）"]
+    "DESCRIPTIONS": [
+      "所有在战斗中临时增加的牌将会附加 #b1 个随机 #y${ModID}:刻印 。"
+    ]
   },
   "${ModID}:Paradox": {
     "NAME": "【密契】二律背反",

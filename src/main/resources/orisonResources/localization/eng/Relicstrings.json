@@ -31,7 +31,9 @@
   "${ModID}:OrganicForm": {
     "NAME": "[Covenant] Organic Form",
     "FLAVOR": "Lepidoptera is dying of loneliness, love and despair.",
-    "DESCRIPTIONS": ["#r(Unfinished)"]
+    "DESCRIPTIONS": [
+      "Whenever a card is created during combat, attach #b1 random #y${ModID}:Orison to it."
+    ]
   },
   "${ModID}:Paradox": {
     "NAME": "[Covenant] Paradox",

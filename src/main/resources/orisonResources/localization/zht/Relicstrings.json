@@ -29,12 +29,16 @@
   "${ModID}:OrganicForm": {
     "NAME": "【密契】有機型態",
     "FLAVOR": "鱗翅目正死於孤獨、愛與絕望。",
-    "DESCRIPTIONS": ["#r（製作中）"]
+    "DESCRIPTIONS": [
+      "所有在戰鬥中臨時增加的牌將會附加 #b1 個隨機 #y${ModID}:刻印 。"
+    ]
   },
   "${ModID}:Paradox": {
     "NAME": "【密契】二律背反",
     "FLAVOR": "必然的，偶然的。\n有限的，無限的。",
-    "DESCRIPTIONS": ["#r（製作中） NL 每張卡牌可以附加 #b2 個 #y${ModID}:刻印 。"]
+    "DESCRIPTIONS": [
+      "#r（製作中） NL 每張卡牌可以附加 #b2 個 #y${ModID}:刻印 。"
+    ]
   },
   "${ModID}:ReEvolution": {
     "NAME": "【密契】再衍化",

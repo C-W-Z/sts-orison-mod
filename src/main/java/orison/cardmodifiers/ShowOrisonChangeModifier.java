@@ -13,10 +13,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
 import basemod.abstracts.AbstractCardModifier;
+import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
 import orison.core.abstracts.AbstractOrison;
 
+@SaveIgnore
 public class ShowOrisonChangeModifier extends AbstractCardModifier {
 
     public static final String ID = makeID(ShowOrisonChangeModifier.class.getSimpleName());
