@@ -114,7 +114,7 @@
     "TEXT": [
       "Prepare [${ModID}:PrepareIcon]",
       "Adv. Prepare [${ModID}:AdvPrepareIcon]",
-      "If in hand at the end of the turn, [E] cost #b-%d until played; this effect is also triggered when discarded from Hand or Draw Pile. #yRetain."
+      "If in hand at the end of the turn, [E] cost #b-%d until played; this effect is also triggered when discarded from Hand. #yRetain."
     ]
   },
   "${ModID}:Resistance": {

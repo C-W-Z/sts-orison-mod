@@ -105,7 +105,7 @@ public class PreparePatch {
     public static class MoveToDiscardPilePatch {
         @SpirePostfixPatch
         public static void Postfix(CardGroup __instance, AbstractCard c) {
-            if (__instance.type == CardGroupType.HAND || __instance.type == CardGroupType.DRAW_PILE) {
+            if (__instance.type == CardGroupType.HAND) {
                 logger.info("triggerPrepare from moveToDiscardPile: " + c.cardID);
                 triggerPrepare(c);
             }
