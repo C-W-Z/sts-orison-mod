@@ -1,10 +1,13 @@
 package orison.cardmodifiers;
 
 import basemod.abstracts.AbstractCardModifier;
+import basemod.abstracts.AbstractCardModifier.SaveIgnore;
+
 import static orison.core.OrisonMod.makeID;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 
+@SaveIgnore
 public class ChangeCostUntilUseModifier extends AbstractCardModifier {
 
     public static final String ID = makeID(ChangeCostUntilUseModifier.class.getSimpleName());

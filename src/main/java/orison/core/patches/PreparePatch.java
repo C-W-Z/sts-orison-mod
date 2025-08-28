@@ -8,16 +8,10 @@ import com.evacipated.cardcrawl.modthespire.lib.Matcher;
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertLocator;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInstrumentPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatches2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.actions.GameActionManager;
-import com.megacrit.cardcrawl.actions.common.DiscardAction;
-import com.megacrit.cardcrawl.actions.common.DiscardSpecificCardAction;
-import com.megacrit.cardcrawl.actions.defect.ScrapeFollowUpAction;
-import com.megacrit.cardcrawl.actions.unique.GamblingChipAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
@@ -26,10 +20,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 
 import basemod.helpers.CardModifierManager;
-import javassist.CannotCompileException;
 import javassist.CtBehavior;
-import javassist.expr.ExprEditor;
-import javassist.expr.MethodCall;
 import orison.cardmodifiers.ChangeCostUntilUseModifier;
 
 public class PreparePatch {
@@ -53,14 +44,22 @@ public class PreparePatch {
         CardModifierManager.addModifier(card, new ChangeCostUntilUseModifier(-prepare));
     }
 
+    public static void setCanTriggerPrepareOnUseCard(AbstractCard card) {
+        logger.debug("setCanTriggerPrepareOnUseCard: " + card.cardID);
+        // bad_silent的牌"Sleight of Hand"效果是打出時觸發棄牌效果
+        if (card.cardID.equals("bad_silent:Sleight"))
+            return;
+        Field.canTriggerPrepare.set(card, false);
+    }
+
     @SpirePatch2(clz = GameActionManager.class, method = "callEndOfTurnActions")
     public static class TriggerOnEndOfTurnPatch {
         @SpireInsertPatch(locator = Locator.class)
         public static void Insert() {
-            logger.info("Start triggerPrepare From callEndOfTurnActions");
+            logger.debug("Start triggerPrepare from callEndOfTurnActions");
             for (AbstractCard c : AbstractDungeon.player.hand.group)
                 triggerPrepare(c);
-            logger.info("End triggerPrepare From callEndOfTurnActions");
+            logger.debug("End triggerPrepare from callEndOfTurnActions");
         }
 
         private static class Locator extends SpireInsertLocator {
@@ -72,36 +71,12 @@ public class PreparePatch {
         }
     }
 
-    // @SpirePatches2({
-    //         @SpirePatch2(clz = DiscardAction.class, method = "update"),
-    //         @SpirePatch2(clz = DiscardSpecificCardAction.class, method = "update"),
-    //         @SpirePatch2(clz = ScrapeFollowUpAction.class, method = "update"),
-    //         @SpirePatch2(clz = GamblingChipAction.class, method = "update"),
-    // })
-    // public static class DiscardActionsPatch {
-    //     @SpireInstrumentPatch
-    //     public static ExprEditor Instrument() {
-    //         return new ExprEditor() {
-    //             @Override
-    //             public void edit(MethodCall m) throws CannotCompileException {
-    //                 if (m.getClassName().equals(AbstractCard.class.getName())
-    //                         && m.getMethodName().equals("triggerOnManualDiscard")) {
-    //                     m.replace("{ " +
-    //                             "$_ = $proceed($$); " + // 原本呼叫
-    //                             PreparePatch.class.getName() + ".triggerPrepare($0); " + // 在後面加
-    //                             " }");
-    //                 }
-    //             }
-    //         };
-    //     }
-    // }
-
     @SpirePatch2(clz = UseCardAction.class, method = "update")
     public static class UseCardActionPatch {
 
         @SpireInsertPatch(locator = Locator1.class)
         public static void Insert1(AbstractCard ___targetCard) {
-            Field.canTriggerPrepare.set(___targetCard, false);
+            setCanTriggerPrepareOnUseCard(___targetCard);
         }
 
         private static class Locator1 extends SpireInsertLocator {
@@ -130,8 +105,10 @@ public class PreparePatch {
     public static class MoveToDiscardPilePatch {
         @SpirePostfixPatch
         public static void Postfix(CardGroup __instance, AbstractCard c) {
-            if (__instance.type == CardGroupType.HAND || __instance.type == CardGroupType.DRAW_PILE)
+            if (__instance.type == CardGroupType.HAND || __instance.type == CardGroupType.DRAW_PILE) {
+                logger.info("triggerPrepare from moveToDiscardPile: " + c.cardID);
                 triggerPrepare(c);
+            }
             // 只是避免UseCardAction中沒有重設到（例如被其他mod patch掉提前return）
             Field.canTriggerPrepare.set(c, true);
         }
