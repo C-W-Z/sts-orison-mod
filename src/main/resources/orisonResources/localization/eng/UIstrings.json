@@ -110,6 +110,13 @@
       "When the battle starts, shuffle #b%d copy(s) of this card into the Draw Pile. This card and the mirror cards will become #yRetain."
     ]
   },
+  "${ModID}:Prepare": {
+    "TEXT": [
+      "Prepare [${ModID}:PrepareIcon]",
+      "Adv. Prepare [${ModID}:AdvPrepareIcon]",
+      "If in hand at the end of the turn, [E] cost #b-%d until played; this effect is also triggered when discarded from Hand or Draw Pile. #yRetain."
+    ]
+  },
   "${ModID}:Resistance": {
     "TEXT": [
       "Resistance [${ModID}:ResistanceIcon]",

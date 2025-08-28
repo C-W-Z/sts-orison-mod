@@ -104,6 +104,13 @@
       "战斗开始时将 #b%d 张此牌的复制洗入抽牌堆。此牌与镜像卡牌均获得 #y保留 。"
     ]
   },
+  "${ModID}:Prepare": {
+    "TEXT": [
+      "预备 [${ModID}:PrepareIcon]",
+      "高级预备 [${ModID}:AdvPrepareIcon]",
+      "回合结束时若在手中， [E] 消耗 #b-%d 直到打出；从手牌和抽牌堆弃掉时也会触发此效果。 #y保留 。"
+    ]
+  },
   "${ModID}:Resistance": {
     "TEXT": [
       "抵抗 [${ModID}:ResistanceIcon]",

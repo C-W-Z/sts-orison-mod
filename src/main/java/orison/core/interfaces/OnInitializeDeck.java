@@ -11,7 +11,5 @@ public interface OnInitializeDeck {
      * @see InitializeDeckPatch
      * @see OrganicForm
      */
-    default List<AbstractCardModifier> onInitDeckToAddModifiers() {
-        return null;
-    }
+    List<AbstractCardModifier> onInitDeckToAddModifiers();
 }
