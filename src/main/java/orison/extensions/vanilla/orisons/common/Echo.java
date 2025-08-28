@@ -33,11 +33,7 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
     }
 
     public Echo(boolean adv) {
-        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-        values.add(1);
-        values.add(5);
-        advValues.add(2);
-        advValues.add(10);
+        super(ID, true, false, adv);
     }
 
     @Override
@@ -71,5 +67,20 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(1, 5);
+    protected static List<Integer> advValues = Arrays.asList(2, 10);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
+    }
+
+    @Override
+    protected float getDefaultRarity() {
+        return super.getDefaultRarity() / 2F;
     }
 }

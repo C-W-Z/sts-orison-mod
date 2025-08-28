@@ -30,9 +30,7 @@ public class Prepare extends AbstractOrison implements OnInitializeDeck {
     }
 
     public Prepare(boolean adv) {
-        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-        values.add(1);
-        advValues.add(2);
+        super(ID, true, false, adv);
     }
 
     @Override
@@ -42,6 +40,7 @@ public class Prepare extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public boolean onBattleStart(AbstractCard card) {
+        super.onBattleStart(card);
         PreparePatch.Field.prepare.set(card, getModifiedValue(0));
         return false;
     }
@@ -62,5 +61,20 @@ public class Prepare extends AbstractOrison implements OnInitializeDeck {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(1);
+    protected static List<Integer> advValues = Arrays.asList(2);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
+    }
+
+    @Override
+    protected float getDefaultRarity() {
+        return super.getDefaultRarity() / 2F;
     }
 }

@@ -2,6 +2,9 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -28,8 +31,6 @@ public class Burst extends AbstractOrison {
 
     public Burst(boolean adv) {
         super(ID, true, false, adv);
-        values.add(2);
-        advValues.add(4);
     }
 
     @Override
@@ -54,5 +55,15 @@ public class Burst extends AbstractOrison {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(2);
+    protected static List<Integer> advValues = Arrays.asList(4);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
     }
 }

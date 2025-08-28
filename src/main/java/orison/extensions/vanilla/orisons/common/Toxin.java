@@ -2,6 +2,9 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.evacipated.cardcrawl.mod.stslib.actions.common.AllEnemyApplyPowerAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -28,10 +31,6 @@ public class Toxin extends AbstractOrison {
 
     public Toxin(boolean adv) {
         super(ID, true, false, adv);
-        values.add(3);
-        values.add(15);
-        advValues.add(6);
-        advValues.add(30);
     }
 
     @Override
@@ -55,5 +54,15 @@ public class Toxin extends AbstractOrison {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(3, 15);
+    protected static List<Integer> advValues = Arrays.asList(6, 30);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
     }
 }

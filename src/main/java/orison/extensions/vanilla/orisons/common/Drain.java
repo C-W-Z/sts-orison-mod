@@ -2,6 +2,9 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -26,8 +29,6 @@ public class Drain extends AbstractOrison {
 
     public Drain(boolean adv) {
         super(ID, true, false, adv);
-        values.add(1);
-        advValues.add(2);
     }
 
     @Override
@@ -48,5 +49,13 @@ public class Drain extends AbstractOrison {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0));
+    }
+
+    protected static List<Integer> values = Arrays.asList(1);
+    protected static List<Integer> advValues = Arrays.asList(2);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
     }
 }

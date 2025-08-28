@@ -2,6 +2,9 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -24,9 +27,7 @@ public class Forging extends AbstractOrison {
     }
 
     public Forging(boolean adv) {
-        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-        values.add(1);
-        advValues.add(2);
+        super(ID, true, false, adv);
     }
 
     @Override
@@ -47,5 +48,20 @@ public class Forging extends AbstractOrison {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(1);
+    protected static List<Integer> advValues = Arrays.asList(2);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
+    }
+
+    @Override
+    protected float getDefaultRarity() {
+        return super.getDefaultRarity() / 2F;
     }
 }

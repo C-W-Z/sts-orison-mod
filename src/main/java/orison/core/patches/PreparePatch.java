@@ -40,7 +40,7 @@ public class PreparePatch {
         Integer prepare = Field.prepare.get(card);
         if (prepare == null || prepare <= 0)
             return;
-        logger.info("triggerPrepare: " + card.cardID);
+        logger.info("triggerPrepare: " + card.cardID + ", prepare=" + prepare);
         CardModifierManager.addModifier(card, new ChangeCostUntilUseModifier(-prepare));
     }
 
@@ -106,7 +106,7 @@ public class PreparePatch {
         @SpirePostfixPatch
         public static void Postfix(CardGroup __instance, AbstractCard c) {
             if (__instance.type == CardGroupType.HAND) {
-                logger.info("triggerPrepare from moveToDiscardPile: " + c.cardID);
+                logger.debug("triggerPrepare from moveToDiscardPile: " + c.cardID);
                 triggerPrepare(c);
             }
             // 只是避免UseCardAction中沒有重設到（例如被其他mod patch掉提前return）

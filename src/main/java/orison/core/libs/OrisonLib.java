@@ -35,6 +35,9 @@ public class OrisonLib {
         for (AbstractOrison orison : allOrisons) {
             id2Orison.put(orison.id, orison);
             logger.info("Orison " + orison.id + " Registered!");
+            orison.newInstance(false).loadConfigs();
+            orison.newInstance(true).loadConfigs();
+            logger.info("Orison " + orison.id + " Config Loaded!");
         }
     }
 
@@ -111,8 +114,8 @@ public class OrisonLib {
     private static AbstractOrison pickOne(List<AbstractOrison> list, Random random) {
         float totalWeight = 0;
         for (AbstractOrison o : list)
-            if (o != null && o.rarity > 0)
-                totalWeight += o.rarity;
+            if (o != null && o.getRarity() > 0)
+                totalWeight += o.getRarity();
 
         if (totalWeight <= 0)
             return null;
@@ -120,7 +123,7 @@ public class OrisonLib {
         float r = random.random(totalWeight);
         float cumulative = 0;
         for (AbstractOrison o : list) {
-            cumulative += o.rarity;
+            cumulative += o.getRarity();
             if (r < cumulative)
                 return o;
         }

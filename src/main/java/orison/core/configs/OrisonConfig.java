@@ -3,12 +3,16 @@ package orison.core.configs;
 import static orison.core.OrisonMod.modID;
 import static orison.utils.GeneralUtils.clamp;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
+
+import orison.core.abstracts.AbstractOrison.UseType;
+import orison.utils.GeneralUtils;
 
 public class OrisonConfig {
 
@@ -88,6 +92,108 @@ public class OrisonConfig {
         }
     }
 
+    public static class OrisonValues {
+        public static SpireConfig config;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                config = new SpireConfig(modID, OrisonValues.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.OrisonValues.initialize() failed");
+                e.printStackTrace();
+            }
+        }
+
+        public static void save(String orisonID, boolean adv, List<Integer> values) {
+            saveConfig(config, makeOrisonIDWithAdv(orisonID, adv), GeneralUtils.listToString(values));
+        }
+
+        public static List<Integer> load(String orisonID, boolean adv) {
+            String id = makeOrisonIDWithAdv(orisonID, adv);
+            if (!config.has(id))
+                return null;
+            return GeneralUtils.stringToIntList(config.getString(id));
+        }
+    }
+
+    public static class OrisonUseType {
+        public static SpireConfig config;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                config = new SpireConfig(modID, OrisonUseType.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.OrisonUseType.initialize() failed");
+                e.printStackTrace();
+            }
+        }
+
+        public static void save(String orisonID, boolean adv, UseType type) {
+            saveConfig(config, makeOrisonIDWithAdv(orisonID, adv), type.name());
+        }
+
+        public static UseType load(String orisonID, boolean adv) {
+            String id = makeOrisonIDWithAdv(orisonID, adv);
+            if (!config.has(id))
+                return null;
+            String s = config.getString(id);
+            if (s == null || s.isEmpty())
+                return null;
+            return UseType.valueOf(s);
+        }
+    }
+
+    public static class OrisonMaxUses {
+        public static SpireConfig config;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                config = new SpireConfig(modID, OrisonMaxUses.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.OrisonMaxUses.initialize() failed");
+                e.printStackTrace();
+            }
+        }
+
+        public static void save(String orisonID, boolean adv, int uses) {
+            saveConfig(config, makeOrisonIDWithAdv(orisonID, adv), uses);
+        }
+
+        public static Integer load(String orisonID, boolean adv) {
+            String id = makeOrisonIDWithAdv(orisonID, adv);
+            if (!config.has(id))
+                return null;
+            return config.getInt(id);
+        }
+    }
+
+    public static class OrisonRarity {
+        public static SpireConfig config;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                config = new SpireConfig(modID, OrisonRarity.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.OrisonRarity.initialize() failed");
+                e.printStackTrace();
+            }
+        }
+
+        public static void save(String orisonID, float rarity) {
+            saveConfig(config, orisonID, rarity);
+        }
+
+        public static Float load(String orisonID) {
+            if (!config.has(orisonID))
+                return null;
+            return config.getFloat(orisonID);
+        }
+    }
+
     public static class Reward {
         public static SpireConfig config;
 
@@ -137,7 +243,8 @@ public class OrisonConfig {
                 defaults.setProperty(ID_BOSS_DROP_ORISON_LINKED, String.valueOf(BOSS_DROP_ORISON_LINKED));
 
                 defaults.setProperty(ID_TREASURE_DROP_ORISON_CHANCE, String.valueOf(TREASURE_DROP_ORISON_CHANCE));
-                defaults.setProperty(ID_TREASURE_DROP_ORISON_ADV_CHANCE, String.valueOf(TREASURE_DROP_ORISON_ADV_CHANCE));
+                defaults.setProperty(ID_TREASURE_DROP_ORISON_ADV_CHANCE,
+                        String.valueOf(TREASURE_DROP_ORISON_ADV_CHANCE));
                 config = new SpireConfig(modID, Reward.class.getSimpleName(), defaults);
             } catch (Exception e) {
                 logger.error("OrisonConfig.Reward.initialize() failed");
@@ -197,6 +304,14 @@ public class OrisonConfig {
         Preference.initialize();
         Orison.initialize();
         Reward.initialize();
+        OrisonRarity.initialize();
+        OrisonValues.initialize();
+        OrisonUseType.initialize();
+        OrisonMaxUses.initialize();
+    }
+
+    public static String makeOrisonIDWithAdv(String orisonID, boolean adv) {
+        return adv ? (orisonID + "_adv") : orisonID;
     }
 
     public static void saveConfig(SpireConfig config, String ID, boolean value) {
@@ -222,6 +337,16 @@ public class OrisonConfig {
     public static void saveConfig(SpireConfig config, String ID, float value) {
         try {
             config.setFloat(ID, value);
+            config.save();
+        } catch (Exception e) {
+            logger.error("Save config " + ID + "=" + value + " Failed!");
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveConfig(SpireConfig config, String ID, String value) {
+        try {
+            config.setString(ID, value);
             config.save();
         } catch (Exception e) {
             logger.error("Save config " + ID + "=" + value + " Failed!");

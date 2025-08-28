@@ -2,6 +2,9 @@ package orison.misc;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -21,7 +24,7 @@ public class ErrorOrison extends AbstractOrison {
     }
 
     public ErrorOrison(boolean adv) {
-        super(ID, 0F, false, false, false);
+        super(ID, false, false, false);
     }
 
     @Override
@@ -41,4 +44,24 @@ public class ErrorOrison extends AbstractOrison {
 
     @Override
     protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {}
+
+    @Override
+    protected List<Integer> getValueList() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public float getRarity() {
+        return 0;
+    }
+
+    @Override
+    public UseType getUseType() {
+        return UseType.INFINITE;
+    }
+
+    @Override
+    public int getMaxUses() {
+        return -1;
+    }
 }

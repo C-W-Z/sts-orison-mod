@@ -4,7 +4,9 @@ import static orison.core.OrisonMod.makeOrisonPath;
 import static orison.utils.GeneralUtils.removePrefix;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,25 +46,34 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     public static final float DEFAULT_RARITY = 100F;
 
+    public enum UseType {
+        INFINITE,
+        FINITE_TURN,
+        FINITE_BATTLE,
+    }
+
+    public static final Map<String, Float> id2Rarity = new HashMap<>();
+
+    public static final Map<String, UseType> id2UseType = new HashMap<>();
+    public static final Map<String, Integer> id2MaxUses = new HashMap<>();
+
+    public static final Map<String, UseType> id2AdvUseType = new HashMap<>();
+    public static final Map<String, Integer> id2AdvMaxUses = new HashMap<>();
+
     public String id = "";
     public boolean adv = false;
-    public boolean disabled = false;
     public boolean hasAdv = true;
     public boolean hasDisabledImg = false;
     protected Texture image = null;
     protected Texture advImage = null;
     protected Texture disabledImage = null;
     protected Texture advDisabledImage = null;
-    public float rarity = DEFAULT_RARITY;
 
-    protected List<Integer> values;
-    protected List<Integer> advValues;
+    protected int usesThisTurn = 0;
+    protected int usesThisBattle = 0;
+
 
     public AbstractOrison(String id, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
-        this(id, DEFAULT_RARITY, hasAdv, hasDisabledImg, adv);
-    }
-
-    public AbstractOrison(String id, float rarity, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
         this.id = id;
         this.hasAdv = hasAdv;
         this.hasDisabledImg = hasDisabledImg;
@@ -73,9 +84,6 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
                 this.adv = true;
             }
         }
-        this.rarity = rarity;
-        this.values = new ArrayList<>();
-        this.advValues = new ArrayList<>();
         initializeImages();
     }
 
@@ -90,66 +98,127 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         }
     }
 
-    public int getModifiedValue(int index) {
-        return getModifiedValue(index, this.adv);
-    }
-
-    public int getModifiedValue(int index, boolean adv) {
-        try {
-            List<Integer> list = adv ? advValues : values;
-            int base = list.get(index);
-            if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
-                base *= 2;
-            return base;
-        } catch (Exception e) {
-            logger.error("Try to getModifiedValue() with out-of-range index with orison: " + id);
-            e.printStackTrace();
-            return 0;
+    public boolean isDisabled() {
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
+            return usesThisTurn >= 1;
+        switch (getUseType()) {
+            case INFINITE:
+                return getMaxUses() <= 0;
+            case FINITE_TURN:
+                return usesThisTurn >= getMaxUses();
+            case FINITE_BATTLE:
+                return usesThisBattle >= getMaxUses();
+            default:
+                return false;
         }
     }
+
+    public void loadConfigs() {
+        Float rarity = OrisonConfig.OrisonRarity.load(id);
+        if (rarity != null) {
+            id2Rarity.put(id, rarity);
+        }
+
+        List<Integer> list = OrisonConfig.OrisonValues.load(id, adv);
+        if (list != null && !list.isEmpty() && list.size() == getValueList().size())
+            for (int i = 0; i < list.size(); i++)
+                getValueList().set(i, list.get(i));
+
+        UseType type = OrisonConfig.OrisonUseType.load(id, adv);
+        if (type != null) {
+            Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+            map.put(id, type);
+        }
+
+        Integer uses = OrisonConfig.OrisonMaxUses.load(id, adv);
+        if (uses != null) {
+            Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
+            map.put(id, uses);
+        }
+    }
+
+    protected float getDefaultRarity() {
+        return 100;
+    }
+
+    public float getRarity() {
+        return id2Rarity.getOrDefault(id, getDefaultRarity());
+    }
+
+    public void saveRarity(float rarity) {
+        id2Rarity.put(id, rarity);
+        OrisonConfig.OrisonRarity.save(id, rarity);
+    }
+
+    protected UseType getDefaultUseType() {
+        return UseType.INFINITE;
+    }
+
+    public UseType getUseType() {
+        Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+        return map.getOrDefault(id, getDefaultUseType());
+    }
+
+    public void saveUseType(UseType newType) {
+        Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+        map.put(id, newType);
+        OrisonConfig.OrisonUseType.save(id, adv, newType);
+    }
+
+    protected int getDefaultMaxUses() {
+        return 1;
+    }
+
+    public int getMaxUses() {
+        Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
+        return map.getOrDefault(id, getDefaultMaxUses());
+    }
+
+    public void saveMaxUses(int newUses) {
+        Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
+        map.put(id, newUses);
+        OrisonConfig.OrisonMaxUses.save(id, adv, newUses);
+    }
+
+    protected abstract List<Integer> getValueList();
 
     public int getValue(int index) {
-        return getValue(index, this.adv);
+        return getValueList().get(index);
     }
 
-    public int getValue(int index, boolean adv) {
-        try {
-            List<Integer> list = adv ? advValues : values;
-            return list.get(index);
-        } catch (Exception e) {
-            logger.error("Try to getValue() with out-of-range index with orison: " + id);
-            e.printStackTrace();
-            return 0;
-        }
+    public void saveValue(int index, int newVal) {
+        List<Integer> list = getValueList();
+        list.set(index, newVal);
+        OrisonConfig.OrisonValues.save(id, adv, list);
     }
 
-    public void setValue(int index, int newVal) {
-        setValue(index, newVal, this.adv);
+    public int getModifiedValue(int index) {
+        int base = getValue(index);
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
+            base *= 2;
+        return base;
     }
 
-    public void setValue(int index, int newVal, boolean adv) {
-        try {
-            List<Integer> list = adv ? advValues : values;
-            list.set(index, newVal);
-        } catch (Exception e) {
-            logger.error("Try to setValue() with out-of-range index with orison: " + id);
-            e.printStackTrace();
-            return;
-        }
+    @Override
+    public boolean onBattleStart(AbstractCard card) {
+        usesThisTurn = 0;
+        usesThisBattle = 0;
+        return false;
     }
 
     @Override
     public void atStartOfTurn(AbstractCard card, CardGroup group) {
-        disabled = false;
+        usesThisTurn = 0;
     }
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        if (disabled)
+        logger.info("onUse: id: " + id + ", type: " + getUseType().name() + ", maxUses: " + getMaxUses());
+        if (isDisabled())
             return;
         takeEffectOnUse(card, target, action);
-        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
-            disabled = true;
+        usesThisTurn++;
+        usesThisBattle++;
     }
 
     protected abstract void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action);
@@ -175,7 +244,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
             return false;
         if (!OrisonConfig.Orison.CAN_ATTACH_ON_STATUS && card.type == CardType.STATUS)
             return false;
-        if (!OrisonConfig.Orison.CAN_ATTACH_ON_CURSE && (card.type == CardType.CURSE || card.rarity == CardRarity.CURSE))
+        if (!OrisonConfig.Orison.CAN_ATTACH_ON_CURSE
+                && (card.type == CardType.CURSE || card.rarity == CardRarity.CURSE))
             return false;
         if (!OrisonConfig.Orison.CAN_ATTACH_ON_COLORLESS && card.color == CardColor.COLORLESS)
             return false;
@@ -233,6 +303,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     public Pair<Texture, Color> getImageAndColor() {
         Texture toDraw = (hasAdv && adv) ? advImage : image;
+        boolean disabled = isDisabled();
         Color color = (disabled && !hasDisabledImg) ? Color.GRAY : Color.WHITE;
         if (disabled && hasDisabledImg)
             toDraw = (hasAdv && adv) ? advDisabledImage : disabledImage;

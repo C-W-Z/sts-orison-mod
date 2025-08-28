@@ -31,9 +31,7 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
     }
 
     public Mirror(boolean adv) {
-        super(ID, DEFAULT_RARITY / 2F, true, false, adv);
-        values.add(1);
-        advValues.add(2);
+        super(ID, true, false, adv);
     }
 
     @Override
@@ -43,6 +41,7 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public boolean onBattleStart(AbstractCard card) {
+        super.onBattleStart(card);
         AbstractCard copy = card.makeStatEquivalentCopy();
         CardModifierManager.removeModifiersById(copy, id, true);
         addToBot(new MakeTempCardInDrawPileAction(copy, getModifiedValue(0), true, true));
@@ -66,4 +65,19 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {}
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(1);
+    protected static List<Integer> advValues = Arrays.asList(2);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
+    }
+
+    @Override
+    protected float getDefaultRarity() {
+        return super.getDefaultRarity() / 2F;
+    }
 }

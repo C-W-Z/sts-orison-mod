@@ -2,6 +2,9 @@ package orison.extensions.vanilla.orisons.common;
 
 import static orison.core.OrisonMod.makeID;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -28,10 +31,6 @@ public class Spike extends AbstractOrison {
 
     public Spike(boolean adv) {
         super(ID, true, false, adv);
-        values.add(3);
-        values.add(25);
-        advValues.add(6);
-        advValues.add(50);
     }
 
     @Override
@@ -54,5 +53,15 @@ public class Spike extends AbstractOrison {
     @Override
     public String getDescription() {
         return String.format(uiStrings.TEXT[2], getModifiedValue(0), getModifiedValue(1));
+    }
+
+    /* ========== Configs ========== */
+
+    protected static List<Integer> values = Arrays.asList(3, 25);
+    protected static List<Integer> advValues = Arrays.asList(6, 50);
+
+    @Override
+    protected List<Integer> getValueList() {
+        return adv ? advValues : values;
     }
 }
