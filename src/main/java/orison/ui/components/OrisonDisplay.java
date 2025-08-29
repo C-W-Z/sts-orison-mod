@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
 import orison.core.interfaces.ConfigUIElement;
 import orison.core.libs.OrisonLib;
+import orison.ui.screens.OrisonPopup;
 
 public class OrisonDisplay implements ConfigUIElement {
 
@@ -70,8 +71,7 @@ public class OrisonDisplay implements ConfigUIElement {
                 if (Settings.isControllerMode)
                     clickStartedOrison = hoveredOrison;
                 InputHelper.justReleasedClickLeft = false;
-                // TODO: 打開OrisonPopup
-                // CardCrawlGame.cardPopup.open(clickStartedOrison, visibleCards);
+                OrisonPopup.instance.open(clickStartedOrison.orison, OrisonLib.allOrisons);
                 clickStartedOrison = null;
             }
         } else {

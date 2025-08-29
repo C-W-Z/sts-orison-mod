@@ -14,15 +14,18 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 
 import javassist.CtBehavior;
 import orison.ui.screens.OrisonConfigScreen;
+import orison.ui.screens.OrisonPopup;
 
 public class MainMenuPatch {
 
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID(Enums.ORISON_BUTTON.name()));
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack
+            .getUIString(makeID(Enums.ORISON_BUTTON.name()));
 
     public static class Enums {
         @SpireEnum
@@ -76,24 +79,71 @@ public class MainMenuPatch {
         }
     }
 
-    // Patch to handle SpirePass screen updates
+    // Patch to handle OrisonConfigScreen updates
     @SpirePatch2(clz = MainMenuScreen.class, method = "update")
     public static class UpdatePatch {
         @SpirePostfixPatch
-        public static void updateSpirePass(MainMenuScreen __instance) {
+        public static void updateOrisonConfigScreen(MainMenuScreen __instance) {
             if (__instance.screen == Enums.ORISON_VIEW) {
                 OrisonConfigScreen.instance.update();
             }
         }
     }
 
-    // Patch to handle SpirePass screen rendering
+    // Patch to handle OrisonConfigScreen rendering
     @SpirePatch2(clz = MainMenuScreen.class, method = "render")
     public static class RenderPatch {
         @SpirePostfixPatch
-        public static void renderSpirePass(MainMenuScreen __instance, SpriteBatch sb) {
+        public static void renderOrisonConfigScreen(MainMenuScreen __instance, SpriteBatch sb) {
             if (__instance.screen == Enums.ORISON_VIEW) {
                 OrisonConfigScreen.instance.render(sb);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = CardCrawlGame.class, method = "create")
+    public static class PopupCreatePatch {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void Insert() {
+            OrisonPopup.instance = new OrisonPopup();
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.FieldAccessMatcher(CardCrawlGame.class, "cardPopup");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = CardCrawlGame.class, method = "render")
+    public static class PopupRenderPatch {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void Insert(SpriteBatch ___sb) {
+            if (OrisonPopup.instance.isOpen)
+                OrisonPopup.instance.render(___sb);
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.FieldAccessMatcher(SingleCardViewPopup.class, "isOpen");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = CardCrawlGame.class, method = "update")
+    public static class PopupUpdatePatch {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void Insert() {
+            if (OrisonPopup.instance.isOpen)
+                OrisonPopup.instance.update();
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.FieldAccessMatcher(SingleCardViewPopup.class, "isOpen");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
     }

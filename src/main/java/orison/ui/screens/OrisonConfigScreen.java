@@ -84,8 +84,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
         orisonDisplay.updateBeforeScroll();
 
         boolean isScrollBarScrolling = scrollbar.update();
-        // TODO: 這裡不是用CardCrawlGame.cardPopup，而是自己做的OrisonPopup
-        if (!CardCrawlGame.cardPopup.isOpen && !isScrollBarScrolling)
+        if (!OrisonPopup.instance.isOpen && !isScrollBarScrolling)
             updateScrolling();
 
         configUIs.setTargetY(DRAW_START_Y + scrollY);

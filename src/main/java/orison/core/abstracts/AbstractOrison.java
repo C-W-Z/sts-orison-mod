@@ -72,7 +72,6 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     protected int usesThisTurn = 0;
     protected int usesThisBattle = 0;
 
-
     public AbstractOrison(String id, boolean hasAdv, boolean hasDisabledImg, boolean adv) {
         this.id = id;
         this.hasAdv = hasAdv;
@@ -99,8 +98,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public boolean isDisabled() {
-        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID))
-            return usesThisTurn >= 1;
+        if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(AprilTribute.ID) && usesThisTurn >= 1)
+            return true;
         switch (getUseType()) {
             case INFINITE:
                 return getMaxUses() <= 0;
