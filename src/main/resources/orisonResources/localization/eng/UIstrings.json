@@ -8,7 +8,7 @@
   "${ModID}:OrisonPopup": {
     "TEXT": ["View Adv."]
   },
-  "${ModID}:ConfigOptionPanel": {
+  "${ModID}:GlobalConfigOptionPanel": {
     "TEXT_DICT": {
       "CAN_ATTACH_ON_UNPLAYABLE_CARD": "Orisons can be attached to Unplayable cards",
       "CAN_ATTACH_ON_STATUS": "Orisons can be attached to Status cards",

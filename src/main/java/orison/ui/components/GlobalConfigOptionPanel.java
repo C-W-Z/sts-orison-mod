@@ -11,7 +11,7 @@ import orison.core.configs.OrisonConfig;
 public class GlobalConfigOptionPanel extends ConfigOptionPanel {
 
     public static Map<String, String> configTextDict = CardCrawlGame.languagePack
-            .getUIString(makeID(ConfigOptionPanel.class.getSimpleName())).TEXT_DICT;
+            .getUIString(makeID(GlobalConfigOptionPanel.class.getSimpleName())).TEXT_DICT;
 
     public GlobalConfigOptionPanel(float x, float rightX, float y) {
         super(x, rightX, y);

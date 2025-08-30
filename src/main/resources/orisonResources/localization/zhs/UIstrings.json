@@ -8,7 +8,7 @@
   "${ModID}:OrisonPopup": {
     "TEXT": ["查看高级"]
   },
-  "${ModID}:ConfigOptionPanel": {
+  "${ModID}:GlobalConfigOptionPanel": {
     "TEXT_DICT": {
       "CAN_ATTACH_ON_UNPLAYABLE_CARD": "刻印可以附加在无法打出的卡牌上",
       "CAN_ATTACH_ON_STATUS": "刻印可以附加在状态牌上",
