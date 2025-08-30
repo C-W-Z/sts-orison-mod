@@ -43,7 +43,7 @@
   "${ModID}:ReEvolution": {
     "NAME": "【密契】再衍化",
     "FLAVOR": "繁衍吧，繁衍吧。让流淌着母树鲜血的灵魂遍及世界。",
-    "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件 #y${ModID}:刻印 奖励。"]
+    "DESCRIPTIONS": ["菁英敌人被打败时多掉落 #b1 件高级 #y${ModID}:刻印 奖励。"]
   },
   "${ModID}:ReturnalLine": {
     "NAME": "【密契】海归线",

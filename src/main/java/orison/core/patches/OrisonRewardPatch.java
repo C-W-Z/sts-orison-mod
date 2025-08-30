@@ -31,6 +31,7 @@ import orison.core.relics.BurialGroundsSighs;
 import orison.core.relics.ReEvolution;
 import orison.core.relics.TwistedTwinsBlack;
 import orison.core.relics.TwistedTwinsWhite;
+import orison.core.rewards.RandomAdvOrisonReward;
 import orison.core.rewards.RandomOrisonReward;
 import orison.core.savables.OrisonRng;
 
@@ -109,11 +110,11 @@ public class OrisonRewardPatch {
             }
 
             if (room instanceof MonsterRoomElite && AbstractDungeon.player.hasRelic(ReEvolution.ID)) {
-                RandomOrisonReward reward2 = new RandomOrisonReward(amount);
+                RandomAdvOrisonReward reward2 = new RandomAdvOrisonReward(amount);
                 if (reward.canAddToRewards())
                     __instance.rewards.add(reward2);
                 else
-                    logger.error("RandomOrisonReward.canAddToRewards() return false, drop second reward failed");
+                    logger.error("RandomAdvOrisonReward.canAddToRewards() return false, drop second reward failed");
             }
         }
 
