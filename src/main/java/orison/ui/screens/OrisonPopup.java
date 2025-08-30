@@ -23,9 +23,9 @@ import com.megacrit.cardcrawl.localization.LocalizedStrings;
 
 import basemod.ReflectionHacks;
 import orison.core.abstracts.AbstractOrison;
-import orison.ui.components.ConfigOptionPanel;
-import orison.ui.components.OrisonConfigOptionPanel;
 import orison.ui.components.OrisonUIElement;
+import orison.ui.components.panels.ConfigOptionPanel;
+import orison.ui.components.panels.OrisonConfigOptionPanel;
 
 public class OrisonPopup {
 
@@ -66,6 +66,8 @@ public class OrisonPopup {
     private Hitbox upgradeHb = new Hitbox(250.0F * Settings.scale, 80.0F * Settings.scale);
 
     protected ConfigOptionPanel configs;
+    protected ConfigOptionPanel configsNorm;
+    protected ConfigOptionPanel configsAdv;
 
     private AbstractOrison orisonNorm;
     private AbstractOrison orisonAdv;
@@ -106,8 +108,11 @@ public class OrisonPopup {
         this.upgradeHb.move(CENTER_X, 70.0F * Settings.scale);
         this.isOpen = true;
 
-        configs = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
-                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orison);
+        configsNorm = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orisonNorm);
+        configsAdv = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orisonAdv);
+        configs = configsNorm;
     }
 
     public void close() {
@@ -117,6 +122,13 @@ public class OrisonPopup {
     }
 
     public void update() {
+        if (allowUpgradePreview() && isViewingUpgrade) {
+            orison = orisonAdv;
+            configs = configsAdv;
+        } else {
+            orison = orisonNorm;
+            configs = configsNorm;
+        }
         hb.update();
         updateArrows();
         updateInput();
@@ -216,10 +228,6 @@ public class OrisonPopup {
     }
 
     public void render(SpriteBatch sb) {
-        if (allowUpgradePreview() && isViewingUpgrade)
-            orison = orisonAdv;
-        else
-            orison = orisonNorm;
         sb.setColor(fadeColor);
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, 0.0F, 0.0F, Settings.WIDTH, Settings.HEIGHT);
         sb.setColor(Color.WHITE);
@@ -288,6 +296,7 @@ public class OrisonPopup {
     }
 
     protected void renderArrows(SpriteBatch sb) {
+        sb.setColor(Color.WHITE);
         if (prevOrison != null) {
             sb.draw(ImageMaster.POPUP_ARROW, prevHb.cX - 128.0F, prevHb.cY - 128.0F, 128.0F, 128.0F, 256.0F,
                     256.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 256, 256, false, false);

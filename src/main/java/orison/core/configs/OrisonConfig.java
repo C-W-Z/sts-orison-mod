@@ -141,7 +141,12 @@ public class OrisonConfig {
             String s = config.getString(id);
             if (s == null || s.isEmpty())
                 return null;
-            return UseType.valueOf(s);
+            try {
+                return UseType.valueOf(s);
+            } catch (Exception e) {
+                logger.error("Parse UseType of Orison: " + orisonID + " Failed: " + s + ", Error: " + e);
+                return null;
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package orison.ui.components;
+package orison.ui.components.panels;
 
 import static orison.core.OrisonMod.makeID;
 
@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
 import orison.core.interfaces.ConfigUIElement;
 import orison.core.libs.OrisonLib;
+import orison.ui.components.OrisonUIElement;
 import orison.ui.screens.OrisonPopup;
 
 public class OrisonDisplay implements ConfigUIElement {
@@ -158,5 +159,10 @@ public class OrisonDisplay implements ConfigUIElement {
     @Override
     public float getHeight() {
         return MathUtils.ceil((float) orisonUIs.size() / ORISONS_PER_LINE) * PAD - ORISON_GAP;
+    }
+
+    @Override
+    public float getY() {
+        return targetY;
     }
 }

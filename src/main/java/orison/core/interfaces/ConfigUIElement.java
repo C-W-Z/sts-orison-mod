@@ -10,4 +10,6 @@ public interface ConfigUIElement {
     void setTargetY(float targetY);
 
     float getHeight();
+
+    float getY();
 }

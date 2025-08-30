@@ -1,4 +1,4 @@
-package orison.ui.components;
+package orison.ui.components.panels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +74,10 @@ public class ConfigOptionPanel implements ConfigUIElement {
     @Override
     public float getHeight() {
         return realHeight;
+    }
+
+    @Override
+    public float getY() {
+        return this.y;
     }
 }

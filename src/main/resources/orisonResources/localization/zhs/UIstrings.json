@@ -29,7 +29,15 @@
   },
   "${ModID}:OrisonConfigOptionPanel": {
     "TEXT_DICT": {
-      "OrisonRarity": "掉落权重"
+      "OrisonRarity": "掉落权重",
+      "OrisonUseType": "使用限制"
+    }
+  },
+  "${ModID}:OrisonUseTypeConfigOption": {
+    "TEXT_DICT": {
+      "INFINITE": "无限制",
+      "FINITE_TURN": "每回合",
+      "FINITE_BATTLE": "每场战斗"
     }
   },
   "${ModID}:RewardLinkPatch": {

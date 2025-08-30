@@ -13,10 +13,10 @@ import com.megacrit.cardcrawl.screens.mainMenu.MenuCancelButton;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
-import orison.ui.components.ConfigOptionPanel;
 import orison.ui.components.ConfigScreenBgRenderer;
-import orison.ui.components.GlobalConfigOptionPanel;
-import orison.ui.components.OrisonDisplay;
+import orison.ui.components.panels.ConfigOptionPanel;
+import orison.ui.components.panels.GlobalConfigOptionPanel;
+import orison.ui.components.panels.OrisonDisplay;
 
 public class OrisonConfigScreen implements ScrollBarListener {
 

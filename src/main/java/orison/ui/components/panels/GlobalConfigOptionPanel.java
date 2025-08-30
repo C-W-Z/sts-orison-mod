@@ -1,4 +1,4 @@
-package orison.ui.components;
+package orison.ui.components.panels;
 
 import static orison.core.OrisonMod.makeID;
 
@@ -7,6 +7,7 @@ import java.util.Map;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 
 import orison.core.configs.OrisonConfig;
+import orison.ui.components.TextConfig;
 
 public class GlobalConfigOptionPanel extends ConfigOptionPanel {
 

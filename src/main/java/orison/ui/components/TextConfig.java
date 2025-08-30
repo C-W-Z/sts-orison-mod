@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
+import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.ConfigUIElement;
 import orison.utils.TexLoader;
 
@@ -32,8 +33,7 @@ public class TextConfig implements ConfigUIElement {
     public float rightX; // 右側x座標
 
     private String description;
-    private CheckBox checkBox;
-    private CustomRangeSlider slider;
+    private ConfigUIElement option;
 
     private static float text_max_width;
     private static float line_spacing;
@@ -44,20 +44,25 @@ public class TextConfig implements ConfigUIElement {
 
     public TextConfig(float x, float rightX, float y, String labal, boolean value, Consumer<Boolean> onChange) {
         this(x, rightX, y, labal);
-        this.checkBox = new CheckBox(rightX - CheckBox.WIDTH / 2, y, value, onChange);
+        this.option = new CheckBox(rightX - CheckBox.WIDTH / 2, y, value, onChange);
     }
 
     public TextConfig(float x, float rightX, float y, String labal, float value, Consumer<Float> onChange) {
         this(x, rightX, y, labal);
-        this.slider = new HundredPercentSlider(rightX - HundredPercentSlider.REAL_W, y, value, onChange);
+        this.option = new HundredPercentSlider(rightX - CustomRangeSlider.REAL_W, y, value, onChange);
     }
 
     public TextConfig(float x, float rightX, float y, String labal, float value, float min, float max, int precision,
             boolean isPercent, Consumer<Float> onChange) {
         this(x, rightX, y, labal);
-        this.slider = new CustomRangeSlider(
-                rightX - HundredPercentSlider.REAL_W, y,
+        this.option = new CustomRangeSlider(
+                rightX - CustomRangeSlider.REAL_W, y,
                 value, min, max, precision, isPercent, onChange);
+    }
+
+    public TextConfig(float x, float rightX, float y, String labal, AbstractOrison orison) {
+        this(x, rightX, y, labal);
+        this.option = new OrisonUseTypeConfigOption(rightX - OrisonUseTypeConfigOption.WIDTH / 2F, y, orison);
     }
 
     public TextConfig setBg(boolean show) {
@@ -84,29 +89,23 @@ public class TextConfig implements ConfigUIElement {
 
     @Override
     public void setTargetY(float targetY) {
-        if (checkBox != null)
-            checkBox.setTargetY(targetY);
-        else if (slider != null)
-            slider.setTargetY(targetY);
+        if (option != null)
+            option.setTargetY(targetY);
     }
 
     @Override
     public void update() {
-        if (checkBox != null)
-            checkBox.update();
-        else if (slider != null)
-            slider.update();
+        if (option != null)
+            option.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
         float cY;
-        if (checkBox != null)
-            cY = checkBox.getY();
-        else if (slider != null)
-            cY = slider.getY();
+        if (option != null)
+            cY = option.getY();
         else {
-            logger.error("NO Slider or CheckBox");
+            logger.error("NO Option UI");
             return;
         }
         float width = rightX - x;
@@ -129,10 +128,8 @@ public class TextConfig implements ConfigUIElement {
                 cY,
                 Settings.CREAM_COLOR);
 
-        if (checkBox != null)
-            checkBox.render(sb);
-        else if (slider != null)
-            slider.render(sb);
+        if (option != null)
+            option.render(sb);
 
         if (Settings.isDebug || Settings.isInfo) {
             sb.setColor(Color.RED);
@@ -143,10 +140,15 @@ public class TextConfig implements ConfigUIElement {
 
     @Override
     public float getHeight() {
-        if (checkBox != null)
-            return Math.max(textHeight, checkBox.getHeight());
-        else if (slider != null)
-            return Math.max(textHeight, slider.getHeight());
+        if (option != null)
+            return Math.max(textHeight, option.getHeight());
         return textHeight;
+    }
+
+    @Override
+    public float getY() {
+        if (this.option == null)
+            return 0;
+        return this.option.getY();
     }
 }
