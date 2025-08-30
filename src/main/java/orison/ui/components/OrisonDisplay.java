@@ -1,5 +1,7 @@
 package orison.ui.components;
 
+import static orison.core.OrisonMod.makeID;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.GameCursor;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.controller.CInputHelper;
@@ -20,11 +24,13 @@ import orison.ui.screens.OrisonPopup;
 
 public class OrisonDisplay implements ConfigUIElement {
 
+    public static final String[] TEXT = CardCrawlGame.languagePack
+            .getUIString(makeID(OrisonDisplay.class.getSimpleName())).TEXT;
+
     public static final int ORISONS_PER_LINE = 6;
     public static final float ORISON_GAP = 50 * Settings.scale;
     public static final float PAD = OrisonUIElement.SIZE + ORISON_GAP;
     public static final float WIDTH = ORISONS_PER_LINE * PAD - ORISON_GAP;
-
 
     private float drawStartX;
     private float targetY;
@@ -34,6 +40,10 @@ public class OrisonDisplay implements ConfigUIElement {
     private OrisonUIElement controllerOrison = null;
     private OrisonUIElement hoveredOrison = null;
     private OrisonUIElement clickStartedOrison = null;
+
+    public static final float ADV_TOGGLE_CENTER_X = 150 * Settings.scale;
+    public static final float ADV_TOGGLE_CENTER_Y = 300 * Settings.scale;
+    private Hitbox upgradeHb = new Hitbox(250.0F * Settings.scale, 80.0F * Settings.scale);
 
     public OrisonDisplay(float centerX, float drawStartY) {
         orisonUIs = new ArrayList<OrisonUIElement>();
@@ -48,13 +58,8 @@ public class OrisonDisplay implements ConfigUIElement {
             float y = drawStartY - OrisonUIElement.SIZE / 2 - yIndex * PAD;
             orisonUIs.add(new OrisonUIElement(OrisonLib.allOrisons.get(i), x, y));
         }
-        for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
-            int xIndex = (i + OrisonLib.allOrisons.size()) % ORISONS_PER_LINE;
-            int yIndex = (i + OrisonLib.allOrisons.size()) / ORISONS_PER_LINE;
-            float x = drawStartX + OrisonUIElement.SIZE / 2 + xIndex * PAD;
-            float y = drawStartY - OrisonUIElement.SIZE / 2 - yIndex * PAD;
-            orisonUIs.add(new OrisonUIElement(OrisonLib.allOrisons.get(i).newInstance(true), x, y));
-        }
+
+        this.upgradeHb.move(ADV_TOGGLE_CENTER_X, ADV_TOGGLE_CENTER_Y);
     }
 
     public void open() {
@@ -92,8 +97,21 @@ public class OrisonDisplay implements ConfigUIElement {
                 hoveredOrison = orisonUIs.get(i);
         }
 
+        updateUpgradePreview();
+
         if (Settings.isControllerMode && controllerOrison != null)
             CInputHelper.setCursor(controllerOrison.hb);
+    }
+
+    protected void updateUpgradePreview() {
+        upgradeHb.update();
+        if (upgradeHb.hovered && InputHelper.justClickedLeft)
+            upgradeHb.clickStarted = true;
+        if (upgradeHb.clicked || CInputActionSet.proceed.isJustPressed()) {
+            CInputActionSet.proceed.unpress();
+            upgradeHb.clicked = false;
+            OrisonPopup.isViewingUpgrade = !OrisonPopup.isViewingUpgrade;
+        }
     }
 
     @Override
@@ -101,11 +119,35 @@ public class OrisonDisplay implements ConfigUIElement {
         for (OrisonUIElement orisonUI : orisonUIs)
             orisonUI.render(sb);
 
+        renderUpgradeViewToggle(sb);
+        if (Settings.isControllerMode)
+            sb.draw(CInputActionSet.proceed
+                    .getKeyImg(), upgradeHb.cX - 132.0F * Settings.scale - 32.0F,
+                    -32.0F + 67.0F * Settings.scale, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale,
+                    0.0F, 0, 0, 64, 64, false, false);
+
         if (Settings.isDebug || Settings.isInfo) {
             sb.setColor(Color.RED);
             sb.draw(ImageMaster.DEBUG_HITBOX_IMG, drawStartX, targetY - getHeight(),
                     WIDTH, getHeight());
         }
+    }
+
+    protected void renderUpgradeViewToggle(SpriteBatch sb) {
+        sb.setColor(Color.WHITE);
+        sb.draw(ImageMaster.CHECKBOX, upgradeHb.cX - 80.0F * Settings.scale - 32.0F, upgradeHb.cY - 32.0F,
+                32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 64, 64, false, false);
+
+        Color upgradeToggleColor = upgradeHb.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR;
+        FontHelper.renderFont(sb, FontHelper.cardTitleFont, TEXT[0], upgradeHb.cX - 45.0F * Settings.scale,
+                upgradeHb.cY + 10.0F * Settings.scale, upgradeToggleColor);
+
+        if (OrisonPopup.isViewingUpgrade) {
+            sb.setColor(Color.WHITE);
+            sb.draw(ImageMaster.TICK, upgradeHb.cX - 80.0F * Settings.scale - 32.0F, upgradeHb.cY - 32.0F,
+                    32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 64, 64, false, false);
+        }
+        upgradeHb.render(sb);
     }
 
     @Override

@@ -137,7 +137,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     protected float getDefaultRarity() {
-        return 100;
+        return 1.0F;
     }
 
     public float getRarity() {

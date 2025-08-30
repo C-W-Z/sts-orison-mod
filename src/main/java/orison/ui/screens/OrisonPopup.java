@@ -1,11 +1,12 @@
 package orison.ui.screens;
 
+import static orison.core.OrisonMod.makeID;
+
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -22,13 +23,18 @@ import com.megacrit.cardcrawl.localization.LocalizedStrings;
 
 import basemod.ReflectionHacks;
 import orison.core.abstracts.AbstractOrison;
+import orison.ui.components.ConfigOptionPanel;
+import orison.ui.components.OrisonConfigOptionPanel;
 import orison.ui.components.OrisonUIElement;
 
 public class OrisonPopup {
 
+    public static final String[] TEXT = CardCrawlGame.languagePack
+            .getUIString(makeID(OrisonPopup.class.getSimpleName())).TEXT;
+
     public static final float CENTER_X = Settings.WIDTH / 2F;
     public static final float CENTER_Y = Settings.HEIGHT / 2F;
-    public static final float ORISON_CENTER_Y = Settings.HEIGHT * 3F / 4F;
+    public static final float ORISON_CENTER_Y = Settings.HEIGHT * 3F / 4F + 30F * Settings.scale;
     private static final float CARD_ENERGY_IMG_WIDTH = 26.0F * Settings.scale;
 
     public static OrisonPopup instance = null;
@@ -59,6 +65,11 @@ public class OrisonPopup {
 
     private Hitbox upgradeHb = new Hitbox(250.0F * Settings.scale, 80.0F * Settings.scale);
 
+    protected ConfigOptionPanel configs;
+
+    private AbstractOrison orisonNorm;
+    private AbstractOrison orisonAdv;
+
     public OrisonPopup() {
         this.prevHb = new Hitbox(200.0F * Settings.scale, 70.0F * Settings.scale);
         this.nextHb = new Hitbox(200.0F * Settings.scale, 70.0F * Settings.scale);
@@ -71,7 +82,7 @@ public class OrisonPopup {
         this.prevHb = null;
         this.nextHb = null;
         for (int i = 0; i < group.size(); i++) {
-            if (group.get(i) == orison) {
+            if (group.get(i).id.equals(orison.id)) {
                 if (i != 0)
                     this.prevOrison = group.get(i - 1);
                 if (i != group.size() - 1)
@@ -84,18 +95,22 @@ public class OrisonPopup {
         this.prevHb.move(Settings.WIDTH / 4F - 128F * Settings.scale, CENTER_Y);
         this.nextHb.move(Settings.WIDTH * 3 / 4F + 128F * Settings.scale, CENTER_Y);
         this.drawScale = 1F;
-        this.hb = new Hitbox(OrisonUIElement.SIZE, OrisonUIElement.SIZE);
-        this.hb.move(CENTER_X, ORISON_CENTER_Y);
-        this.orison = orison;
+        this.hb = new Hitbox(Settings.WIDTH / 2F + 100F * Settings.scale, Settings.HEIGHT * 0.9F);
+        this.hb.move(CENTER_X, CENTER_Y);
+        this.orisonNorm = orison.newInstance(false);
+        this.orisonAdv = orison.newInstance(true);
+        this.orison = orisonNorm;
         this.group = group;
         this.fadeTimer = 0.25F;
         this.fadeColor.a = 0.0F;
         this.upgradeHb.move(CENTER_X, 70.0F * Settings.scale);
         this.isOpen = true;
+
+        configs = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orison);
     }
 
     public void close() {
-        isViewingUpgrade = false;
         InputHelper.justReleasedClickLeft = false;
         CardCrawlGame.isPopupOpen = false;
         isOpen = false;
@@ -106,6 +121,7 @@ public class OrisonPopup {
         updateArrows();
         updateInput();
         updateFade();
+        configs.update();
         if (allowUpgradePreview())
             updateUpgradePreview();
     }
@@ -179,19 +195,15 @@ public class OrisonPopup {
     }
 
     protected void openPrev() {
-        boolean tmp = isViewingUpgrade;
         close();
         open(prevOrison, group);
-        isViewingUpgrade = tmp;
         fadeTimer = 0.0F;
         fadeColor.a = 0.9F;
     }
 
     protected void openNext() {
-        boolean tmp = isViewingUpgrade;
         close();
         open(nextOrison, group);
-        isViewingUpgrade = tmp;
         fadeTimer = 0.0F;
         fadeColor.a = 0.9F;
     }
@@ -204,17 +216,18 @@ public class OrisonPopup {
     }
 
     public void render(SpriteBatch sb) {
-        AbstractOrison copy = null;
-        if (isViewingUpgrade) {
-            copy = orison;
-            orison = orison.newInstance(true);
-        }
+        if (allowUpgradePreview() && isViewingUpgrade)
+            orison = orisonAdv;
+        else
+            orison = orisonNorm;
         sb.setColor(fadeColor);
         sb.draw(ImageMaster.WHITE_SQUARE_IMG, 0.0F, 0.0F, Settings.WIDTH, Settings.HEIGHT);
         sb.setColor(Color.WHITE);
+        sb.draw(ImageMaster.OPTION_CONFIRM, hb.cX - hb.width / 2F, hb.cY - hb.height / 2F, hb.width, hb.height);
         renderOrison(sb);
         renderTitle(sb);
         renderDescription(sb);
+        configs.render(sb);
         renderArrows(sb);
         hb.render(sb);
         if (nextHb != null)
@@ -230,8 +243,6 @@ public class OrisonPopup {
                         -32.0F + 67.0F * Settings.scale, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale,
                         0.0F, 0, 0, 64, 64, false, false);
         }
-        if (copy != null)
-            orison = copy;
     }
 
     protected void renderOrison(SpriteBatch sb) {
@@ -239,8 +250,8 @@ public class OrisonPopup {
 
         Texture img = orison.getImageAndColor().getKey();
         sb.draw(img,
-                hb.cX - OrisonUIElement.SIZE / 2f,
-                hb.cY - OrisonUIElement.SIZE / 2f,
+                CENTER_X - OrisonUIElement.SIZE / 2f,
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2f,
                 OrisonUIElement.SIZE / 2F, OrisonUIElement.SIZE / 2F,
                 OrisonUIElement.SIZE, OrisonUIElement.SIZE,
                 drawScale * Settings.scale,
@@ -259,7 +270,7 @@ public class OrisonPopup {
                 FontHelper.SCP_cardTitleFont_small,
                 title.substring(0, title.indexOf("[") - 1),
                 CENTER_X,
-                ORISON_CENTER_Y + OrisonUIElement.SIZE / 2F + 30F,
+                ORISON_CENTER_Y + OrisonUIElement.SIZE / 2F + 30F * Settings.scale,
                 Settings.CREAM_COLOR);
     }
 
@@ -268,8 +279,8 @@ public class OrisonPopup {
                 sb,
                 FontHelper.SCP_cardDescFont,
                 orison.getDescription(),
-                CENTER_X / 2F,
-                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 30F,
+                CENTER_X / 2F + 5F * Settings.scale,
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 20F * Settings.scale,
                 Settings.WIDTH / 2F,
                 51F * Settings.scale,
                 Settings.CREAM_COLOR,
@@ -319,7 +330,7 @@ public class OrisonPopup {
                 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 64, 64, false, false);
 
         Color upgradeToggleColor = upgradeHb.hovered ? Settings.BLUE_TEXT_COLOR : Settings.GOLD_COLOR;
-        FontHelper.renderFont(sb, FontHelper.cardTitleFont, "Adv", upgradeHb.cX - 45.0F * Settings.scale,
+        FontHelper.renderFont(sb, FontHelper.cardTitleFont, TEXT[0], upgradeHb.cX - 45.0F * Settings.scale,
                 upgradeHb.cY + 10.0F * Settings.scale, upgradeToggleColor);
 
         if (isViewingUpgrade) {
@@ -447,21 +458,11 @@ public class OrisonPopup {
             } else if (word.charAt(0) == '#') {
                 FontHelper.layout.setText(font, word.substring(2));
                 switch (word.charAt(1)) {
-                    case 'r':
-                        word = "[#ff6563]" + word.substring(2) + "[]";
-                        break;
-                    case 'g':
-                        word = "[#7fff00]" + word.substring(2) + "[]";
-                        break;
-                    case 'b':
-                        word = "[#87ceeb]" + word.substring(2) + "[]";
-                        break;
-                    case 'y':
-                        word = "[#efc851]" + word.substring(2) + "[]";
-                        break;
-                    case 'p':
-                        word = "[#0e82ee]" + word.substring(2) + "[]";
-                        break;
+                    case 'r': word = "[#ff6563]" + word.substring(2) + "[]"; break;
+                    case 'g': word = "[#7fff00]" + word.substring(2) + "[]"; break;
+                    case 'b': word = "[#87ceeb]" + word.substring(2) + "[]"; break;
+                    case 'y': word = "[#efc851]" + word.substring(2) + "[]"; break;
+                    case 'p': word = "[#0e82ee]" + word.substring(2) + "[]"; break;
                 }
                 curWidth += FontHelper.layout.width;
                 if (curWidth > widthMax) {
@@ -483,7 +484,7 @@ public class OrisonPopup {
                         curWidth = FontHelper.layout.width;
                         currentLine++;
                     }
-                    font.draw((Batch) sb, j, x + curWidth - FontHelper.layout.width, y - lineSpacing * currentLine);
+                    font.draw(sb, j, x + curWidth - FontHelper.layout.width, y - lineSpacing * currentLine);
                 }
             }
         }

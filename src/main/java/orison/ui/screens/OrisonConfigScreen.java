@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.ui.components.ConfigOptionPanel;
 import orison.ui.components.ConfigScreenBgRenderer;
+import orison.ui.components.GlobalConfigOptionPanel;
 import orison.ui.components.OrisonDisplay;
 
 public class OrisonConfigScreen implements ScrollBarListener {
@@ -54,7 +55,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
         scrollbar = new ScrollBar(this);
 
-        configUIs = new ConfigOptionPanel(DRAW_START_X, DRAW_END_X, DRAW_START_Y);
+        configUIs = new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, DRAW_START_Y);
 
         orisonDisplay = new OrisonDisplay(ORISON_DISPLAY_CENTER_X, DRAW_START_Y - (configUIs.getHeight() + ELEMENT_GAP));
 

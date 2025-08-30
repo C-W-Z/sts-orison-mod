@@ -2,6 +2,12 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["Orisons and Configs"]
   },
+  "${ModID}:OrisonDisplay": {
+    "TEXT": ["View Adv."]
+  },
+  "${ModID}:OrisonPopup": {
+    "TEXT": ["View Adv."]
+  },
   "${ModID}:ConfigOptionPanel": {
     "TEXT_DICT": {
       "CAN_ATTACH_ON_UNPLAYABLE_CARD": "Orisons can be attached to Unplayable cards",
@@ -19,6 +25,11 @@
       "BOSS_DROP_ORISON_LINKED": "Can only pick 1 between Card and Orison Reward after Boss Battles",
       "TREASURE_DROP_ORISON_CHANCE": "Orisons Drop Rate in Treasure Chests",
       "TREASURE_DROP_ORISON_ADV_CHANCE": "Chance of an Orison dropped in Treasure Chests being Adv."
+    }
+  },
+  "${ModID}:OrisonConfigOptionPanel": {
+    "TEXT_DICT": {
+      "OrisonRarity": "Drop Weight"
     }
   },
   "${ModID}:RewardLinkPatch": {

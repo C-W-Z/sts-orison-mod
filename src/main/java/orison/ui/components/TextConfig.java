@@ -33,12 +33,14 @@ public class TextConfig implements ConfigUIElement {
 
     private String description;
     private CheckBox checkBox;
-    private HundredPercentSlider slider;
+    private CustomRangeSlider slider;
 
     private static float text_max_width;
     private static float line_spacing;
 
     private float textHeight;
+
+    private boolean showBg = true;
 
     public TextConfig(float x, float rightX, float y, String labal, boolean value, Consumer<Boolean> onChange) {
         this(x, rightX, y, labal);
@@ -50,7 +52,23 @@ public class TextConfig implements ConfigUIElement {
         this.slider = new HundredPercentSlider(rightX - HundredPercentSlider.REAL_W, y, value, onChange);
     }
 
-    /** Don't use this constructor, this is just an encapsulation of the same part of other constructors */
+    public TextConfig(float x, float rightX, float y, String labal, float value, float min, float max, int precision,
+            boolean isPercent, Consumer<Float> onChange) {
+        this(x, rightX, y, labal);
+        this.slider = new CustomRangeSlider(
+                rightX - HundredPercentSlider.REAL_W, y,
+                value, min, max, precision, isPercent, onChange);
+    }
+
+    public TextConfig setBg(boolean show) {
+        showBg = show;
+        return this;
+    }
+
+    /**
+     * Don't use this constructor, this is just an encapsulation of the same part of
+     * other constructors
+     */
     public TextConfig(float x, float rightX, float y, String labal) {
         this.x = x;
         this.rightX = rightX;
@@ -95,11 +113,13 @@ public class TextConfig implements ConfigUIElement {
         float height = getHeight();
         float y = cY - height / 2;
 
-        sb.setColor(Color.DARK_GRAY);
-        float bgH = height + 2 * PADDING_Y;
-        sb.draw(BG_LEFT, x - PADDING_X, y - PADDING_Y, bgH, bgH);
-        sb.draw(BG_MIDDLE, x - PADDING_X + bgH, y - PADDING_Y, width + 2 * PADDING_X - 2 * bgH, bgH);
-        sb.draw(BG_RIGHT, x + width + PADDING_X - bgH, y - PADDING_Y, bgH, bgH);
+        if (showBg) {
+            sb.setColor(Color.DARK_GRAY);
+            float bgH = height + 2 * PADDING_Y;
+            sb.draw(BG_LEFT, x - PADDING_X, y - PADDING_Y, bgH, bgH);
+            sb.draw(BG_MIDDLE, x - PADDING_X + bgH, y - PADDING_Y, width + 2 * PADDING_X - 2 * bgH, bgH);
+            sb.draw(BG_RIGHT, x + width + PADDING_X - bgH, y - PADDING_Y, bgH, bgH);
+        }
 
         sb.setColor(Color.WHITE);
         FontHelper.renderFontLeft(sb,

@@ -2,6 +2,12 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["刻印與設定"]
   },
+  "${ModID}:OrisonDisplay": {
+    "TEXT": ["查看高級"]
+  },
+  "${ModID}:OrisonPopup": {
+    "TEXT": ["查看高級"]
+  },
   "${ModID}:ConfigOptionPanel": {
     "TEXT_DICT": {
       "CAN_ATTACH_ON_UNPLAYABLE_CARD": "刻印可以附加在無法打出的卡牌上",
@@ -19,6 +25,11 @@
       "BOSS_DROP_ORISON_LINKED": "首領戰鬥掉落的卡牌和刻印獎勵只能二選一",
       "TREASURE_DROP_ORISON_CHANCE": "寶箱中出現刻印的機率",
       "TREASURE_DROP_ORISON_ADV_CHANCE": "寶箱中出現的刻印是高級刻印的機率"
+    }
+  },
+  "${ModID}:OrisonConfigOptionPanel": {
+    "TEXT_DICT": {
+      "OrisonRarity": "掉落權重"
     }
   },
   "${ModID}:RewardLinkPatch": {

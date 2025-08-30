@@ -15,12 +15,15 @@ import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
 import orison.core.abstracts.AbstractOrison;
+import orison.ui.screens.OrisonPopup;
 
 public class OrisonUIElement {
 
     public static final float SIZE = 150 * Settings.scale;
 
     public AbstractOrison orison;
+    public AbstractOrison orisonNorm;
+    public AbstractOrison orisonAdv;
 
     protected float cX;
     protected float cY;
@@ -34,6 +37,8 @@ public class OrisonUIElement {
 
     public OrisonUIElement(AbstractOrison orison, float cX, float cY) {
         this.orison = orison;
+        this.orisonNorm = orison.newInstance(false);
+        this.orisonAdv = orison.newInstance(true);
 
         this.cX = cX * Settings.scale;
         this.cY = cY * Settings.scale;
@@ -47,7 +52,15 @@ public class OrisonUIElement {
         this.targetDrawScale = drawScale;
     }
 
+    protected boolean allowUpgradePreview() {
+        return orison.hasAdv;
+    }
+
     public void update() {
+        if (allowUpgradePreview() && OrisonPopup.isViewingUpgrade)
+            orison = orisonAdv;
+        else
+            orison = orisonNorm;
 
         this.cX = MathHelper.cardLerpSnap(this.cX, this.targetX);
         this.cY = MathHelper.cardLerpSnap(this.cY, this.targetY);
