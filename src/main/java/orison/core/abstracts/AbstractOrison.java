@@ -61,10 +61,10 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     public static final Map<String, Float> id2Rarity = new HashMap<>();
 
     public static final Map<String, UseType> id2UseType = new HashMap<>();
-    public static final Map<String, Integer> id2MaxUses = new HashMap<>();
+    public static final Map<String, Integer> id2UseLimit = new HashMap<>();
 
     public static final Map<String, UseType> id2AdvUseType = new HashMap<>();
-    public static final Map<String, Integer> id2AdvMaxUses = new HashMap<>();
+    public static final Map<String, Integer> id2AdvUseLimit = new HashMap<>();
 
     public String id = "";
     public boolean adv = false;
@@ -108,11 +108,11 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
             return true;
         switch (getUseType()) {
             case INFINITE:
-                return getMaxUses() <= 0;
+                return getUseLimit() <= 0;
             case FINITE_TURN:
-                return usesThisTurn >= getMaxUses();
+                return usesThisTurn >= getUseLimit();
             case FINITE_BATTLE:
-                return usesThisBattle >= getMaxUses();
+                return usesThisBattle >= getUseLimit();
             default:
                 return false;
         }
@@ -135,9 +135,9 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
             map.put(id, type);
         }
 
-        Integer uses = OrisonConfig.OrisonMaxUses.load(id, adv);
+        Integer uses = OrisonConfig.OrisonUseLimit.load(id, adv);
         if (uses != null) {
-            Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
+            Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
             map.put(id, uses);
         }
     }
@@ -170,19 +170,19 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         OrisonConfig.OrisonUseType.save(id, adv, newType);
     }
 
-    protected int getDefaultMaxUses() {
+    protected int getDefaultUseLimit() {
         return 1;
     }
 
-    public int getMaxUses() {
-        Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
-        return map.getOrDefault(id, getDefaultMaxUses());
+    public int getUseLimit() {
+        Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
+        return map.getOrDefault(id, getDefaultUseLimit());
     }
 
-    public void saveMaxUses(int newUses) {
-        Map<String, Integer> map = adv ? id2MaxUses : id2AdvMaxUses;
+    public void saveUseLimit(int newUses) {
+        Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
         map.put(id, newUses);
-        OrisonConfig.OrisonMaxUses.save(id, adv, newUses);
+        OrisonConfig.OrisonUseLimit.save(id, adv, newUses);
     }
 
     protected abstract List<Integer> getValueList();
@@ -218,7 +218,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        logger.info("onUse: id: " + id + ", type: " + getUseType().name() + ", maxUses: " + getMaxUses());
+        logger.info("onUse: id: " + id + ", type: " + getUseType().name() + ", useLimit: " + getUseLimit());
         if (isDisabled())
             return;
         takeEffectOnUse(card, target, action);
@@ -286,11 +286,11 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     public String getTotalDescription() {
         String desc = getDescription();
-        int maxUses = getMaxUses();
+        int useLimit = getUseLimit();
         String postfix = "";
         switch (getUseType()) {
             case INFINITE:
-                if (maxUses > 0)
+                if (useLimit > 0)
                     postfix = uiStrings.TEXT_DICT.get(UseType.INFINITE.name());
                 else
                     postfix = uiStrings.TEXT_DICT.get("DISABLED");
@@ -298,12 +298,12 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
             case FINITE_TURN:
                 postfix = String.format(
                         uiStrings.TEXT_DICT.get(UseType.FINITE_TURN.name()),
-                        maxUses, maxUses - usesThisTurn);
+                        useLimit, useLimit - usesThisTurn);
                 break;
             case FINITE_BATTLE:
                 postfix = String.format(
                         uiStrings.TEXT_DICT.get(UseType.FINITE_BATTLE.name()),
-                        maxUses, maxUses - usesThisTurn);
+                        useLimit, useLimit - usesThisTurn);
                 break;
             default:
                 break;

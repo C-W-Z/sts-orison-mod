@@ -31,7 +31,7 @@
     "TEXT_DICT": {
       "OrisonRarity": "Drop Weight",
       "OrisonUseType": "Use Restriction Type",
-      "OrisonMaxUses": "Use Limit"
+      "OrisonUseLimit": "Use Limit"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {

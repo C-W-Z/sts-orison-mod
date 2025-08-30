@@ -61,7 +61,7 @@ public class ErrorOrison extends AbstractOrison {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUseLimit() {
         return -1;
     }
 }

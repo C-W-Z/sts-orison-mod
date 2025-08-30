@@ -32,10 +32,10 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
                 orison).setBg(false));
 
         addOption(new TextConfig(x, rightX, nextYPos,
-                configTextDict.get(OrisonConfig.OrisonMaxUses.class.getSimpleName()),
-                orison.getMaxUses(),
+                configTextDict.get(OrisonConfig.OrisonUseLimit.class.getSimpleName()),
+                orison.getUseLimit(),
                 0, 10, 0, false,
-                v -> orison.saveMaxUses(MathUtils.round(v)))
+                v -> orison.saveUseLimit(MathUtils.round(v)))
                 .setBg(false)
                 .setShowOption(() -> orison.getUseType() != UseType.INFINITE));
     }

@@ -150,15 +150,15 @@ public class OrisonConfig {
         }
     }
 
-    public static class OrisonMaxUses {
+    public static class OrisonUseLimit {
         public static SpireConfig config;
 
         public static void initialize() {
             try {
                 Properties defaults = new Properties();
-                config = new SpireConfig(modID, OrisonMaxUses.class.getSimpleName(), defaults);
+                config = new SpireConfig(modID, OrisonUseLimit.class.getSimpleName(), defaults);
             } catch (Exception e) {
-                logger.error("OrisonConfig.OrisonMaxUses.initialize() failed");
+                logger.error("OrisonConfig.OrisonUseLimit.initialize() failed");
                 e.printStackTrace();
             }
         }
@@ -312,7 +312,7 @@ public class OrisonConfig {
         OrisonRarity.initialize();
         OrisonValues.initialize();
         OrisonUseType.initialize();
-        OrisonMaxUses.initialize();
+        OrisonUseLimit.initialize();
     }
 
     public static String makeOrisonIDWithAdv(String orisonID, boolean adv) {
