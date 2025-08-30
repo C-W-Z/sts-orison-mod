@@ -80,4 +80,19 @@ public class Mirror extends AbstractOrison implements OnInitializeDeck {
     protected float getDefaultRarity() {
         return super.getDefaultRarity() / 2F;
     }
+
+    @Override
+    public UseType getUseType() {
+        return UseType.INFINITE;
+    }
+
+    @Override
+    public boolean canSetUseType() {
+        return false;
+    }
+
+    @Override
+    public boolean canSetUseLimit() {
+        return false;
+    }
 }

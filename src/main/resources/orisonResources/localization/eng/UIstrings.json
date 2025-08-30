@@ -6,7 +6,7 @@
     "TEXT": ["View Adv."]
   },
   "${ModID}:OrisonPopup": {
-    "TEXT": ["View Adv."]
+    "TEXT": ["View Adv.", "Note", "The configs for normal #yOrison and Adv. #yOrison are separate."]
   },
   "${ModID}:GlobalConfigOptionPanel": {
     "TEXT_DICT": {

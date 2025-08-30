@@ -102,7 +102,7 @@ public class TextConfig implements ConfigUIElement {
 
     @Override
     public void update() {
-        if (option != null)
+        if (option != null && (showOption == null || showOption.get()))
             option.update();
     }
 

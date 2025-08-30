@@ -25,11 +25,11 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
                 orison.getRarity(),
                 0F, 2F, 1, false,
                 v -> orison.saveRarity(v))
-                .setBg(false));
+                .setBg(false).setShowOption(() -> !orison.adv));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonUseType.class.getSimpleName()),
-                orison).setBg(false));
+                orison).setBg(false).setShowOption(() -> orison.canSetUseType()));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonUseLimit.class.getSimpleName()),
@@ -37,6 +37,6 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
                 0, 10, 0, false,
                 v -> orison.saveUseLimit(MathUtils.round(v)))
                 .setBg(false)
-                .setShowOption(() -> orison.getUseType() != UseType.INFINITE));
+                .setShowOption(() -> orison.canSetUseLimit() && orison.getUseType() != UseType.INFINITE));
     }
 }

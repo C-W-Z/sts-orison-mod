@@ -155,6 +155,10 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         OrisonConfig.OrisonRarity.save(id, rarity);
     }
 
+    public boolean canSetUseType() {
+        return true;
+    }
+
     protected UseType getDefaultUseType() {
         return UseType.INFINITE;
     }
@@ -168,6 +172,10 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
         map.put(id, newType);
         OrisonConfig.OrisonUseType.save(id, adv, newType);
+    }
+
+    public boolean canSetUseLimit() {
+        return true;
     }
 
     protected int getDefaultUseLimit() {
@@ -285,6 +293,9 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public String getTotalDescription() {
+        if (!canSetUseType() && getUseType() == UseType.INFINITE)
+            return getDescription();
+
         String desc = getDescription();
         int useLimit = getUseLimit();
         String postfix = "";

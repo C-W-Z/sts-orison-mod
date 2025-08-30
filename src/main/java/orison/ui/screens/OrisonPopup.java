@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
@@ -253,11 +254,12 @@ public class OrisonPopup {
         if (allowUpgradePreview()) {
             renderUpgradeViewToggle(sb);
             if (Settings.isControllerMode)
-                sb.draw(CInputActionSet.proceed
-                        .getKeyImg(), upgradeHb.cX - 132.0F * Settings.scale - 32.0F,
+                sb.draw(CInputActionSet.proceed.getKeyImg(), upgradeHb.cX - 132.0F * Settings.scale - 32.0F,
                         -32.0F + 67.0F * Settings.scale, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale,
                         0.0F, 0, 0, 64, 64, false, false);
         }
+
+        TipHelper.renderGenericTip(Settings.WIDTH * 3 / 4F + 64 * Settings.scale, ORISON_CENTER_Y, TEXT[1], TEXT[2]);
     }
 
     protected void renderOrison(SpriteBatch sb) {

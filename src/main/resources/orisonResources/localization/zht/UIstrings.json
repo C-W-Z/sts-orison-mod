@@ -6,7 +6,7 @@
     "TEXT": ["查看高級"]
   },
   "${ModID}:OrisonPopup": {
-    "TEXT": ["查看高級"]
+    "TEXT": ["查看高級", "注意", "普通 #y刻印 和高級 #y刻印 的設定是分開的。"]
   },
   "${ModID}:GlobalConfigOptionPanel": {
     "TEXT_DICT": {
@@ -31,7 +31,7 @@
     "TEXT_DICT": {
       "OrisonRarity": "掉落權重",
       "OrisonUseType": "使用限制類型",
-      "OrisonUseLimit": "使用次數"
+      "OrisonUseLimit": "可使用次數"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {
