@@ -20,7 +20,7 @@ public class OrisonUseTypeConfigOption implements ConfigUIElement {
 
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID(OrisonUseTypeConfigOption.class.getSimpleName()));
 
-    public static final float ARROW_WIDTH = (ImageMaster.CF_LEFT_ARROW.getWidth() + 5F) * Settings.scale;
+    public static final float ARROW_WIDTH = ImageMaster.CF_LEFT_ARROW.getWidth() * Settings.scale;
     public static final float WIDTH = 325 * Settings.scale;
 
     private AbstractOrison orison;
@@ -47,8 +47,8 @@ public class OrisonUseTypeConfigOption implements ConfigUIElement {
         }
         this.prevHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
         this.nextHb = new Hitbox(70.0F * Settings.scale, 70.0F * Settings.scale);
-        this.prevHb.move(cX - WIDTH / 2F + ARROW_WIDTH / 2F, cY);
-        this.nextHb.move(cX + WIDTH / 2F - ARROW_WIDTH / 2F, cY);
+        this.prevHb.move(cX - WIDTH / 2F + ARROW_WIDTH / 2F + 5F * Settings.xScale, cY);
+        this.nextHb.move(cX + WIDTH / 2F - ARROW_WIDTH / 2F - 5F * Settings.xScale, cY);
     }
 
     @Override

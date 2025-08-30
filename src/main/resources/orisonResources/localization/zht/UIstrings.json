@@ -30,7 +30,8 @@
   "${ModID}:OrisonConfigOptionPanel": {
     "TEXT_DICT": {
       "OrisonRarity": "掉落權重",
-      "OrisonUseType": "使用限制"
+      "OrisonUseType": "使用限制類型",
+      "OrisonMaxUses": "使用次數"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 
 import orison.core.abstracts.AbstractOrison;
+import orison.core.abstracts.AbstractOrison.UseType;
 import orison.core.configs.OrisonConfig;
 import orison.ui.components.TextConfig;
 
@@ -32,9 +33,10 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonMaxUses.class.getSimpleName()),
-                orison.getRarity(),
+                orison.getMaxUses(),
                 0, 10, 0, false,
                 v -> orison.saveMaxUses(MathUtils.round(v)))
-                .setBg(false));
+                .setBg(false)
+                .setShowOption(() -> orison.getUseType() != UseType.INFINITE));
     }
 }

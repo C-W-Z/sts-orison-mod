@@ -109,9 +109,9 @@ public class OrisonPopup {
         this.isOpen = true;
 
         configsNorm = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
-                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orisonNorm);
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 200F * Settings.scale, orisonNorm);
         configsAdv = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
-                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 140F * Settings.scale, orisonAdv);
+                ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 200F * Settings.scale, orisonAdv);
         configs = configsNorm;
     }
 

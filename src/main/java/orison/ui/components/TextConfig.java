@@ -2,6 +2,7 @@ package orison.ui.components;
 
 import static orison.core.OrisonMod.makeUIPath;
 
+import java.util.function.Supplier;
 import java.util.function.Consumer;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,6 +42,7 @@ public class TextConfig implements ConfigUIElement {
     private float textHeight;
 
     private boolean showBg = true;
+    private Supplier<Boolean> showOption = null;
 
     public TextConfig(float x, float rightX, float y, String labal, boolean value, Consumer<Boolean> onChange) {
         this(x, rightX, y, labal);
@@ -67,6 +69,11 @@ public class TextConfig implements ConfigUIElement {
 
     public TextConfig setBg(boolean show) {
         showBg = show;
+        return this;
+    }
+
+    public TextConfig setShowOption(Supplier<Boolean> showOption) {
+        this.showOption = showOption;
         return this;
     }
 
@@ -128,7 +135,7 @@ public class TextConfig implements ConfigUIElement {
                 cY,
                 Settings.CREAM_COLOR);
 
-        if (option != null)
+        if (option != null && (showOption == null || showOption.get()))
             option.render(sb);
 
         if (Settings.isDebug || Settings.isInfo) {
