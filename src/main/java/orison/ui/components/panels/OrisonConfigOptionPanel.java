@@ -34,7 +34,7 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonUseLimit.class.getSimpleName()),
                 orison.getUseLimit(),
-                0, 10, 0, false,
+                1, 10, 0, false,
                 v -> orison.saveUseLimit(MathUtils.round(v)))
                 .setBg(false)
                 .setShowOption(() -> orison.canSetUseLimit() && orison.getUseType() != UseType.INFINITE));
