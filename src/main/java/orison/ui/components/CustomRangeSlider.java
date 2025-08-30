@@ -19,9 +19,8 @@ import orison.core.interfaces.ConfigUIElement;
 
 public class CustomRangeSlider implements ConfigUIElement {
 
-    public static final float REAL_W = 115 * Settings.xScale + 200 * Settings.scale;
-
-    public static final float SLIDE_W = 230.0F * Settings.xScale;
+    public static final float REAL_W = 315 * Settings.scale;
+    public static final float SLIDE_W = 230.0F * Settings.scale;
 
     private float BG_X;
     private float L_X;
@@ -52,7 +51,7 @@ public class CustomRangeSlider implements ConfigUIElement {
             Consumer<Float> onChange) {
 
         this.L_X = x;
-        this.BG_X = L_X + 115 * Settings.xScale;
+        this.BG_X = L_X + 115 * Settings.scale;
 
         this.minValue = minValue;
         this.maxValue = maxValue;
