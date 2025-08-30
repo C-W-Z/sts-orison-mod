@@ -99,20 +99,23 @@ public class OrisonPopup {
         this.drawScale = 1F;
         this.hb = new Hitbox(Settings.WIDTH / 2F + 100F * Settings.scale, Settings.HEIGHT * 0.9F);
         this.hb.move(CENTER_X, CENTER_Y);
+
         this.orisonNorm = orison.newInstance(false);
         this.orisonAdv = orison.newInstance(true);
-        this.orison = orisonNorm;
+        this.orison = orison;
+
         this.group = group;
         this.fadeTimer = 0.25F;
         this.fadeColor.a = 0.0F;
         this.upgradeHb.move(CENTER_X, 70.0F * Settings.scale);
         this.isOpen = true;
 
-        configsNorm = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
+        this.configsNorm = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
                 ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 200F * Settings.scale, orisonNorm);
-        configsAdv = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
+        this.configsAdv = new OrisonConfigOptionPanel(Settings.WIDTH / 4F, Settings.WIDTH * 3 / 4F,
                 ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 200F * Settings.scale, orisonAdv);
-        configs = configsNorm;
+
+        this.setAdv();
     }
 
     public void close() {
@@ -121,7 +124,7 @@ public class OrisonPopup {
         isOpen = false;
     }
 
-    public void update() {
+    protected void setAdv() {
         if (allowUpgradePreview() && isViewingUpgrade) {
             orison = orisonAdv;
             configs = configsAdv;
@@ -129,6 +132,10 @@ public class OrisonPopup {
             orison = orisonNorm;
             configs = configsNorm;
         }
+    }
+
+    public void update() {
+        setAdv();
         hb.update();
         updateArrows();
         updateInput();
