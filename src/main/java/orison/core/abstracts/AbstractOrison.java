@@ -1,5 +1,6 @@
 package orison.core.abstracts;
 
+import static orison.core.OrisonMod.makeID;
 import static orison.core.OrisonMod.makeOrisonPath;
 import static orison.utils.GeneralUtils.removePrefix;
 
@@ -22,8 +23,10 @@ import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.UIStrings;
 
 import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
@@ -43,6 +46,9 @@ import orison.utils.TexLoader;
 public abstract class AbstractOrison extends AbstractCardModifier implements AtStartOfTurnModifier {
 
     private static final Logger logger = LogManager.getLogger(AbstractOrison.class);
+
+    public static final UIStrings uiStrings = CardCrawlGame.languagePack
+            .getUIString(makeID(AbstractOrison.class.getSimpleName()));
 
     public static final float DEFAULT_RARITY = 100F;
 
@@ -274,13 +280,40 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     @Override
     public List<TooltipInfo> additionalTooltips(AbstractCard card) {
         List<TooltipInfo> tooltipInfos = new ArrayList<>();
-        tooltipInfos.add(new TooltipInfo(getTitle(), getDescription()));
+        tooltipInfos.add(new TooltipInfo(getTitle(), getTotalDescription()));
         return tooltipInfos;
+    }
+
+    public String getTotalDescription() {
+        String desc = getDescription();
+        int maxUses = getMaxUses();
+        String postfix = "";
+        switch (getUseType()) {
+            case INFINITE:
+                if (maxUses > 0)
+                    postfix = uiStrings.TEXT_DICT.get(UseType.INFINITE.name());
+                else
+                    postfix = uiStrings.TEXT_DICT.get("DISABLED");
+                break;
+            case FINITE_TURN:
+                postfix = String.format(
+                        uiStrings.TEXT_DICT.get(UseType.FINITE_TURN.name()),
+                        maxUses, maxUses - usesThisTurn);
+                break;
+            case FINITE_BATTLE:
+                postfix = String.format(
+                        uiStrings.TEXT_DICT.get(UseType.FINITE_BATTLE.name()),
+                        maxUses, maxUses - usesThisTurn);
+                break;
+            default:
+                break;
+        }
+        return desc + postfix;
     }
 
     public abstract String getTitle();
 
-    public abstract String getDescription();
+    protected abstract String getDescription();
 
     @Override
     public void onRender(AbstractCard card, SpriteBatch sb) {

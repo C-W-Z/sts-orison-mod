@@ -38,6 +38,14 @@
   "${ModID}:AbstractOrisonReward": {
     "TEXT": ["选择附加一个刻印到卡牌"]
   },
+  "${ModID}:AbstractOrison": {
+    "TEXT_DICT": {
+      "INFINITE": " 使用次数无限。",
+      "DISABLED": " 此刻印已被 #r禁用 。",
+      "FINITE_TURN": " 每回合可使用 #b%d 次。还剩 #b%d 次。",
+      "FINITE_BATTLE": " 每场战斗可使用 #b%d 次。还剩 #b%d 次。"
+    }
+  },
   "${ModID}:Bastion": {
     "TEXT": [
       "铁壁 [${ModID}:BastionIcon]",

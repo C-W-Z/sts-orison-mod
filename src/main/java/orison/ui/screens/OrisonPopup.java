@@ -278,7 +278,7 @@ public class OrisonPopup {
         renderSmartText(
                 sb,
                 FontHelper.SCP_cardDescFont,
-                orison.getDescription(),
+                orison.getTotalDescription(),
                 CENTER_X / 2F + 5F * Settings.scale,
                 ORISON_CENTER_Y - OrisonUIElement.SIZE / 2F - 20F * Settings.scale,
                 Settings.WIDTH / 2F,

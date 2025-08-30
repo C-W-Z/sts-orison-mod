@@ -44,6 +44,14 @@
   "${ModID}:AbstractOrisonReward": {
     "TEXT": ["Attach an Orison to a card"]
   },
+  "${ModID}:AbstractOrison": {
+    "TEXT_DICT": {
+      "INFINITE": " Unlimited uses.",
+      "DISABLED": " This orison is #rDisabled.",
+      "FINITE_TURN": " Can be used #b%d times per turn. #b%d remaining.",
+      "FINITE_BATTLE": " Can be used #b%d times per combat. #b%d remaining."
+    }
+  },
   "${ModID}:Bastion": {
     "TEXT": [
       "Bastion [${ModID}:BastionIcon]",

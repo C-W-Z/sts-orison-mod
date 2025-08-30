@@ -114,7 +114,7 @@ public class OrisonUIElement {
         this.targetDrawScale = 1.0F;
 
         ArrayList<PowerTip> tips = new ArrayList<>();
-        tips.add(new PowerTip(orison.getTitle(), orison.getDescription()));
+        tips.add(new PowerTip(orison.getTitle(), orison.getTotalDescription()));
         TipHelper.queuePowerTips(InputHelper.mX - 150 * Settings.scale, InputHelper.mY - 100 * Settings.scale, tips);
     }
 
