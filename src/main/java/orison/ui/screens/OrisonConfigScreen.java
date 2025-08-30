@@ -50,14 +50,11 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
     public OrisonConfigScreen() {
         cancelButton = new MenuCancelButton();
-
         bgRenderer = new ConfigScreenBgRenderer();
-
         scrollbar = new ScrollBar(this);
 
-        configUIs = new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, DRAW_START_Y);
-
-        orisonDisplay = new OrisonDisplay(ORISON_DISPLAY_CENTER_X, DRAW_START_Y - (configUIs.getHeight() + ELEMENT_GAP));
+        orisonDisplay = new OrisonDisplay(ORISON_DISPLAY_CENTER_X, DRAW_START_Y);
+        configUIs = new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, DRAW_START_Y - (orisonDisplay.getHeight() + ELEMENT_GAP));
 
         calculateScrollBounds();
     }
@@ -88,10 +85,10 @@ public class OrisonConfigScreen implements ScrollBarListener {
         if (!OrisonPopup.instance.isOpen && !isScrollBarScrolling)
             updateScrolling();
 
-        configUIs.setTargetY(DRAW_START_Y + scrollY);
-        configUIs.update();
-        orisonDisplay.setTargetY(DRAW_START_Y - (configUIs.getHeight() + ELEMENT_GAP) + scrollY);
+        orisonDisplay.setTargetY(DRAW_START_Y + scrollY);
         orisonDisplay.update();
+        configUIs.setTargetY(DRAW_START_Y - (orisonDisplay.getHeight() + ELEMENT_GAP) + scrollY);
+        configUIs.update();
 
         cancelButton.update();
         if (cancelButton.hb.clicked || InputHelper.pressedEscape) {
