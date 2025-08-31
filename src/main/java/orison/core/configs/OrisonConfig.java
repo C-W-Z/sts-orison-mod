@@ -48,6 +48,9 @@ public class OrisonConfig {
                 HAS_NOTICE = true;
                 saveConfig(config, ID_HAS_NOTICE, HAS_NOTICE);
             }
+
+            if (config.has(ID_HAS_NOTICE))
+                HAS_NOTICE = config.getBool(ID_HAS_NOTICE);
         }
 
         public static boolean isVersionUpdate() {
