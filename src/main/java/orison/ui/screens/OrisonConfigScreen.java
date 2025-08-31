@@ -1,5 +1,8 @@
 package orison.ui.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,8 +16,8 @@ import com.megacrit.cardcrawl.screens.mainMenu.MenuCancelButton;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
+import orison.core.interfaces.ConfigUIElement;
 import orison.ui.components.ConfigScreenBgRenderer;
-import orison.ui.components.panels.ConfigOptionPanel;
 import orison.ui.components.panels.GlobalConfigOptionPanel;
 import orison.ui.components.panels.OrisonDisplay;
 
@@ -45,18 +48,30 @@ public class OrisonConfigScreen implements ScrollBarListener {
     public ConfigScreenBgRenderer bgRenderer;
 
     /* ===== UI ===== */
-    private ConfigOptionPanel configUIs;
-    private OrisonDisplay orisonDisplay;
+    private List<ConfigUIElement> scrollables;
+    protected float realHeight;
+    protected float nextYPos;
 
     public OrisonConfigScreen() {
         cancelButton = new MenuCancelButton();
         bgRenderer = new ConfigScreenBgRenderer();
         scrollbar = new ScrollBar(this);
 
-        orisonDisplay = new OrisonDisplay(ORISON_DISPLAY_CENTER_X, DRAW_START_Y);
-        configUIs = new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, DRAW_START_Y - (orisonDisplay.getHeight() + ELEMENT_GAP));
+        nextYPos = DRAW_START_Y;
+        scrollables = new ArrayList<>();
+        addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos));
+        addOption(new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, nextYPos));
 
         calculateScrollBounds();
+    }
+
+    public void addOption(ConfigUIElement element) {
+        scrollables.add(element);
+        float elementHeight = element.getHeight();
+        nextYPos -= elementHeight + ELEMENT_GAP;
+        if (scrollables.size() > 1)
+            realHeight += ELEMENT_GAP;
+        realHeight += elementHeight;
     }
 
     public void open() {
@@ -66,7 +81,8 @@ public class OrisonConfigScreen implements ScrollBarListener {
         InputHelper.justClickedLeft = false;
         InputHelper.justReleasedClickLeft = false;
         scrollY = scrollLowerBound;
-        orisonDisplay.open();
+        for (ConfigUIElement ui : scrollables)
+            ui.open();
     }
 
     public void close() {
@@ -79,16 +95,19 @@ public class OrisonConfigScreen implements ScrollBarListener {
     public void update() {
         bgRenderer.update();
 
-        orisonDisplay.updateBeforeScroll();
+        for (ConfigUIElement ui : scrollables)
+            ui.updateBeforeScroll();
 
         boolean isScrollBarScrolling = scrollbar.update();
         if (!OrisonPopup.instance.isOpen && !isScrollBarScrolling)
             updateScrolling();
 
-        orisonDisplay.setTargetY(DRAW_START_Y + scrollY);
-        orisonDisplay.update();
-        configUIs.setTargetY(DRAW_START_Y - (orisonDisplay.getHeight() + ELEMENT_GAP) + scrollY);
-        configUIs.update();
+        float height = 0;
+        for (int i = 0; i < scrollables.size(); i++) {
+            scrollables.get(i).setTargetY(DRAW_START_Y - height - i * ELEMENT_GAP + scrollY);
+            height += scrollables.get(i).getHeight();
+            scrollables.get(i).update();
+        }
 
         cancelButton.update();
         if (cancelButton.hb.clicked || InputHelper.pressedEscape) {
@@ -104,8 +123,8 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
         scrollbar.render(sb);
 
-        configUIs.render(sb);
-        orisonDisplay.render(sb);
+        for (ConfigUIElement ui : scrollables)
+            ui.render(sb);
 
         cancelButton.render(sb);
     }
@@ -131,9 +150,8 @@ public class OrisonConfigScreen implements ScrollBarListener {
     }
 
     private void calculateScrollBounds() {
-        float totalHeight = configUIs.getHeight() + ELEMENT_GAP + orisonDisplay.getHeight();
-        if (totalHeight > DRAW_START_Y - TOP_BOTTOM_GAP)
-            scrollUpperBound = totalHeight - (DRAW_START_Y - TOP_BOTTOM_GAP);
+        if (realHeight > DRAW_START_Y - TOP_BOTTOM_GAP)
+            scrollUpperBound = realHeight - (DRAW_START_Y - TOP_BOTTOM_GAP);
         else
             scrollUpperBound = Settings.DEFAULT_SCROLL_LIMIT;
     }
