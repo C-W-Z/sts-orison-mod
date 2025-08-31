@@ -2,6 +2,9 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["刻印與設定"]
   },
+  "${ModID}:OrisonConfigScreen": {
+    "TEXT": ["刻印（點擊打開設定頁面）", "全域設定"]
+  },
   "${ModID}:OrisonDisplay": {
     "TEXT": ["查看高級"]
   },

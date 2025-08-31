@@ -1,5 +1,7 @@
 package orison.ui.screens;
 
+import static orison.core.OrisonMod.makeID;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,15 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.interfaces.ConfigUIElement;
 import orison.ui.components.ConfigScreenBgRenderer;
+import orison.ui.components.TextLabel;
 import orison.ui.components.panels.GlobalConfigOptionPanel;
 import orison.ui.components.panels.OrisonDisplay;
 
 public class OrisonConfigScreen implements ScrollBarListener {
 
     private static final Logger logger = LogManager.getLogger(OrisonConfigScreen.class);
+
+    public static final String[] TEXT = CardCrawlGame.languagePack.getUIString(makeID(OrisonConfigScreen.class.getSimpleName())).TEXT;
 
     public static OrisonConfigScreen instance = null;
 
@@ -59,7 +64,9 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
         nextYPos = DRAW_START_Y;
         scrollables = new ArrayList<>();
+        addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[0]));
         addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos));
+        addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[1]));
         addOption(new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, nextYPos));
 
         calculateScrollBounds();

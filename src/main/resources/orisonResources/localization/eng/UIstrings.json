@@ -2,6 +2,9 @@
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["Orisons and Configs"]
   },
+  "${ModID}:OrisonConfigScreen": {
+    "TEXT": ["Orisons (Click to Open the Config Page)", "Global Configs"]
+  },
   "${ModID}:OrisonDisplay": {
     "TEXT": ["View Adv."]
   },
@@ -35,15 +38,15 @@
     "TEXT_DICT": {
       "OrisonRarity": "Drop Weight",
       "OrisonUseType": "Use Restriction Type",
-      "OrisonUseLimit": "Use Limit"
+      "OrisonUseLimit": "Use Limit",
+      "OrisonValues": "Value %d"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {
     "TEXT_DICT": {
       "INFINITE": "Unlimited",
       "FINITE_TURN": "Per Turn",
-      "FINITE_BATTLE": "Per Battle",
-      "OrisonValues": "Value %d"
+      "FINITE_BATTLE": "Per Battle"
     }
   },
   "${ModID}:RewardLinkPatch": {

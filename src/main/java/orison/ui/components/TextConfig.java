@@ -44,26 +44,26 @@ public class TextConfig implements ConfigUIElement {
     private boolean showBg = true;
     private Supplier<Boolean> showOption = null;
 
-    public TextConfig(float x, float rightX, float y, String labal, boolean value, Consumer<Boolean> onChange) {
-        this(x, rightX, y, labal);
+    public TextConfig(float x, float rightX, float y, String label, boolean value, Consumer<Boolean> onChange) {
+        this(x, rightX, y, label);
         this.option = new CheckBox(rightX - CheckBox.WIDTH / 2, y, value, onChange);
     }
 
-    public TextConfig(float x, float rightX, float y, String labal, float value, Consumer<Float> onChange) {
-        this(x, rightX, y, labal);
+    public TextConfig(float x, float rightX, float y, String label, float value, Consumer<Float> onChange) {
+        this(x, rightX, y, label);
         this.option = new HundredPercentSlider(rightX - CustomRangeSlider.REAL_W, y, value, onChange);
     }
 
-    public TextConfig(float x, float rightX, float y, String labal, float value, float min, float max, int precision,
+    public TextConfig(float x, float rightX, float y, String label, float value, float min, float max, int precision,
             boolean isPercent, Consumer<Float> onChange) {
-        this(x, rightX, y, labal);
+        this(x, rightX, y, label);
         this.option = new CustomRangeSlider(
                 rightX - CustomRangeSlider.REAL_W, y,
                 value, min, max, precision, isPercent, onChange);
     }
 
-    public TextConfig(float x, float rightX, float y, String labal, AbstractOrison orison) {
-        this(x, rightX, y, labal);
+    public TextConfig(float x, float rightX, float y, String label, AbstractOrison orison) {
+        this(x, rightX, y, label);
         this.option = new OrisonUseTypeConfigOption(rightX - OrisonUseTypeConfigOption.WIDTH / 2F, y, orison);
     }
 
@@ -81,17 +81,17 @@ public class TextConfig implements ConfigUIElement {
      * Don't use this constructor, this is just an encapsulation of the same part of
      * other constructors
      */
-    public TextConfig(float x, float rightX, float y, String labal) {
+    public TextConfig(float x, float rightX, float y, String label) {
         this.x = x;
         this.rightX = rightX;
-        this.description = labal;
-        if (labal == null)
+        this.description = label;
+        if (label == null)
             this.description = "[Missing Text]";
 
         line_spacing = Settings.BIG_TEXT_MODE ? (40.0F * Settings.scale) : (32.0F * Settings.scale);
         text_max_width = Settings.isMobile ? (1170.0F * Settings.scale) : (1050.0F * Settings.scale);
 
-        textHeight = FontHelper.getSmartHeight(FontHelper.charDescFont, labal, text_max_width, line_spacing);
+        textHeight = FontHelper.getSmartHeight(FontHelper.charDescFont, label, text_max_width, line_spacing);
     }
 
     @Override
