@@ -43,6 +43,7 @@ public abstract class AbstractOrisonReward extends CustomReward {
 
     @Override
     public boolean claimReward() {
+        initializeCardsToDisplay();
         if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
             AbstractDungeon.cardRewardScreen.customCombatOpen(cardsToDisplay, TEXT[0], true);
             AbstractDungeon.cardRewardScreen.rItem = this;

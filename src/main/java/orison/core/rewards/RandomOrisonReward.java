@@ -92,7 +92,5 @@ public class RandomOrisonReward extends AbstractOrisonReward {
                 advChance += OrisonConfig.Reward.TREASURE_DROP_ORISON_ADV_CHANCE;
             o.adv = OrisonRng.get().randomBoolean(advChance);
         }
-
-        initializeCardsToDisplay();
     }
 }
