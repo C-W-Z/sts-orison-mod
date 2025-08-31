@@ -195,6 +195,18 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     protected abstract List<Integer> getValueList();
 
+    public int getValueCount() {
+        return getValueList().size();
+    }
+
+    public int getValueMinForConfig(int index) {
+        return 0;
+    }
+
+    public int getValueMaxForConfig(int index) {
+        return 10;
+    }
+
     public int getValue(int index) {
         return getValueList().get(index);
     }

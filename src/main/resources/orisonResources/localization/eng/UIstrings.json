@@ -6,7 +6,11 @@
     "TEXT": ["View Adv."]
   },
   "${ModID}:OrisonPopup": {
-    "TEXT": ["View Adv.", "Note", "The configs for normal #yOrison and Adv. #yOrison are separate."]
+    "TEXT": [
+      "View Adv.",
+      "Note",
+      "The configs for normal #yOrison and Adv. #yOrison are separate."
+    ]
   },
   "${ModID}:GlobalConfigOptionPanel": {
     "TEXT_DICT": {
@@ -38,7 +42,8 @@
     "TEXT_DICT": {
       "INFINITE": "Unlimited",
       "FINITE_TURN": "Per Turn",
-      "FINITE_BATTLE": "Per Battle"
+      "FINITE_BATTLE": "Per Battle",
+      "OrisonValues": "Value %d"
     }
   },
   "${ModID}:RewardLinkPatch": {

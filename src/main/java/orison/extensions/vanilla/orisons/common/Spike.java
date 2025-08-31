@@ -64,4 +64,9 @@ public class Spike extends AbstractOrison {
     protected List<Integer> getValueList() {
         return adv ? advValues : values;
     }
+
+    @Override
+    public int getValueMaxForConfig(int index) {
+        return index == 0 ? 20 : 100;
+    }
 }

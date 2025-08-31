@@ -31,7 +31,8 @@
     "TEXT_DICT": {
       "OrisonRarity": "掉落权重",
       "OrisonUseType": "使用限制类型",
-      "OrisonUseLimit": "可使用次数"
+      "OrisonUseLimit": "可使用次数",
+      "OrisonValues": "数值%d"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {

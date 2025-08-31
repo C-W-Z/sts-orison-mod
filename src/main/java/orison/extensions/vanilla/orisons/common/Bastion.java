@@ -60,4 +60,9 @@ public class Bastion extends AbstractOrison {
     protected List<Integer> getValueList() {
         return adv ? advValues : values;
     }
+
+    @Override
+    public int getValueMaxForConfig(int index) {
+        return 100;
+    }
 }

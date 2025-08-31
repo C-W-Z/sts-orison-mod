@@ -38,5 +38,16 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
                 v -> orison.saveUseLimit(MathUtils.round(v)))
                 .setBg(false)
                 .setShowOption(() -> orison.canSetUseLimit() && orison.getUseType() != UseType.INFINITE));
+
+        for (int i = 0; i < orison.getValueCount(); i++) {
+            final int index = i;
+            addOption(new TextConfig(x, rightX, nextYPos,
+                    String.format(configTextDict.get(OrisonConfig.OrisonValues.class.getSimpleName()), index + 1),
+                    orison.getValue(index),
+                    orison.getValueMinForConfig(index), orison.getValueMaxForConfig(index),
+                    0, false,
+                    v -> orison.saveValue(index, MathUtils.round(v)))
+                    .setBg(false));
+        }
     }
 }

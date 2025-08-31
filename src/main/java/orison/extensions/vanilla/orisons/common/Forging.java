@@ -64,4 +64,9 @@ public class Forging extends AbstractOrison {
     protected float getDefaultRarity() {
         return super.getDefaultRarity() / 2F;
     }
+
+    @Override
+    public int getValueMaxForConfig(int index) {
+        return 20;
+    }
 }

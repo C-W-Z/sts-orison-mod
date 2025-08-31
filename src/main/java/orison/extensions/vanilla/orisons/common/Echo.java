@@ -98,4 +98,9 @@ public class Echo extends AbstractOrison implements OnInitializeDeck {
     public boolean canSetUseLimit() {
         return false;
     }
+
+    @Override
+    public int getValueMaxForConfig(int index) {
+        return index == 0 ? 10 : 100;
+    }
 }
