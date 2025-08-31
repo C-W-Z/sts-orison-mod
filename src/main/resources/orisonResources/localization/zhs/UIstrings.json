@@ -1,6 +1,6 @@
 {
   "${ModID}:ORISON_BUTTON": {
-    "TEXT": ["刻印与设定"]
+    "TEXT": ["刻印与设定", "新版本！"]
   },
   "${ModID}:OrisonConfigScreen": {
     "TEXT": ["刻印（点击打开设定页面）", "全域设定"]

@@ -1,6 +1,6 @@
 {
   "${ModID}:ORISON_BUTTON": {
-    "TEXT": ["Orisons and Configs"]
+    "TEXT": ["Orisons and Configs", "New Version!"]
   },
   "${ModID}:OrisonConfigScreen": {
     "TEXT": ["Orisons (Click to Open the Config Page)", "Global Configs"]

@@ -11,14 +11,19 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInsertLocator;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 
+import javassist.CannotCompileException;
 import javassist.CtBehavior;
+import orison.core.configs.OrisonConfig;
 import orison.ui.screens.OrisonConfigScreen;
 import orison.ui.screens.OrisonPopup;
 
@@ -144,6 +149,43 @@ public class MainMenuPatch {
             public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
                 Matcher finalMatcher = new Matcher.FieldAccessMatcher(SingleCardViewPopup.class, "isOpen");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = MenuButton.class, method = "render")
+    public static class MainMenuNoticePatch {
+
+        @SpireInsertPatch(locator = Locator.class, localvars = { "sliderX" })
+        public static void Insert(MenuButton __instance, SpriteBatch sb, float sliderX, String ___label, float ___x) {
+            if (__instance.result != Enums.ORISON_BUTTON || !OrisonConfig.Version.HAS_NOTICE)
+                return;
+
+            float width = FontHelper.getSmartWidth(FontHelper.buttonLabelFont, ___label, 9999.0F, 0.0F);
+
+            // 不知道為什麼只有簡中會往右偏移，所以要扣回來
+            if (Settings.language == Settings.GameLanguage.ZHS)
+                width -= 10.0F * Settings.scale;
+
+            float scale = 1.0F;
+            if (Settings.isTouchScreen || Settings.isMobile) {
+                scale = 1.25F;
+                width *= scale;
+            }
+
+            scale *= 0.6F;
+
+            FontHelper.renderSmartText(sb, FontHelper.buttonLabelFont, uiStrings.TEXT[1],
+                    ___x + MenuButton.FONT_X + sliderX + width,
+                    __instance.hb.cY + MenuButton.FONT_OFFSET_Y - 16.0F * Settings.scale * scale,
+                    9999.0F, 1.0F, Settings.GOLD_COLOR, scale);
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws CannotCompileException, PatchingException {
+                return LineFinder.findInOrder(ctBehavior,
+                        new Matcher.MethodCallMatcher(Hitbox.class, "render"));
             }
         }
     }
