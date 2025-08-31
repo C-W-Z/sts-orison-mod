@@ -34,7 +34,7 @@ public class TextLabel implements ConfigUIElement {
         line_spacing = Settings.BIG_TEXT_MODE ? (40.0F * Settings.scale) : (32.0F * Settings.scale);
         text_max_width = Settings.isMobile ? (1170.0F * Settings.scale) : (1050.0F * Settings.scale);
 
-        textHeight = FontHelper.getSmartHeight(FontHelper.charTitleFont, labal, text_max_width, line_spacing);
+        textHeight = FontHelper.getSmartHeight(FontHelper.SCP_cardTitleFont_small, labal, text_max_width, line_spacing);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TextLabel implements ConfigUIElement {
 
         sb.setColor(Color.WHITE);
         FontHelper.renderFontLeft(sb,
-                FontHelper.charTitleFont,
+                FontHelper.SCP_cardTitleFont_small,
                 description,
                 x,
                 cY,
