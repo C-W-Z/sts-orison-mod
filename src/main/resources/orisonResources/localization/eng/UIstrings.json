@@ -1,4 +1,7 @@
 {
+  "${ModID}:PrepareModifier": {
+    "TEXT": ["%s NL ${ModID}:Prepare %d"]
+  },
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["Orisons and Configs", "New Version!"]
   },
@@ -74,6 +77,14 @@
       "Bastion [${ModID}:BastionIcon]",
       "Adv. Bastion [${ModID}:AdvBastionIcon]",
       "Gain #b%d #yBlocks after playing this card."
+    ]
+  },
+  "${ModID}:Birth": {
+    "TEXT": [
+      "Birth [${ModID}:BirthIcon]",
+      "Adv. Birth [${ModID}:AdvBirthIcon]",
+      "This card become #yRetain. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust and #yRetain.",
+      "This card become #yRetain and #yPrepare #y%d. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust, #yRetain and #yPrepare #y%d."
     ]
   },
   "${ModID}:Burst": {

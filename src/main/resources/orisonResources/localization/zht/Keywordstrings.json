@@ -3,5 +3,10 @@
     "PROPER_NAME": "刻印",
     "NAMES": ["刻印", "Orison"],
     "DESCRIPTION": "一種獎勵類型，可以附加在卡牌上，使其獲得額外效果。每張卡牌只能附加一個刻印。"
+  },
+  {
+    "PROPER_NAME": "預備X",
+    "NAMES": ["預備", "Prepare"],
+    "DESCRIPTION": "回合結束時若在手中， [E] 消耗 #b-X 直到打出；從手牌棄掉時也會觸發此效果。"
   }
 ]

@@ -35,8 +35,10 @@ public class PreparePatch {
 
     public static void triggerPrepare(AbstractCard card) {
         Boolean canTriggerPrepare = Field.canTriggerPrepare.get(card);
-        if (canTriggerPrepare == null || canTriggerPrepare == false)
+        if (canTriggerPrepare == null || canTriggerPrepare == false) {
+            Field.canTriggerPrepare.set(card, true);
             return;
+        }
         Integer prepare = Field.prepare.get(card);
         if (prepare == null || prepare <= 0)
             return;

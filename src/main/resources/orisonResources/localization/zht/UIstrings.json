@@ -1,4 +1,7 @@
 {
+  "${ModID}:PrepareModifier": {
+    "TEXT": ["%s NL ${ModID}:預備 %d "]
+  },
   "${ModID}:ORISON_BUTTON": {
     "TEXT": ["刻印與設定", "新版本！"]
   },
@@ -64,6 +67,14 @@
       "鐵壁 [${ModID}:BastionIcon]",
       "高級鐵壁 [${ModID}:AdvBastionIcon]",
       "打出後獲得 #b%d 點 #y格擋 。"
+    ]
+  },
+  "${ModID}:Birth": {
+    "TEXT": [
+      "孕育 [${ModID}:BirthIcon]",
+      "高級孕育 [${ModID}:AdvBirthIcon]",
+      "此牌獲得 #y保留 。回合結束時若在手中，獲得 #b%d 張附加 #y消耗 、 #y保留 的原始複製。",
+      "此牌獲得 #y保留 、 #y預備%d 。回合結束時若在手中，獲得 #b%d 張附加 #y消耗 、 #y保留 、 #y預備%d 的原始複製。"
     ]
   },
   "${ModID}:Burst": {

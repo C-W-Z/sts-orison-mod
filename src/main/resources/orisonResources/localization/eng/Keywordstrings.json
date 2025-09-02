@@ -3,5 +3,10 @@
     "PROPER_NAME": "Orison",
     "NAMES": ["Orison", "orison", "orisons"],
     "DESCRIPTION": "A type of reward that can be attached to a card to grant it additional effects. A card can have only one #yOrison attached."
+  },
+  {
+    "PROPER_NAME": "Prepare X",
+    "NAMES": ["Prepare", "prepare"],
+    "DESCRIPTION": "If in hand at the end of the turn, [E] cost #b-X until played; this effect is also triggered when discarded from Hand."
   }
 ]

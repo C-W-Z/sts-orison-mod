@@ -13,10 +13,10 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 
 import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
+import orison.cardmodifiers.PrepareModifier;
 import orison.cardmodifiers.RetainModifier;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OnInitializeDeck;
-import orison.core.patches.PreparePatch;
 
 // 預備
 @SaveIgnore
@@ -35,14 +35,7 @@ public class Prepare extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public List<AbstractCardModifier> onInitDeckToAddModifiers() {
-        return Arrays.asList(new RetainModifier());
-    }
-
-    @Override
-    public boolean onBattleStart(AbstractCard card) {
-        super.onBattleStart(card);
-        PreparePatch.Field.prepare.set(card, getModifiedValue(0));
-        return false;
+        return Arrays.asList(new RetainModifier(), new PrepareModifier(getModifiedValue(0)));
     }
 
     @Override
