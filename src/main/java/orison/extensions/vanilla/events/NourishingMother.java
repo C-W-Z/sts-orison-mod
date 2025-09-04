@@ -12,13 +12,19 @@ import org.apache.logging.log4j.Logger;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType;
+import com.megacrit.cardcrawl.cards.curses.Clumsy;
+import com.megacrit.cardcrawl.cards.curses.Decay;
+import com.megacrit.cardcrawl.cards.curses.Doubt;
+import com.megacrit.cardcrawl.cards.curses.Injury;
+import com.megacrit.cardcrawl.cards.curses.Parasite;
+import com.megacrit.cardcrawl.cards.curses.Shame;
+import com.megacrit.cardcrawl.cards.curses.Writhe;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
@@ -156,12 +162,32 @@ public class NourishingMother extends AbstractImageEvent {
 
             List<String> obtainCurses = new ArrayList<>();
             for (int i = 0; i < (adv ? N_CURSE_MORE : N_CURSE_LESS); i++) {
-                AbstractCard curse = CardLibrary.getCurse().makeCopy();
+                AbstractCard curse = getCurse();
                 obtainCurses.add(curse.cardID);
                 AbstractDungeon.effectList.add(
                         new ShowCardAndObtainEffect(curse, Settings.WIDTH * 3 / 4F, Settings.HEIGHT / 2F));
             }
             AbstractEvent.logMetricObtainCards(title, adv ? "Bottoms Up" : "Take a Sip", obtainCurses);
+        }
+    }
+
+    private AbstractCard getCurse() {
+        switch (AbstractDungeon.cardRng.random(0, AbstractDungeon.ascensionLevel >= 15 ? 6 : 3)) {
+            default:
+            case 0:
+                return new Clumsy();
+            case 1:
+                return new Injury();
+            case 2:
+                return new Parasite();
+            case 3:
+                return new Decay();
+            case 4:
+                return new Doubt();
+            case 5:
+                return new Shame();
+            case 6:
+                return new Writhe();
         }
     }
 }

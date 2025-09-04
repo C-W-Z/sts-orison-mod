@@ -18,6 +18,7 @@ import basemod.abstracts.AbstractCardModifier;
 import basemod.abstracts.AbstractCardModifier.SaveIgnore;
 import basemod.helpers.CardModifierManager;
 import orison.cardmodifiers.ExhaustModifier;
+import orison.cardmodifiers.InnateModifier;
 import orison.cardmodifiers.PrepareModifier;
 import orison.cardmodifiers.RetainModifier;
 import orison.core.abstracts.AbstractOrison;
@@ -41,7 +42,7 @@ public class Birth extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     public List<AbstractCardModifier> onInitDeckToAddModifiers() {
-        return Arrays.asList(new RetainModifier(), new PrepareModifier(getModifiedValue(1)));
+        return Arrays.asList(new InnateModifier(), new RetainModifier(), new PrepareModifier(getModifiedValue(1)));
     }
 
     @Override

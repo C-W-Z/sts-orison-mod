@@ -87,8 +87,8 @@
     "TEXT": [
       "Birth [${ModID}:BirthIcon]",
       "Adv. Birth [${ModID}:AdvBirthIcon]",
-      "This card become #yRetain. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust and #yRetain.",
-      "This card become #yRetain and #yPrepare #y%d. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust, #yRetain and #yPrepare #y%d."
+      "This card become #yInnate, #yRetain. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust and #yRetain.",
+      "This card become #yInnate, #yRetain and #yPrepare #y%d. If in hand at the end of the turn, obtain #b%d Base Copies with #yExhaust, #yRetain and #yPrepare #y%d."
     ]
   },
   "${ModID}:Burst": {
