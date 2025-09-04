@@ -90,12 +90,17 @@ public class Birth extends AbstractOrison implements OnInitializeDeck {
 
     @Override
     protected float getDefaultRarity() {
-        return 0.1F;
+        return 0;
     }
 
     @Override
     public UseType getUseType() {
         return UseType.INFINITE;
+    }
+
+    @Override
+    public boolean canSetRarity() {
+        return false;
     }
 
     @Override

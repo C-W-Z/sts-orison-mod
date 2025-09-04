@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.ConfigUIElement;
+import orison.extensions.vanilla.VanillaExtension;
 import orison.ui.components.ConfigScreenBgRenderer;
 import orison.ui.components.TextLabel;
 import orison.ui.components.panels.GlobalConfigOptionPanel;
@@ -65,9 +66,11 @@ public class OrisonConfigScreen implements ScrollBarListener {
 
         nextYPos = DRAW_START_Y;
         scrollables = new ArrayList<>();
-        addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[0]));
-        addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos));
         addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[1]));
+        addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos, VanillaExtension.commonOrisons, true));
+        addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[2]));
+        addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos, VanillaExtension.eventOrisons, false));
+        addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[0]));
         addOption(new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, nextYPos));
 
         calculateScrollBounds();

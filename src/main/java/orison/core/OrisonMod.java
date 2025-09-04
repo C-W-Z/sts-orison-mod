@@ -11,6 +11,7 @@ import orison.core.abstracts.AbstractEasyPotion;
 import orison.core.abstracts.AbstractOrisonRelic;
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.OrisonExtension;
+import orison.core.libs.EventLib;
 import orison.core.libs.OrisonLib;
 import orison.core.libs.RewardLib;
 import orison.core.savables.OrisonRng;
@@ -28,6 +29,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.CardStrings;
+import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.localization.PotionStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -144,6 +146,10 @@ public class OrisonMod implements
         return modID + "Resources/images/ui/" + resourcePath;
     }
 
+    public static String makeEventPath(String resourcePath) {
+        return modID + "Resources/images/events/" + resourcePath;
+    }
+
     public static void initialize() {
         new OrisonMod();
     }
@@ -201,6 +207,8 @@ public class OrisonMod implements
                 modID + "Resources/localization/" + getLangString() + "/UIstrings.json");
         BaseMod.loadCustomStringsFile(PotionStrings.class,
                 modID + "Resources/localization/" + getLangString() + "/Potionstrings.json");
+        BaseMod.loadCustomStringsFile(EventStrings.class,
+                modID + "Resources/localization/" + getLangString() + "/Eventstrings.json");
     }
 
     @Override
@@ -232,6 +240,7 @@ public class OrisonMod implements
         RewardLib.initialize();
         BaseMod.addSaveField(OrisonSave.ID, new OrisonSave());
         BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
+        EventLib.initialize();
         // Settings.isInfo = true;
     }
 

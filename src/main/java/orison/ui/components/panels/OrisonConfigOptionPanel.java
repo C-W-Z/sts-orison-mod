@@ -25,7 +25,7 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
                 orison.getRarity(),
                 0F, 2F, 1, false,
                 v -> orison.saveRarity(v))
-                .setBg(false).setShowOption(() -> !orison.adv));
+                .setBg(false).setShowOption(() -> !orison.adv && orison.canSetRarity()));
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonUseType.class.getSimpleName()),

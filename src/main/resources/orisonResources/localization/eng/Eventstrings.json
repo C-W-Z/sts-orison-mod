@@ -1,0 +1,15 @@
+{
+  "${ModID}:NourishingMother": {
+    "NAME": "Nourishing Mother",
+    "DESCRIPTIONS": [
+      "A worn pot watches you from the crevice in the low rock wall. NL Water is the most precious inventory in the desert; alcohol is the gateway to madness and illusion. NL In this barren land, it would be hard for any sane person to resist its allure.",
+      "Your abdomen churns violently, but miraculously calms down after a few seconds. Strangely, you seem to hear another hearbeat within you..."
+    ],
+    "OPTIONS": [
+      "[Bottoms Up] #gChoose #g%d #gcard #gto #gattach #gOrison #g\"Adv. #gBirth.\" #rObtain #r%d #rrandom #rCurses.",
+      "[Take a Sip] #gChoose #g%d #gcard #gto #gattach #gOrison #g\"Birth.\" #rObtain #r%d #rrandom #rCurse.",
+      "[Leave]",
+      "[Move Forward]"
+    ]
+  }
+}

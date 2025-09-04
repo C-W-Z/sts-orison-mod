@@ -6,7 +6,11 @@
     "TEXT": ["Orisons and Configs", "New Version!"]
   },
   "${ModID}:OrisonConfigScreen": {
-    "TEXT": ["Orisons (Click to Open the Config Page)", "Global Configs"]
+    "TEXT": [
+      "Global Configs",
+      "Common Orisons (Click to Open the Config Page)",
+      "Event Orisons (Click to Open the Config Page)"
+    ]
   },
   "${ModID}:OrisonDisplay": {
     "TEXT": ["View Adv."]

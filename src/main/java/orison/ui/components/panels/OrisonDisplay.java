@@ -18,8 +18,8 @@ import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.controller.CInputHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
+import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.ConfigUIElement;
-import orison.core.libs.OrisonLib;
 import orison.ui.components.OrisonUIElement;
 import orison.ui.screens.OrisonPopup;
 
@@ -33,6 +33,8 @@ public class OrisonDisplay implements ConfigUIElement {
     public static final float PAD = OrisonUIElement.SIZE + ORISON_GAP;
     public static final float WIDTH = ORISONS_PER_LINE * PAD - ORISON_GAP;
 
+    private List<AbstractOrison> orisons;
+
     private float drawStartX;
     private float targetY;
 
@@ -44,23 +46,28 @@ public class OrisonDisplay implements ConfigUIElement {
 
     public static final float ADV_TOGGLE_CENTER_X = 150 * Settings.scale;
     public static final float ADV_TOGGLE_CENTER_Y = 300 * Settings.scale;
-    private Hitbox upgradeHb = new Hitbox(250.0F * Settings.scale, 80.0F * Settings.scale);
+    private static Hitbox upgradeHb = new Hitbox(250.0F * Settings.scale, 80.0F * Settings.scale);
 
-    public OrisonDisplay(float centerX, float drawStartY) {
+    private boolean first = false;
+
+    public OrisonDisplay(float centerX, float drawStartY, List<AbstractOrison> orisons, boolean first) {
         orisonUIs = new ArrayList<OrisonUIElement>();
 
+        this.orisons = orisons;
         this.drawStartX = centerX - WIDTH / 2;
         this.targetY = drawStartY;
+        this.first = first;
 
-        for (int i = 0; i < OrisonLib.allOrisons.size(); i++) {
+        for (int i = 0; i < orisons.size(); i++) {
             int xIndex = i % ORISONS_PER_LINE;
             int yIndex = i / ORISONS_PER_LINE;
             float x = drawStartX + OrisonUIElement.SIZE / 2 + xIndex * PAD;
             float y = drawStartY - OrisonUIElement.SIZE / 2 - yIndex * PAD;
-            orisonUIs.add(new OrisonUIElement(OrisonLib.allOrisons.get(i), x, y));
+            orisonUIs.add(new OrisonUIElement(orisons.get(i), x, y));
         }
 
-        this.upgradeHb.move(ADV_TOGGLE_CENTER_X, ADV_TOGGLE_CENTER_Y);
+        if (first)
+            upgradeHb.move(ADV_TOGGLE_CENTER_X, ADV_TOGGLE_CENTER_Y);
     }
 
     public void open() {
@@ -77,7 +84,7 @@ public class OrisonDisplay implements ConfigUIElement {
                 if (Settings.isControllerMode)
                     clickStartedOrison = hoveredOrison;
                 InputHelper.justReleasedClickLeft = false;
-                OrisonPopup.instance.open(clickStartedOrison.orison, OrisonLib.allOrisons);
+                OrisonPopup.instance.open(clickStartedOrison.orison, orisons);
                 clickStartedOrison = null;
             }
         } else {
@@ -98,7 +105,8 @@ public class OrisonDisplay implements ConfigUIElement {
                 hoveredOrison = orisonUIs.get(i);
         }
 
-        updateUpgradePreview();
+        if (first)
+            updateUpgradePreview();
 
         if (Settings.isControllerMode && controllerOrison != null)
             CInputHelper.setCursor(controllerOrison.hb);
@@ -120,12 +128,8 @@ public class OrisonDisplay implements ConfigUIElement {
         for (OrisonUIElement orisonUI : orisonUIs)
             orisonUI.render(sb);
 
-        renderUpgradeViewToggle(sb);
-        if (Settings.isControllerMode)
-            sb.draw(CInputActionSet.proceed
-                    .getKeyImg(), upgradeHb.cX - 132.0F * Settings.scale - 32.0F,
-                    -32.0F + 67.0F * Settings.scale, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale,
-                    0.0F, 0, 0, 64, 64, false, false);
+        if (first)
+            renderUpgradeViewToggle(sb);
 
         if (Settings.isDebug || Settings.isInfo) {
             sb.setColor(Color.RED);
@@ -149,6 +153,12 @@ public class OrisonDisplay implements ConfigUIElement {
                     32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 64, 64, false, false);
         }
         upgradeHb.render(sb);
+
+        if (Settings.isControllerMode)
+            sb.draw(CInputActionSet.proceed
+                    .getKeyImg(), upgradeHb.cX - 132.0F * Settings.scale - 32.0F,
+                    -32.0F + 67.0F * Settings.scale, 32.0F, 32.0F, 64.0F, 64.0F, Settings.scale, Settings.scale,
+                    0.0F, 0, 0, 64, 64, false, false);
     }
 
     @Override
