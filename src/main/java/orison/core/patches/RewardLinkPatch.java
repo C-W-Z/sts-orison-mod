@@ -1,7 +1,5 @@
 package orison.core.patches;
 
-import static orison.core.OrisonMod.makeID;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.LineFinder;
 import com.evacipated.cardcrawl.modthespire.lib.Matcher;
@@ -21,20 +19,24 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
+import com.megacrit.cardcrawl.ui.buttons.SingingBowlButton;
 
 import basemod.ReflectionHacks;
 import basemod.abstracts.CustomReward;
 import javassist.CtBehavior;
+
+import static orison.core.OrisonMod.makeID;
 import orison.core.abstracts.AbstractOrisonReward;
 
 /** Only support links between Orison Reward & Card Reward */
 public class RewardLinkPatch {
 
-    public static final String[] TEXT = CardCrawlGame.languagePack.getUIString(makeID(RewardLinkPatch.class.getSimpleName())).TEXT;
+    public static final String[] TEXT = CardCrawlGame.languagePack
+            .getUIString(makeID(RewardLinkPatch.class.getSimpleName())).TEXT;
 
     @SpirePatch(clz = RewardItem.class, method = SpirePatch.CLASS)
     public static class RewardLink {
-        public static SpireField<RewardItem> link = new SpireField<RewardItem>(() -> null);
+        public static SpireField<RewardItem> link = new SpireField<>(() -> null);
     }
 
     /** Only support links between Orison Reward & Card Reward */
@@ -110,6 +112,16 @@ public class RewardLinkPatch {
             // RewardLink.link.get(__instance.rItem).isDone = true;
             // RewardLink.link.get(__instance.rItem).ignoreReward = true;
             AbstractDungeon.combatRewardScreen.rewards.remove(RewardLink.link.get(__instance.rItem));
+        }
+    }
+
+    @SpirePatch2(clz = SingingBowlButton.class, method = "onClick")
+    public static class SingingBowlButtonPatch {
+        @SpirePostfixPatch
+        public static void Postfix(SingingBowlButton __instance, RewardItem ___rItem) {
+            if (___rItem == null || RewardLink.link.get(___rItem) == null)
+                return;
+            AbstractDungeon.combatRewardScreen.rewards.remove(RewardLink.link.get(___rItem));
         }
     }
 }
