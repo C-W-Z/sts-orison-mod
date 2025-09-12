@@ -1,9 +1,5 @@
 package orison.core.configs;
 
-import static orison.core.OrisonMod.info;
-import static orison.core.OrisonMod.modID;
-import static orison.utils.GeneralUtils.clamp;
-
 import java.util.List;
 import java.util.Properties;
 
@@ -13,8 +9,11 @@ import org.apache.logging.log4j.Logger;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.vdurmont.semver4j.Semver;
 
+import static orison.core.OrisonMod.info;
+import static orison.core.OrisonMod.modID;
 import orison.core.abstracts.AbstractOrison.UseType;
 import orison.utils.GeneralUtils;
+import static orison.utils.GeneralUtils.clamp;
 
 public class OrisonConfig {
 
@@ -242,6 +241,30 @@ public class OrisonConfig {
             if (!config.has(orisonID))
                 return null;
             return config.getFloat(orisonID);
+        }
+    }
+
+    public static class EventEnable {
+        public static SpireConfig config;
+
+        public static void initialize() {
+            try {
+                Properties defaults = new Properties();
+                config = new SpireConfig(modID, EventEnable.class.getSimpleName(), defaults);
+            } catch (Exception e) {
+                logger.error("OrisonConfig.EventEnable.initialize() failed");
+                e.printStackTrace();
+            }
+        }
+
+        public static void save(String eventID, boolean enabled) {
+            saveConfig(config, eventID, enabled);
+        }
+
+        public static Boolean load(String eventID) {
+            if (!config.has(eventID))
+                return null;
+            return config.getBool(eventID);
         }
     }
 

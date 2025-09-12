@@ -1,7 +1,5 @@
 package orison.extensions.vanilla.orisons.event;
 
-import static orison.core.OrisonMod.makeID;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,8 +19,10 @@ import orison.cardmodifiers.ExhaustModifier;
 import orison.cardmodifiers.InnateModifier;
 import orison.cardmodifiers.PrepareModifier;
 import orison.cardmodifiers.RetainModifier;
+import static orison.core.OrisonMod.makeID;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.interfaces.OnInitializeDeck;
+import orison.extensions.vanilla.events.NourishingMother;
 
 // 孕育
 @SaveIgnore
@@ -38,6 +38,7 @@ public class Birth extends AbstractOrison implements OnInitializeDeck {
     public Birth(boolean adv) {
         super(ID, true, false, adv);
         priority = -1;
+        eventID = NourishingMother.ID;
     }
 
     @Override

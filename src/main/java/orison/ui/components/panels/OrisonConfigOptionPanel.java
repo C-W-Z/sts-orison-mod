@@ -1,15 +1,15 @@
 package orison.ui.components.panels;
 
-import static orison.core.OrisonMod.makeID;
-
 import java.util.Map;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 
+import static orison.core.OrisonMod.makeID;
 import orison.core.abstracts.AbstractOrison;
 import orison.core.abstracts.AbstractOrison.UseType;
 import orison.core.configs.OrisonConfig;
+import orison.core.libs.EventLib;
 import orison.ui.components.TextConfig;
 
 public class OrisonConfigOptionPanel extends ConfigOptionPanel {
@@ -20,12 +20,20 @@ public class OrisonConfigOptionPanel extends ConfigOptionPanel {
     public OrisonConfigOptionPanel(float x, float rightX, float y, AbstractOrison orison) {
         super(x, rightX, y);
 
-        addOption(new TextConfig(x, rightX, nextYPos,
+        if (orison.eventID != null && !orison.eventID.isEmpty()) {
+            addOption(new TextConfig(x, rightX, nextYPos,
+                configTextDict.get(OrisonConfig.EventEnable.class.getSimpleName()),
+                EventLib.getEnable(orison.eventID),
+                v -> EventLib.saveEnable(orison.eventID, v))
+                .setBg(false).setShowOption(() -> !orison.adv));
+        } else {
+            addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonRarity.class.getSimpleName()),
                 orison.getRarity(),
                 0F, 2F, 1, false,
                 v -> orison.saveRarity(v))
                 .setBg(false).setShowOption(() -> !orison.adv && orison.canSetRarity()));
+        }
 
         addOption(new TextConfig(x, rightX, nextYPos,
                 configTextDict.get(OrisonConfig.OrisonUseType.class.getSimpleName()),

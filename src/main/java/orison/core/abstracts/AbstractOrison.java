@@ -1,9 +1,5 @@
 package orison.core.abstracts;
 
-import static orison.core.OrisonMod.makeID;
-import static orison.core.OrisonMod.makeOrisonPath;
-import static orison.utils.GeneralUtils.removePrefix;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +14,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -32,10 +28,13 @@ import basemod.Pair;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
+import static orison.core.OrisonMod.makeID;
+import static orison.core.OrisonMod.makeOrisonPath;
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.AtStartOfTurnModifier;
 import orison.core.relics.AprilTribute;
 import orison.core.relics.DeusExMachina;
+import static orison.utils.GeneralUtils.removePrefix;
 import orison.utils.TexLoader;
 
 /*
@@ -74,6 +73,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     protected Texture advImage = null;
     protected Texture disabledImage = null;
     protected Texture advDisabledImage = null;
+
+    public String eventID = null;
 
     protected int usesThisTurn = 0;
     protected int usesThisBattle = 0;
@@ -276,9 +277,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         if (!OrisonConfig.Orison.CAN_ATTACH_ON_CURSE
                 && (card.type == CardType.CURSE || card.rarity == CardRarity.CURSE))
             return false;
-        if (!OrisonConfig.Orison.CAN_ATTACH_ON_COLORLESS && card.color == CardColor.COLORLESS)
-            return false;
-        return true;
+        return (OrisonConfig.Orison.CAN_ATTACH_ON_COLORLESS || card.color != CardColor.COLORLESS);
     }
 
     public static void removeAllOrisons(AbstractCard card) {

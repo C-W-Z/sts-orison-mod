@@ -42,7 +42,8 @@
       "OrisonRarity": "掉落权重",
       "OrisonUseType": "使用限制类型",
       "OrisonUseLimit": "可使用次数",
-      "OrisonValues": "数值%d"
+      "OrisonValues": "数值%d",
+      "EventEnable": "启用对应事件"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {

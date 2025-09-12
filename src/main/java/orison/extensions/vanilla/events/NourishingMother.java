@@ -1,8 +1,5 @@
 package orison.extensions.vanilla.events;
 
-import static orison.core.OrisonMod.makeEventPath;
-import static orison.core.OrisonMod.makeID;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +29,8 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import basemod.helpers.CardModifierManager;
 import orison.cardmodifiers.ShowOrisonChangeModifier;
+import static orison.core.OrisonMod.makeEventPath;
+import static orison.core.OrisonMod.makeID;
 import orison.core.abstracts.AbstractOrison;
 import orison.extensions.vanilla.orisons.event.Birth;
 import orison.utils.GeneralUtils;
@@ -45,7 +44,7 @@ public class NourishingMother extends AbstractImageEvent {
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
     private static final String[] DESCRIPTIONS = eventStrings.DESCRIPTIONS;
     private static final String[] OPTIONS = eventStrings.OPTIONS;
-    private static final String title = eventStrings.NAME;
+    private static final String TITLE = eventStrings.NAME;
 
     private enum CurScreen {
         INTRO, RESULT;
@@ -62,7 +61,7 @@ public class NourishingMother extends AbstractImageEvent {
     private static final int N_CURSE_LESS = 1;
 
     public NourishingMother() {
-        super(title, DESCRIPTIONS[0], makeEventPath(GeneralUtils.removePrefix(ID) + ".png"));
+        super(TITLE, DESCRIPTIONS[0], makeEventPath(GeneralUtils.removePrefix(ID) + ".png"));
         screen = CurScreen.INTRO;
         this.imageEventText.setDialogOption(String.format(OPTIONS[0], CARD_TO_ATTACH_BIRTH, N_CURSE_MORE));
         this.imageEventText.setDialogOption(String.format(OPTIONS[1], CARD_TO_ATTACH_BIRTH, N_CURSE_LESS));
@@ -100,10 +99,10 @@ public class NourishingMother extends AbstractImageEvent {
                         break;
                     case 2:
                         this.openMap();
-                        logMetricIgnored(title);
+                        logMetricIgnored(TITLE);
                         break;
                     default:
-                        logMetricIgnored(title);
+                        logMetricIgnored(TITLE);
                         break;
                 }
                 break;
@@ -113,6 +112,7 @@ public class NourishingMother extends AbstractImageEvent {
         }
     }
 
+    @Override
     public void update() {
         super.update();
         attachLogic();
@@ -151,7 +151,10 @@ public class NourishingMother extends AbstractImageEvent {
                     break;
                 }
             }
-
+            if (cardToAttach == null) {
+                logMetricIgnored(TITLE);
+                return;
+            }
             CardModifierManager.addModifier(cardToAttach, new Birth(adv));
             AbstractDungeon.topLevelEffects.add(
                     new ShowCardBrieflyEffect(cardToAttach.makeStatEquivalentCopy(),
@@ -167,7 +170,7 @@ public class NourishingMother extends AbstractImageEvent {
                 AbstractDungeon.effectList.add(
                         new ShowCardAndObtainEffect(curse, Settings.WIDTH * 3 / 4F, Settings.HEIGHT / 2F));
             }
-            AbstractEvent.logMetricObtainCards(title, adv ? "Bottoms Up" : "Take a Sip", obtainCurses);
+            AbstractEvent.logMetricObtainCards(TITLE, adv ? "Bottoms Up" : "Take a Sip", obtainCurses);
         }
     }
 

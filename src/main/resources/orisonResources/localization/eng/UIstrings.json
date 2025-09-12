@@ -46,7 +46,8 @@
       "OrisonRarity": "Drop Weight",
       "OrisonUseType": "Use Restriction Type",
       "OrisonUseLimit": "Use Limit",
-      "OrisonValues": "Value %d"
+      "OrisonValues": "Value %d",
+      "EventEnable": "Enable the Corresponding Event"
     }
   },
   "${ModID}:OrisonUseTypeConfigOption": {

@@ -18,6 +18,7 @@ public class CheckBox implements ConfigUIElement {
     public static final float WIDTH = 44 * Settings.scale;
 
     public Hitbox hb;
+    public float y;
     public float targetY;
 
     public boolean selected;
@@ -28,12 +29,13 @@ public class CheckBox implements ConfigUIElement {
         hb.move(cX, cY);
         this.selected = selected;
         this.onChange = onChange;
+        this.y = targetY = cY;
     }
 
     @Override
     public void update() {
-        hb.update();
-        hb.move(hb.cX, MathHelper.cardLerpSnap(hb.cY, targetY));
+        this.y = MathHelper.cardLerpSnap(this.y, this.targetY);
+        hb.move(hb.cX, this.y);
         hb.update();
         if (hb.justHovered)
             playHoverSound();
