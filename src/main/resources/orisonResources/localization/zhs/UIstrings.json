@@ -138,6 +138,14 @@
       "打出后将 #b%d 张「%s」洗入抽牌堆。"
     ]
   },
+  "${ModID}:LexGenis": {
+    "TEXT": [
+      "繁育 [${ModID}:LexGenisIcon]",
+      "高级繁育 [${ModID}:AdvLexGenisIcon]",
+      "打出后将此牌附加 #y消耗 、 #y虚无 的原始复制填满手牌。",
+      "打出后将此牌附加 #y消耗 、 #y虚无 ，且 [E] 消耗 #b-%d 的原始复制填满手牌。"
+    ]
+  },
   "${ModID}:Might": {
     "TEXT": [
       "蛮力 [${ModID}:MightIcon]",

@@ -148,6 +148,14 @@
       "Shuffle #b%d \"%s\" into the Draw Pile after playing this card."
     ]
   },
+  "${ModID}:LexGenis": {
+    "TEXT": [
+      "Lex Genis [${ModID}:LexGenisIcon]",
+      "Adv. Lex Genis [${ModID}:AdvLexGenisIcon]",
+      "After playing this card, fill your hand with Base Copies that have #yExhaust and #yEthereal.",
+      "After playing this card, fill your hand with Base Copies that have #yExhaust, #yEthereal, and #b-1 [E] Cost."
+    ]
+  },
   "${ModID}:Might": {
     "TEXT": [
       "Might [${ModID}:MightIcon]",
