@@ -1,0 +1,83 @@
+{
+  "${ModID}:AprilTribute": {
+    "NAME": "[서약] 4월의 꽃",
+    "FLAVOR": "3월이 피어나자, 각등이 불타오릅니다. 4월이 피어나자, 바다에서 흰 꽃이 핍니다. 5월이 피어났습니다, 하지만 옛 것은 시야에서 사라졌습니다.",
+    "DESCRIPTIONS": [
+      "#y${ModID}:오리슨의 효과를 두배로 만들지만, 각 #y${ModID}:오리슨은 대체로 매 턴 한번만 발동하게 됩니다."
+    ]
+  },
+  "${ModID}:BurialGroundsSighs": {
+    "NAME": "[서약] 묘지의 한숨",
+    "FLAVOR": "묻힌 것은 뼈가 아니오, 끝나지 못한 꿈이다.",
+    "DESCRIPTIONS": ["#y${ModID}:전투 보상에서 오리슨이 항상 등장합니다."]
+  },
+  "${ModID}:DeusExMachina": {
+    "NAME": "[서약] 데우스 엑스 마키나",
+    "FLAVOR": "톱니바퀴의 굉음, 보이지 않는 신.\n강철의 껍질, 피부로 된 기계.\n서리의 의지, 필멸자들의 열정.",
+    "DESCRIPTIONS": [
+      "#y${ModID}:오리슨을 획득할 경우, 강화된 상태로 만듭니다."
+    ]
+  },
+  "${ModID}:DreamOfMedicine": {
+    "NAME": "[서약] 약의 꿈",
+    "FLAVOR": "천 년 전, ㅇ분은 40온스의 고운 모래와 같았다.",
+    "DESCRIPTIONS": ["#r(미완성)"]
+  },
+  "${ModID}:LifeDrain": {
+    "NAME": "[서약] 흡혈",
+    "FLAVOR": "",
+    "DESCRIPTIONS": ["#r(미완성)"]
+  },
+  "${ModID}:OrganicForm": {
+    "NAME": "[서약] 유기적 형태",
+    "FLAVOR": "나비목은 고독과 사랑, 그리고 절망으로 죽어가고 있습니다.",
+    "DESCRIPTIONS": [
+      "전투 중 카드가 생성되었을 경우, 그것에게 #y${ModID}:오리슨을 #b1개 부착합니다."
+    ]
+  },
+  "${ModID}:Paradox": {
+    "NAME": "[서약] 역설",
+    "FLAVOR": "불가피한, 우발적인.\n유한한, 무한한.",
+    "DESCRIPTIONS": [
+      "#r(미완성) NL 각 카드는 #y${ModID}:오리슨을 #b2개 부착할 수 있습니다."
+    ]
+  },
+  "${ModID}:ReEvolution": {
+    "NAME": "[서약] 재진화",
+    "FLAVOR": "번식해라, 번식하여라. 세계수의 피를 가진 영혼들이 퍼져나가게 해라.",
+    "DESCRIPTIONS": [
+      "엘리트가 처치되었을 시 #b1개의 추가적인 강화된 #y${ModID}:오리슨을 얻을 수 있습니다."
+    ]
+  },
+  "${ModID}:ReturnalLine": {
+    "NAME": "[서약] 반환선",
+    "FLAVOR": "이야기가 들려오고, 파도가 태어난다;\n방랑자, 맹세하기를 약속.",
+    "DESCRIPTIONS": ["#r(미완성)"]
+  },
+  "${ModID}:RingOfChamber36": {
+    "NAME": "[서약] 36 Chambers의 반지",
+    "FLAVOR": "돌아라. 그리고 잊어라—이것이 그녀의 인생 전부이다.",
+    "DESCRIPTIONS": ["#r(미완성)"]
+  },
+  "${ModID}:TwistedTwinsBlack": {
+    "NAME": "[서약] 뒤틀린 쌍둥이: 흑",
+    "FLAVOR": "그것이 바라보자, 너는 약해진다.\n그 어두은 쌍둥이는 네게 힘을 주지만, 잊으라고 강요한다.",
+    "DESCRIPTIONS": [
+      "앞으로의 #y${ModID}:오리슨 보상에서, 선택지의 수가 #r-2 됩니다. 최대 [E] 를 #b+1 얻습니다."
+    ]
+  },
+  "${ModID}:TwistedTwinsWhite": {
+    "NAME": "[서약] 뒤틀린 쌍둥이: 백",
+    "FLAVOR": "그것이 웃자, 당신은 가라앉습니다.\n그 밝은 쌍둥이는 당신에게 은혜를 배풀고, 휴식을 제안합니다.",
+    "DESCRIPTIONS": [
+      "In the future #y${ModID}:Orison rewards, number of options #b+1."
+    ]
+  },
+  "${ModID}:UnstainedChronicle": {
+    "NAME": "[서약] 흠 없는 연대기",
+    "FLAVOR": "\"영역은 인내한다.\"\n그것은 한 영역의 과거, 현재와 미래를 기록한다.",
+    "DESCRIPTIONS": [
+      "덱에 카드를 추가할 때, 그 카드에 무작위의 #y${ModID}:오리슨을 부착합니다."
+    ]
+  }
+}
