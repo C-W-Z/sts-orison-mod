@@ -3,13 +3,13 @@
     "TEXT": ["%s NL ${ModID}:준비 %d"]
   },
   "${ModID}:ORISON_BUTTON": {
-    "TEXT": ["오리슨과 컨피그", "새 버전!"]
+    "TEXT": ["오리슨 설정", "새 버전!"]
   },
   "${ModID}:OrisonConfigScreen": {
     "TEXT": [
-      "전체 컨피그",
-      "일반 오리슨들 (클릭해서 컨피그 창 열기)",
-      "이벤트 오리슨들 (클릭해서 컨피그 창 열기)"
+      "전체 설정",
+      "일반 오리슨 (클릭해서 설정 창 열기)",
+      "이벤트 오리슨 (클릭해서 설정 창 열기)"
     ]
   },
   "${ModID}:OrisonDisplay": {
@@ -18,8 +18,8 @@
   "${ModID}:OrisonPopup": {
     "TEXT": [
       "강화 보기",
-      "노트",
-      "일반 #y오리슨과 강화 #y오리슨의 컨피그 설정은 다릅니다."
+      "참고",
+      "일반 #y오리슨과 강화의 설정입니다. 두 #y오리슨은 별개입니다."
     ]
   },
   "${ModID}:GlobalConfigOptionPanel": {
@@ -30,13 +30,13 @@
       "CAN_ATTACH_ON_COLORLESS": "오리슨이 무색 카드에 부여될 수 있습니다",
       "MONSTER_DROP_ORISON_CHANCE": "일반 전투 후 오리슨 등장 확률",
       "MONSTER_DROP_ORISON_ADV_CHANCE": "일반 전투 후 등장한 오리슨이 강화될 확률",
-      "MONSTER_DROP_ORISON_LINKED": "일반 전투 후 카드 보상과 오리슨 보상중 하나만 선택 가능",
+      "MONSTER_DROP_ORISON_LINKED": "일반 전투 후 카드 보상과 오리슨 보상 중 하나만 선택 가능",
       "ELITE_DROP_ORISON_CHANCE": "엘리트 전투 후 오리슨 등장 확률",
       "ELITE_DROP_ORISON_ADV_CHANCE": "엘리트 전투 후 등장한 오리슨이 강화될 확률",
-      "ELITE_DROP_ORISON_LINKED": "엘리트 전투 후 카드 보상과 오리슨 보상중 하나만 선택 가능",
+      "ELITE_DROP_ORISON_LINKED": "엘리트 전투 후 카드 보상과 오리슨 보상 중 하나만 선택 가능",
       "BOSS_DROP_ORISON_CHANCE": "보스 전투 후 오리슨 등장 확률",
       "BOSS_DROP_ORISON_ADV_CHANCE": "보스 전투 후 등장한 오리슨이 강화될 확률",
-      "BOSS_DROP_ORISON_LINKED": "보스 전투 후 카드 보상과 오리슨 보상중 하나만 선택 가능",
+      "BOSS_DROP_ORISON_LINKED": "보스 전투 후 카드 보상과 오리슨 보상 중 하나만 선택 가능",
       "TREASURE_DROP_ORISON_CHANCE": "보물 상자에서 오리슨 등장 확률",
       "TREASURE_DROP_ORISON_ADV_CHANCE": "보물 상자에서 등장한 오리슨이 강화될 확률"
     }
@@ -60,7 +60,7 @@
   "${ModID}:RewardLinkPatch": {
     "TEXT": [
       "연결됨",
-      "이것을 획득한다면 다음과 같은 보상이 제거됩니다:",
+      "해당 보상을 획득할 시 다음 보상이 제거됩니다:",
       "오리슨 보상",
       "카드 보상",
       "."
@@ -81,7 +81,7 @@
     "TEXT": [
       "요새 [${ModID}:BastionIcon]",
       "강화된 요새 [${ModID}:AdvBastionIcon]",
-      "이 카드를 사용한 후 #b%d #y방어도를 얻습니다."
+      "이 카드를 사용한 후 #y방어도를 #b%d 얻습니다."
     ]
   },
   "${ModID}:Birth": {
@@ -96,14 +96,14 @@
     "TEXT": [
       "격발 [${ModID}:BurstIcon]",
       "강화된 격발 [${ModID}:AdvBurstIcon]",
-      "이 카드를 사용한 후 #b%d #y임시 힘을 얻습니다."
+      "이 카드를 사용한 후 #y임시 힘을 #b%d 얻습니다."
     ]
   },
   "${ModID}:Computation": {
     "TEXT": [
       "계산 [${ModID}:ComputationIcon]",
       "강화된 계산 [${ModID}:AdvComputationIcon]",
-      "이 카드를 사용한 후 #b%d [E] 를 얻습니다."
+      "이 카드를 사용한 후 [E] 를 #b%d 얻습니다."
     ]
   },
   "${ModID}:Drain": {
@@ -117,7 +117,7 @@
     "TEXT": [
       "메아리 [${ModID}:EchoIcon]",
       "강화된 메아리 [${ModID}:AdvEchoIcon]",
-      "이 카드가 사용될 경우 #b%d번 추가적으로 사용되고 당신에게 #b%d #y골드를 줍니다. #y소멸. #y보존."
+      "이 카드가 사용될 경우 #b%d 번 추가적으로 사용되고 당신에게 #y골드를 #b%d 줍니다. #y소멸. #y보존."
     ]
   },
   "${ModID}:Finesse": {
@@ -153,7 +153,7 @@
       "렉스 제니스 [${ModID}:LexGenisIcon]",
       "강화된 렉스 제니스 [${ModID}:AdvLexGenisIcon]",
       "이 카드를 사용한 후, #y소멸과 #y선천성을 가진 카드로 손을 채웁니다.",
-      "이 카드를 사용한 후, #y소멸과 #y선천성을 갖고 #b-1 [E] 이 된 카드로 손을 채웁니다."
+      "이 카드를 사용한 후, #y소멸과 #y선천성을 갖고 비용이 #b1 감소한 카드로 손을 채웁니다."
     ]
   },
   "${ModID}:Might": {
@@ -174,7 +174,7 @@
     "TEXT": [
       "준비 [${ModID}:PrepareIcon]",
       "강화된 준비 [${ModID}:AdvPrepareIcon]",
-      "턴 종료 시 손에 보유하고 있다면, 사용되기 전까지 [E] 를 #b-%d 감소시킵니다; 이 효과는 패에서 버린 카드 더미로 이동했을 때에도 발동됩니다. #y보존."
+      "턴 종료 시 손에 보유하고 있다면, 사용되기 전까지 비용을 #b%d 감소시킵니다; 이 효과는 패에서 버린 카드 더미로 이동했을 때에도 발동됩니다. #y보존."
     ]
   },
   "${ModID}:Resistance": {
@@ -195,21 +195,21 @@
     "TEXT": [
       "독소 [${ModID}:ToxinIcon]",
       "강화된 독소 [${ModID}:AdvToxinIcon]",
-      "이 카드를 사용한 후, 적 전체에게 #y중독을 #b%d 주고 중독 수치의 #b%d%% 만큼 적 전체에게 피해를 줍니다."
+      "이 카드를 사용한 후, 적 전체에게 #y중독을 #b%d 부여하고 중독 수치의 #b%d%% 만큼 적 전체에게 피해를 줍니다."
     ]
   },
   "${ModID}:Vulnerable": {
     "TEXT": [
       "취약 [${ModID}:VulnerableIcon]",
       "강화된 취약 [${ModID}:AdvVulnerableIcon]",
-      "이 카드를 사용한 후, 적 전체에게 #y취약을 #b%d 턴동안 부여합니다."
+      "이 카드를 사용한 후, 적 전체에게 #y취약을 #b%d 턴 동안 부여합니다."
     ]
   },
   "${ModID}:Weakness": {
     "TEXT": [
       "약화 [${ModID}:WeaknessIcon]",
       "강화된 약화 [${ModID}:AdvWeaknessIcon]",
-      "이 카드를 사용한 후, 적 전체에게 #y약화를 #b%d 턴동안 부여합니다."
+      "이 카드를 사용한 후, 적 전체에게 #y약화를 #b%d 턴 동안 부여합니다."
     ]
   }
 }

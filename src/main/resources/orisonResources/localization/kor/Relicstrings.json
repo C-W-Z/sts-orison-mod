@@ -9,7 +9,7 @@
   "${ModID}:BurialGroundsSighs": {
     "NAME": "[서약] 묘지의 한숨",
     "FLAVOR": "묻힌 것은 뼈가 아니오, 끝나지 못한 꿈이다.",
-    "DESCRIPTIONS": ["#y${ModID}:전투 보상에서 오리슨이 항상 등장합니다."]
+    "DESCRIPTIONS": ["전투 보상에서 #y${ModID}:오리슨이 항상 등장합니다."]
   },
   "${ModID}:DeusExMachina": {
     "NAME": "[서약] 데우스 엑스 마키나",
@@ -63,14 +63,14 @@
     "NAME": "[서약] 뒤틀린 쌍둥이: 흑",
     "FLAVOR": "그것이 바라보자, 너는 약해진다.\n그 어두은 쌍둥이는 네게 힘을 주지만, 잊으라고 강요한다.",
     "DESCRIPTIONS": [
-      "앞으로의 #y${ModID}:오리슨 보상에서, 선택지의 수가 #r-2 됩니다. 최대 [E] 를 #b+1 얻습니다."
+      "앞으로의 #y${ModID}:오리슨 보상에서, 선택지의 수가 #r2 감소합니다. 최대 [E] 를 #b+1 얻습니다."
     ]
   },
   "${ModID}:TwistedTwinsWhite": {
     "NAME": "[서약] 뒤틀린 쌍둥이: 백",
     "FLAVOR": "그것이 웃자, 당신은 가라앉습니다.\n그 밝은 쌍둥이는 당신에게 은혜를 배풀고, 휴식을 제안합니다.",
     "DESCRIPTIONS": [
-      "In the future #y${ModID}:Orison rewards, number of options #b+1."
+      "앞으로의 #y${ModID}:오리슨 보상에서 선택지의 수가 #b1 늘어납니다."
     ]
   },
   "${ModID}:UnstainedChronicle": {
