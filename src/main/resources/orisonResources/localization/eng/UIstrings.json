@@ -153,7 +153,15 @@
       "Lex Genis [${ModID}:LexGenisIcon]",
       "Adv. Lex Genis [${ModID}:AdvLexGenisIcon]",
       "After playing this card, fill your hand with Base Copies that have #yExhaust and #yEthereal.",
-      "After playing this card, fill your hand with Base Copies that have #yExhaust, #yEthereal, and #b-1 [E] Cost."
+      "After playing this card, fill your hand with Base Copies that have #yExhaust, #yEthereal, and [E] Cost #b-%d."
+    ]
+  },
+  "${ModID}:LexVolis": {
+    "TEXT": [
+      "Lex Volis [${ModID}:LexVolisIcon]",
+      "Adv. Lex Volis [${ModID}:AdvLexVolisIcon]",
+      "After playing this card, discard all hand cards and obtain equal number of random cards.",
+      "After playing this card, discard all hand cards and obtain equal number of random cards with [E] Cost #b-%d."
     ]
   },
   "${ModID}:Might": {

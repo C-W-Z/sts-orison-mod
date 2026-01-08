@@ -146,6 +146,14 @@
       "打出后将此牌附加 #y消耗 、 #y虚无 ，且 [E] 消耗 #b-%d 的原始复制填满手牌。"
     ]
   },
+  "${ModID}:LexVolis": {
+    "TEXT": [
+      "欢愉 [${ModID}:LexVolisIcon]",
+      "高级欢愉 [${ModID}:AdvLexVolisIcon]",
+      "打出后弃掉所有手牌并获得等量随机卡牌。",
+      "打出后弃掉所有手牌并获得等量 [E] 消耗 #b-%d 的随机卡牌。"
+    ]
+  },
   "${ModID}:Might": {
     "TEXT": [
       "蛮力 [${ModID}:MightIcon]",
