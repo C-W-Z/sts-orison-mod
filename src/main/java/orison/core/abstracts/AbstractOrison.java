@@ -199,7 +199,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         OrisonConfig.OrisonUseLimit.save(id, adv, newUses);
     }
 
-    protected abstract List<Integer> getValueList();
+    public abstract List<Integer> getValueList();
 
     public int getValueCount() {
         return getValueList().size();

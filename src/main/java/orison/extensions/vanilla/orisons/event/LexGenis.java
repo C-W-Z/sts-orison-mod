@@ -73,7 +73,7 @@ public class LexGenis extends AbstractOrison {
     protected static List<Integer> advValues = Arrays.asList(1);
 
     @Override
-    protected List<Integer> getValueList() {
+    public List<Integer> getValueList() {
         return adv ? advValues : values;
     }
 

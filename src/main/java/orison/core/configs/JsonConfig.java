@@ -2,16 +2,22 @@ package orison.core.configs;
 
 import static orison.core.OrisonMod.modID;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
+import com.badlogic.gdx.Gdx;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import orison.core.abstracts.AbstractOrison;
+import orison.core.configs.JsonConfigData.OrisonData;
+import orison.core.libs.EventLib;
+import orison.core.libs.OrisonLib;
 
 // 用Json取代SpireConfig，然後將整個架構改成Momento設計模式
 public class JsonConfig {
@@ -20,6 +26,34 @@ public class JsonConfig {
 
     // private File file;
     private static String filePath = SpireConfig.makeFilePath(modID, "config_test", "json");
+
+    public static JsonConfigData getDefaultConfig() {
+        String jsonString = Gdx.files.internal(modID + "Resources/configs/default1.json")
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting() // 可選，方便人看
+                .create();
+        return gson.fromJson(jsonString, JsonConfigData.class);
+    }
+
+    public static JsonConfigData getConfig() {
+        return config;
+    }
+
+    public static void setConfig(JsonConfigData data) {
+        config = data;
+    }
+
+    public static void convertSpireConfigToJson() {
+        JsonConfig.getConfig().orisonDataMap.clear();
+        for (AbstractOrison o : OrisonLib.allOrisons) {
+            JsonConfig.getConfig().orisonDataMap.put(o.id,
+                    new OrisonData(o.id, o.getValueList(), o.getUseType(), o.getUseLimit(), o.getRarity()));
+        }
+        JsonConfig.getConfig().eventEnabledMap.clear();
+        JsonConfig.getConfig().eventEnabledMap.putAll(EventLib.enabled);
+        JsonConfig.save();
+    }
 
     public static void save() {
         Gson gson = new GsonBuilder()

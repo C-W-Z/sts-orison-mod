@@ -62,7 +62,7 @@ public class Toxin extends AbstractOrison {
     protected static List<Integer> advValues = Arrays.asList(6, 30);
 
     @Override
-    protected List<Integer> getValueList() {
+    public List<Integer> getValueList() {
         return adv ? advValues : values;
     }
 

@@ -62,7 +62,7 @@ public class Prepare extends AbstractOrison implements OnInitializeDeck {
     protected static List<Integer> advValues = Arrays.asList(2);
 
     @Override
-    protected List<Integer> getValueList() {
+    public List<Integer> getValueList() {
         return adv ? advValues : values;
     }
 

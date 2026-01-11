@@ -46,7 +46,7 @@ public class ErrorOrison extends AbstractOrison {
     protected void takeEffectOnUse(AbstractCard card, AbstractCreature target, UseCardAction action) {}
 
     @Override
-    protected List<Integer> getValueList() {
+    public List<Integer> getValueList() {
         return new ArrayList<>();
     }
 

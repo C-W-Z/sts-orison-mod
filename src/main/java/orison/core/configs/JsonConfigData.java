@@ -4,13 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import orison.core.OrisonMod;
 import orison.core.abstracts.AbstractOrison.UseType;
 
 public class JsonConfigData {
-
-    public String MOD_VERSION = OrisonMod.info.ModVersion.toString();
-    public boolean HAS_NOTICE = false;
 
     public int CONFIG_SCREEN_BG = 0;
 
@@ -44,5 +40,13 @@ public class JsonConfigData {
         public UseType useType; // enum
         public int useLimit;
         public float rarity;
+
+        public OrisonData(String id, List<Integer> values, UseType useType, int useLimit, float rarity) {
+            this.id = id;
+            this.values = values;
+            this.useType = useType;
+            this.useLimit = useLimit;
+            this.rarity = rarity;
+        }
     }
 }
