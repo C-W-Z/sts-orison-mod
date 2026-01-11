@@ -55,6 +55,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         INFINITE,
         FINITE_TURN,
         FINITE_BATTLE,
+        // TODO: 增加COOLDOWN_TURN(冷卻至少1回合)
     }
 
     public static final Map<String, Float> id2Rarity = new HashMap<>();

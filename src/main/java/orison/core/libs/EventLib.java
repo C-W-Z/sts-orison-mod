@@ -11,9 +11,10 @@ import orison.extensions.vanilla.events.NourishingMother;
 
 public class EventLib {
 
-    public static Map<String, Boolean> enabled = new HashMap<>();
+    private static Map<String, Boolean> enabled = new HashMap<>();
 
     public static void initialize() {
+        enabled.put(NourishingMother.ID, OrisonConfig.EventEnable.load(NourishingMother.ID));
         BaseMod.addEvent(new AddEventParams.Builder(NourishingMother.ID, NourishingMother.class)
                 .eventType(EventType.NORMAL)
                 .bonusCondition(() -> getEnable(NourishingMother.ID))

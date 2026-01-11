@@ -383,6 +383,7 @@ public class OrisonConfig {
         OrisonValues.initialize();
         OrisonUseType.initialize();
         OrisonUseLimit.initialize();
+        EventEnable.initialize();
     }
 
     public static String makeOrisonIDWithAdv(String orisonID, boolean adv) {
