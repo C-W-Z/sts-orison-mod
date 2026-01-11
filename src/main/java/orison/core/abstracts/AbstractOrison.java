@@ -30,6 +30,8 @@ import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
 import static orison.core.OrisonMod.makeID;
 import static orison.core.OrisonMod.makeOrisonPath;
+
+import orison.core.configs.JsonConfig;
 import orison.core.configs.OrisonConfig;
 import orison.core.interfaces.AtStartOfTurnModifier;
 import orison.core.relics.AprilTribute;
@@ -154,6 +156,7 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
 
     public float getRarity() {
         return id2Rarity.getOrDefault(id, getDefaultRarity());
+        // return JsonConfig.getConfig().orisonDataMap.getOrDefault(id, JsonConfig.defaultOrisonData).rarity;
     }
 
     public void saveRarity(float rarity) {

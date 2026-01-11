@@ -1,0 +1,163 @@
+{
+  "CONFIG_SCREEN_BG": 0,
+  "CAN_ATTACH_ON_UNPLAYABLE_CARD": false,
+  "CAN_ATTACH_ON_STATUS": false,
+  "CAN_ATTACH_ON_CURSE": false,
+  "CAN_ATTACH_ON_COLORLESS": true,
+  "MONSTER_DROP_ORISON_CHANCE": 0.25,
+  "MONSTER_DROP_ORISON_ADV_CHANCE": 0.0,
+  "MONSTER_DROP_ORISON_LINKED": true,
+  "ELITE_DROP_ORISON_CHANCE": 1.0,
+  "ELITE_DROP_ORISON_ADV_CHANCE": 0.5,
+  "ELITE_DROP_ORISON_LINKED": true,
+  "BOSS_DROP_ORISON_CHANCE": 1.0,
+  "BOSS_DROP_ORISON_ADV_CHANCE": 1.0,
+  "BOSS_DROP_ORISON_LINKED": false,
+  "TREASURE_DROP_ORISON_CHANCE": 1.0,
+  "TREASURE_DROP_ORISON_ADV_CHANCE": 0.25,
+  "eventEnabledMap": {
+    "orison:NourishingMother": true
+  },
+  "orisonDataMap": {
+    "orison:Bastion": {
+      "id": "orison:Bastion",
+      "values": [5],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Burst": {
+      "id": "orison:Burst",
+      "values": [2],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Computation": {
+      "id": "orison:Computation",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Drain": {
+      "id": "orison:Drain",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Echo": {
+      "id": "orison:Echo",
+      "values": [1, 5],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Finesse": {
+      "id": "orison:Finesse",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Forging": {
+      "id": "orison:Forging",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Healing": {
+      "id": "orison:Healing",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Insight": {
+      "id": "orison:Insight",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Might": {
+      "id": "orison:Might",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Mirror": {
+      "id": "orison:Mirror",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Prepare": {
+      "id": "orison:Prepare",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Resistance": {
+      "id": "orison:Resistance",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.5
+    },
+    "orison:Spike": {
+      "id": "orison:Spike",
+      "values": [3, 25],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Toxin": {
+      "id": "orison:Toxin",
+      "values": [3, 15],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Vulnerable": {
+      "id": "orison:Vulnerable",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Weakness": {
+      "id": "orison:Weakness",
+      "values": [1],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 1.0
+    },
+    "orison:Birth": {
+      "id": "orison:Birth",
+      "values": [1, 0],
+      "useType": "INFINITE",
+      "useLimit": 1,
+      "rarity": 0.0
+    },
+    "orison:LexGenis": {
+      "id": "orison:LexGenis",
+      "values": [0],
+      "useType": "FINITE_BATTLE",
+      "useLimit": 1,
+      "rarity": 0.0
+    },
+    "orison:LexVolis": {
+      "id": "orison:LexVolis",
+      "values": [0],
+      "useType": "FINITE_BATTLE",
+      "useLimit": 1,
+      "rarity": 0.0
+    }
+  }
+}

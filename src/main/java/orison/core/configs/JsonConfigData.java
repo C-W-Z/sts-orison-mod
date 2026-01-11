@@ -33,6 +33,7 @@ public class JsonConfigData {
     public Map<String, Boolean> eventEnabledMap = new HashMap<>();
 
     public Map<String, OrisonData> orisonDataMap = new HashMap<>();
+    public Map<String, OrisonData> advOrisonDataMap = new HashMap<>();
 
     public static class OrisonData {
         public String id;

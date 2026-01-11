@@ -247,7 +247,8 @@ public class OrisonMod implements
         BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
         EventLib.initialize();
         // Settings.isInfo = true;
-        // JsonConfig.setConfig(JsonConfig.getDefaultConfig());
+        JsonConfig.convertSpireConfigToJson();
+        // JsonConfig.load();
         // JsonConfig.save();
     }
 
