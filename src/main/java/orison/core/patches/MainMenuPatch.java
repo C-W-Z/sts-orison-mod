@@ -23,7 +23,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.MenuButton;
 
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
-import orison.core.configs.OrisonConfig;
+import orison.core.configs.Version;
 import orison.ui.screens.OrisonConfigScreen;
 import orison.ui.screens.OrisonPopup;
 
@@ -158,7 +158,7 @@ public class MainMenuPatch {
 
         @SpireInsertPatch(locator = Locator.class, localvars = { "sliderX" })
         public static void Insert(MenuButton __instance, SpriteBatch sb, float sliderX, String ___label, float ___x) {
-            if (__instance.result != Enums.ORISON_BUTTON || !OrisonConfig.Version.HAS_NOTICE)
+            if (__instance.result != Enums.ORISON_BUTTON || !Version.HAS_NOTICE)
                 return;
 
             float width = FontHelper.getSmartWidth(FontHelper.buttonLabelFont, ___label, 9999.0F, 0.0F);

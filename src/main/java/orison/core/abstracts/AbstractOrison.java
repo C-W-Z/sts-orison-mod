@@ -122,29 +122,29 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         }
     }
 
-    public void loadConfigs() {
-        Float rarity = OrisonConfig.OrisonRarity.load(id);
-        if (rarity != null) {
-            id2Rarity.put(id, rarity);
-        }
+    // public void loadConfigs() {
+    //     Float rarity = OrisonConfig.OrisonRarity.load(id);
+    //     if (rarity != null) {
+    //         id2Rarity.put(id, rarity);
+    //     }
 
-        List<Integer> list = OrisonConfig.OrisonValues.load(id, adv);
-        if (list != null && !list.isEmpty() && list.size() == getValueList().size())
-            for (int i = 0; i < list.size(); i++)
-                getValueList().set(i, list.get(i));
+    //     List<Integer> list = OrisonConfig.OrisonValues.load(id, adv);
+    //     if (list != null && !list.isEmpty() && list.size() == getValueList().size())
+    //         for (int i = 0; i < list.size(); i++)
+    //             getValueList().set(i, list.get(i));
 
-        UseType type = OrisonConfig.OrisonUseType.load(id, adv);
-        if (type != null) {
-            Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
-            map.put(id, type);
-        }
+    //     UseType type = OrisonConfig.OrisonUseType.load(id, adv);
+    //     if (type != null) {
+    //         Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+    //         map.put(id, type);
+    //     }
 
-        Integer uses = OrisonConfig.OrisonUseLimit.load(id, adv);
-        if (uses != null) {
-            Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
-            map.put(id, uses);
-        }
-    }
+    //     Integer uses = OrisonConfig.OrisonUseLimit.load(id, adv);
+    //     if (uses != null) {
+    //         Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
+    //         map.put(id, uses);
+    //     }
+    // }
 
     public boolean canSetRarity() {
         return true;
@@ -155,8 +155,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public float getRarity() {
-        return id2Rarity.getOrDefault(id, getDefaultRarity());
-        // return JsonConfig.getConfig().orisonDataMap.getOrDefault(id, JsonConfig.defaultOrisonData).rarity;
+        // return id2Rarity.getOrDefault(id, getDefaultRarity());
+        return JsonConfig.getConfig().getOrisonData(id, adv).rarity;
     }
 
     public void saveRarity(float rarity) {
@@ -173,8 +173,9 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public UseType getUseType() {
-        Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
-        return map.getOrDefault(id, getDefaultUseType());
+        // Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+        // return map.getOrDefault(id, getDefaultUseType());
+        return JsonConfig.getConfig().getOrisonData(id, adv).useType;
     }
 
     public void saveUseType(UseType newType) {
@@ -192,8 +193,9 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public int getUseLimit() {
-        Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
-        return map.getOrDefault(id, getDefaultUseLimit());
+        // Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
+        // return map.getOrDefault(id, getDefaultUseLimit());
+        return JsonConfig.getConfig().getOrisonData(id, adv).useLimit;
     }
 
     public void saveUseLimit(int newUses) {
@@ -217,7 +219,8 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public int getValue(int index) {
-        return getValueList().get(index);
+        // return getValueList().get(index);
+        return JsonConfig.getConfig().getOrisonData(id, adv).values.get(index);
     }
 
     public void saveValue(int index, int newVal) {

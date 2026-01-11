@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 
+import orison.core.configs.JsonConfig;
 import orison.core.configs.OrisonConfig;
 import orison.utils.TexLoader;
 
@@ -36,7 +37,7 @@ public class ConfigScreenBgRenderer {
         bgTextures = new ArrayList<>();
         for (int i = 0; i <= MAX_BG_INDEX; i++)
             bgTextures.add(null);
-        currentBgIndex = clamp(OrisonConfig.Preference.CONFIG_SCREEN_BG, 0, MAX_BG_INDEX);
+        currentBgIndex = clamp(JsonConfig.getConfig().CONFIG_SCREEN_BG, 0, MAX_BG_INDEX);
         if (currentBgIndex != 0) {
             bg = TexLoader.getTexture(makeUIPath("OrisonConfigScreen/bg/" + currentBgIndex + ".png"));
             bgTextures.set(currentBgIndex, bg);
@@ -94,14 +95,18 @@ public class ConfigScreenBgRenderer {
             prevBgHb.clicked = false;
             CardCrawlGame.sound.play("UI_CLICK_1");
             prevBackground();
-            OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
+            // OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
+            JsonConfig.getConfig().CONFIG_SCREEN_BG = currentBgIndex;
+            JsonConfig.save();
         }
 
         if (nextBgHb.clicked) {
             nextBgHb.clicked = false;
             CardCrawlGame.sound.play("UI_CLICK_1");
             nextBackground();
-            OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
+            // OrisonConfig.Preference.save(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG, currentBgIndex);
+            JsonConfig.getConfig().CONFIG_SCREEN_BG = currentBgIndex;
+            JsonConfig.save();
         }
 
         if (InputHelper.justClickedLeft) {

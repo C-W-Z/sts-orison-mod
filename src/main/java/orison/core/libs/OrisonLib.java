@@ -35,9 +35,9 @@ public class OrisonLib {
         for (AbstractOrison orison : allOrisons) {
             id2Orison.put(orison.id, orison);
             logger.info("Orison " + orison.id + " Registered!");
-            orison.newInstance(false).loadConfigs();
-            orison.newInstance(true).loadConfigs();
-            logger.info("Orison " + orison.id + " Config Loaded!");
+            // orison.newInstance(false).loadConfigs();
+            // orison.newInstance(true).loadConfigs();
+            // logger.info("Orison " + orison.id + " Config Loaded!");
         }
     }
 

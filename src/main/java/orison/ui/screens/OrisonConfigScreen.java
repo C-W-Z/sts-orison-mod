@@ -19,6 +19,7 @@ import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
 import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 
 import orison.core.configs.OrisonConfig;
+import orison.core.configs.Version;
 import orison.core.interfaces.ConfigUIElement;
 import orison.extensions.vanilla.VanillaExtension;
 import orison.ui.components.ConfigScreenBgRenderer;
@@ -86,7 +87,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
     }
 
     public void open() {
-        OrisonConfig.Version.cancelNotice();
+        Version.cancelNotice();
         CardCrawlGame.sound.play("UNLOCK_PING");
         CardCrawlGame.mainMenuScreen.darken();
         cancelButton.show(CardCrawlGame.languagePack.getUIString("DungeonMapScreen").TEXT[1]);

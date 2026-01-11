@@ -1,5 +1,6 @@
 package orison.core.configs;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -7,60 +8,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
-import com.vdurmont.semver4j.Semver;
 
-import static orison.core.OrisonMod.info;
 import static orison.core.OrisonMod.modID;
+
 import orison.core.abstracts.AbstractOrison.UseType;
 import orison.utils.GeneralUtils;
+
 import static orison.utils.GeneralUtils.clamp;
 
 public class OrisonConfig {
 
     private static final Logger logger = LogManager.getLogger(OrisonConfig.class);
-
-    public static class Version {
-        public static SpireConfig config;
-        public static String ID_MOD_VERSION = "MOD_VERSION";
-        public static String OLD_VERSION;
-
-        public static String ID_HAS_NOTICE = "HAS_NOTICE";
-        public static boolean HAS_NOTICE = true;
-
-        public static void initialize() {
-            try {
-                Properties defaults = new Properties();
-                defaults.setProperty(ID_HAS_NOTICE, String.valueOf(HAS_NOTICE));
-                config = new SpireConfig(modID, Version.class.getSimpleName(), defaults);
-            } catch (Exception e) {
-                logger.error("OrisonConfig.Version.initialize() failed");
-                e.printStackTrace();
-            }
-
-            OLD_VERSION = null;
-            if (config.has(ID_MOD_VERSION))
-                OLD_VERSION = config.getString(ID_MOD_VERSION);
-
-            if (isVersionUpdate()) {
-                logger.info("Detect an Version Update!");
-                saveConfig(config, ID_MOD_VERSION, info.ModVersion.toString());
-                HAS_NOTICE = true;
-                saveConfig(config, ID_HAS_NOTICE, HAS_NOTICE);
-            }
-
-            if (config.has(ID_HAS_NOTICE))
-                HAS_NOTICE = config.getBool(ID_HAS_NOTICE);
-        }
-
-        public static boolean isVersionUpdate() {
-            return OLD_VERSION == null || new Semver(OLD_VERSION).isLowerThan(info.ModVersion);
-        }
-
-        public static void cancelNotice() {
-            HAS_NOTICE = false;
-            saveConfig(config, ID_HAS_NOTICE, HAS_NOTICE);
-        }
-    }
 
     public static class Preference {
         public static SpireConfig config;
@@ -375,7 +333,6 @@ public class OrisonConfig {
     }
 
     public static void initialize() {
-        Version.initialize();
         Preference.initialize();
         Orison.initialize();
         Reward.initialize();
@@ -384,6 +341,33 @@ public class OrisonConfig {
         OrisonUseType.initialize();
         OrisonUseLimit.initialize();
         EventEnable.initialize();
+    }
+
+    public static void clear() {
+        Preference.config.clear();
+        Orison.config.clear();
+        Reward.config.clear();
+        OrisonRarity.config.clear();
+        OrisonValues.config.clear();
+        OrisonUseType.config.clear();
+        OrisonUseLimit.config.clear();
+        EventEnable.config.clear();
+    }
+
+    public static void save() {
+        try {
+            Preference.config.save();
+            Orison.config.save();
+            Reward.config.save();
+            OrisonRarity.config.save();
+            OrisonValues.config.save();
+            OrisonUseType.config.save();
+            OrisonUseLimit.config.save();
+            EventEnable.config.save();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public static String makeOrisonIDWithAdv(String orisonID, boolean adv) {

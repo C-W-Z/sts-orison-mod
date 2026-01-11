@@ -14,6 +14,7 @@ import orison.core.configs.JsonConfig;
 import orison.core.configs.JsonConfigData;
 import orison.core.configs.JsonConfigData.OrisonData;
 import orison.core.configs.OrisonConfig;
+import orison.core.configs.Version;
 import orison.core.configs.OrisonConfig.Orison;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.libs.EventLib;
@@ -239,7 +240,10 @@ public class OrisonMod implements
 
     @Override
     public void receivePostInitialize() {
+        JsonConfig.loadDefaultConfigs();
         OrisonConfig.initialize();
+        Version.initialize();
+        JsonConfig.load();
         initializeOrisonExtensions();
         OrisonLib.initialize();
         RewardLib.initialize();
@@ -247,7 +251,6 @@ public class OrisonMod implements
         BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
         EventLib.initialize();
         // Settings.isInfo = true;
-        JsonConfig.convertSpireConfigToJson();
         // JsonConfig.load();
         // JsonConfig.save();
     }
