@@ -8,14 +8,10 @@ import basemod.interfaces.*;
 import orison.cardvars.AbstractEasyDynamicVariable;
 import orison.core.abstracts.AbstractEasyCard;
 import orison.core.abstracts.AbstractEasyPotion;
-import orison.core.abstracts.AbstractOrison;
 import orison.core.abstracts.AbstractOrisonRelic;
 import orison.core.configs.JsonConfig;
-import orison.core.configs.JsonConfigData;
-import orison.core.configs.JsonConfigData.OrisonData;
 import orison.core.configs.OrisonConfig;
 import orison.core.configs.Version;
-import orison.core.configs.OrisonConfig.Orison;
 import orison.core.interfaces.OrisonExtension;
 import orison.core.libs.EventLib;
 import orison.core.libs.OrisonLib;
@@ -242,8 +238,6 @@ public class OrisonMod implements
     public void receivePostInitialize() {
         JsonConfig.loadDefaultConfigs();
         OrisonConfig.initialize();
-        Version.initialize();
-        JsonConfig.load();
         initializeOrisonExtensions();
         OrisonLib.initialize();
         RewardLib.initialize();
@@ -251,7 +245,8 @@ public class OrisonMod implements
         BaseMod.addSaveField(OrisonRng.ID, new OrisonRng());
         EventLib.initialize();
         // Settings.isInfo = true;
-        // JsonConfig.load();
+        Version.checkUpdate();
+        JsonConfig.load();
         // JsonConfig.save();
     }
 

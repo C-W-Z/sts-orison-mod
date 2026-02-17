@@ -1,9 +1,7 @@
 package orison.core.abstracts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,13 +58,13 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
         // TODO: 增加COOLDOWN_TURN(冷卻至少1回合)
     }
 
-    public static final Map<String, Float> id2Rarity = new HashMap<>();
+    // public static final Map<String, Float> id2Rarity = new HashMap<>();
 
-    public static final Map<String, UseType> id2UseType = new HashMap<>();
-    public static final Map<String, Integer> id2UseLimit = new HashMap<>();
+    // public static final Map<String, UseType> id2UseType = new HashMap<>();
+    // public static final Map<String, Integer> id2UseLimit = new HashMap<>();
 
-    public static final Map<String, UseType> id2AdvUseType = new HashMap<>();
-    public static final Map<String, Integer> id2AdvUseLimit = new HashMap<>();
+    // public static final Map<String, UseType> id2AdvUseType = new HashMap<>();
+    // public static final Map<String, Integer> id2AdvUseLimit = new HashMap<>();
 
     public String id = "";
     public boolean adv = false;
@@ -160,8 +158,10 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public void saveRarity(float rarity) {
-        id2Rarity.put(id, rarity);
-        OrisonConfig.OrisonRarity.save(id, rarity);
+        // id2Rarity.put(id, rarity);
+        // OrisonConfig.OrisonRarity.save(id, rarity);
+        JsonConfig.getConfig().getOrisonData(id, adv).rarity = rarity;
+        JsonConfig.save();
     }
 
     public boolean canSetUseType() {
@@ -179,9 +179,11 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public void saveUseType(UseType newType) {
-        Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
-        map.put(id, newType);
-        OrisonConfig.OrisonUseType.save(id, adv, newType);
+        // Map<String, UseType> map = adv ? id2UseType : id2AdvUseType;
+        // map.put(id, newType);
+        // OrisonConfig.OrisonUseType.save(id, adv, newType);
+        JsonConfig.getConfig().getOrisonData(id, adv).useType = newType;
+        JsonConfig.save();
     }
 
     public boolean canSetUseLimit() {
@@ -199,9 +201,11 @@ public abstract class AbstractOrison extends AbstractCardModifier implements AtS
     }
 
     public void saveUseLimit(int newUses) {
-        Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
-        map.put(id, newUses);
-        OrisonConfig.OrisonUseLimit.save(id, adv, newUses);
+        // Map<String, Integer> map = adv ? id2UseLimit : id2AdvUseLimit;
+        // map.put(id, newUses);
+        // OrisonConfig.OrisonUseLimit.save(id, adv, newUses);
+        JsonConfig.getConfig().getOrisonData(id, adv).useLimit = newUses;
+        JsonConfig.save();
     }
 
     public abstract List<Integer> getValueList();

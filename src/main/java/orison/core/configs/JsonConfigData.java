@@ -1,5 +1,6 @@
 package orison.core.configs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +82,18 @@ public class JsonConfigData {
 
         newConfig.eventEnabledMap = new HashMap<>(this.eventEnabledMap);
 
-        newConfig.orisonDataMap = new HashMap<>(this.orisonDataMap);
-        newConfig.advOrisonDataMap = new HashMap<>(this.advOrisonDataMap);
+        newConfig.orisonDataMap = copy(this.orisonDataMap);
+        newConfig.advOrisonDataMap = copy(this.advOrisonDataMap);
 
         return newConfig;
+    }
+
+    public static HashMap<String, OrisonData> copy(Map<String, OrisonData> original) {
+        HashMap<String, OrisonData> copy = new HashMap<>();
+        for (OrisonData o : original.values()) {
+            List<Integer> newVals = o.values == null ? null : new ArrayList<>(o.values);
+            copy.put(o.id, new OrisonData(o.id, newVals, o.useType, o.useLimit, o.rarity));
+        }
+        return copy;
     }
 }

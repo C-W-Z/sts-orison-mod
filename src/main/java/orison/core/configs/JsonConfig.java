@@ -33,7 +33,7 @@ public class JsonConfig {
     private static String curConfigFile = "config";
 
     // public static OrisonData defaultOrisonData = new OrisonData(
-    //         ErrorOrison.ID, new ArrayList<>(), UseType.INFINITE, -1, 0F);
+    // ErrorOrison.ID, new ArrayList<>(), UseType.INFINITE, -1, 0F);
 
     // config save slots
     public static List<JsonConfigData> defaultConfigData = new ArrayList<>();
@@ -64,15 +64,17 @@ public class JsonConfig {
     }
 
     public static void convertSpireConfigToJson() {
-        JsonConfigData newConfig = defaultConfigData.get(0).copy();
+        JsonConfigData newConfig = new JsonConfigData();
 
-        newConfig.CONFIG_SCREEN_BG = OrisonConfig.Preference.config.getInt(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG);
+        newConfig.CONFIG_SCREEN_BG = OrisonConfig.Preference.config
+                .getInt(OrisonConfig.Preference.ID_CONFIG_SCREEN_BG);
 
         newConfig.CAN_ATTACH_ON_UNPLAYABLE_CARD = OrisonConfig.Orison.config
                 .getBool(OrisonConfig.Orison.ID_CAN_ATTACH_ON_UNPLAYABLE_CARD);
         newConfig.CAN_ATTACH_ON_STATUS = OrisonConfig.Orison.config
                 .getBool(OrisonConfig.Orison.ID_CAN_ATTACH_ON_STATUS);
-        newConfig.CAN_ATTACH_ON_CURSE = OrisonConfig.Orison.config.getBool(OrisonConfig.Orison.ID_CAN_ATTACH_ON_CURSE);
+        newConfig.CAN_ATTACH_ON_CURSE = OrisonConfig.Orison.config
+                .getBool(OrisonConfig.Orison.ID_CAN_ATTACH_ON_CURSE);
         newConfig.CAN_ATTACH_ON_COLORLESS = OrisonConfig.Orison.config
                 .getBool(OrisonConfig.Orison.ID_CAN_ATTACH_ON_COLORLESS);
 
@@ -114,12 +116,11 @@ public class JsonConfig {
                             OrisonConfig.OrisonValues.load(o.id, true),
                             OrisonConfig.OrisonUseType.load(o.id, true),
                             OrisonConfig.OrisonUseLimit.load(o.id, true),
-                            0F));
+                            null));
         }
 
         // save(newConfig, "test");
         // save(merge(defaultConfigData.get(0), newConfig), "merge");
-        // TODO: 要先load SpireConfig
         config = merge(defaultConfigData.get(0), newConfig);
         customConfigData.set(0, config.copy());
         save();

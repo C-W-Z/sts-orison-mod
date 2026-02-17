@@ -22,7 +22,7 @@ public class Version {
     public static String ID_HAS_NOTICE = "HAS_NOTICE";
     public static boolean HAS_NOTICE = true;
 
-    public static void initialize() {
+    public static void checkUpdate() {
         try {
             Properties defaults = new Properties();
             defaults.setProperty(ID_HAS_NOTICE, String.valueOf(HAS_NOTICE));
