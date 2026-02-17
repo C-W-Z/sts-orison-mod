@@ -67,6 +67,20 @@ public class TextConfig implements ConfigUIElement {
         this.option = new OrisonUseTypeConfigOption(rightX - OrisonUseTypeConfigOption.WIDTH / 2F, y, orison);
     }
 
+    public TextConfig(float x, float rightX, float y, String label, String option, int index) {
+        this(x, rightX, y, label);
+        switch (option) {
+            case "SaveConfigButton":
+                this.option = new SaveConfigButton(rightX - CheckBox.WIDTH / 2, y, index);
+                break;
+            case "LoadConfigButton":
+                this.option = new LoadConfigButton(rightX - CheckBox.WIDTH / 2, y, index);
+                break;
+            default:
+                break;
+        }
+    }
+
     public TextConfig setBg(boolean show) {
         showBg = show;
         return this;

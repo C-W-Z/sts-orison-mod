@@ -2,6 +2,7 @@ package orison.core.configs;
 
 import static orison.core.OrisonMod.modID;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,6 +11,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JFileChooser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -132,6 +135,7 @@ public class JsonConfig {
     }
 
     public static void saveCustomPreset(int index) {
+        customConfigData.set(index, config.copy());
         save(customConfigData.get(index), "customConfig" + index);
     }
 
@@ -150,6 +154,10 @@ public class JsonConfig {
 
     public static void load() {
         config = load(curConfigFile);
+    }
+
+    public static void loadCustomPreset(int index) {
+        config = load("customConfig" + index);
     }
 
     public static JsonConfigData load(String fileName) {

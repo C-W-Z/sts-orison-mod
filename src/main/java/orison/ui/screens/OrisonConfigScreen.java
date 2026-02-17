@@ -24,6 +24,7 @@ import orison.core.interfaces.ConfigUIElement;
 import orison.extensions.vanilla.VanillaExtension;
 import orison.ui.components.ConfigScreenBgRenderer;
 import orison.ui.components.TextLabel;
+import orison.ui.components.panels.ConfigSlotPanel;
 import orison.ui.components.panels.GlobalConfigOptionPanel;
 import orison.ui.components.panels.OrisonDisplay;
 
@@ -73,6 +74,7 @@ public class OrisonConfigScreen implements ScrollBarListener {
         addOption(new OrisonDisplay(ORISON_DISPLAY_CENTER_X, nextYPos, VanillaExtension.eventOrisons, false));
         addOption(new TextLabel(DRAW_START_X, nextYPos, TEXT[0]));
         addOption(new GlobalConfigOptionPanel(DRAW_START_X, DRAW_END_X, nextYPos));
+        addOption(new ConfigSlotPanel(DRAW_START_X, DRAW_END_X, nextYPos));
 
         calculateScrollBounds();
     }
